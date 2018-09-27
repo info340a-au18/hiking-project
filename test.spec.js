@@ -31,10 +31,12 @@ describe('Source code is valid', () => {
   })
 
   test('JavaScript lints without errors', () => {
-    const jsfiles = fs.readdirSync(__dirname+'/js').filter((f) => f.endsWith('.js'));
+    if(fs.existsSync(__dirname+'/js')) {
+      const jsfiles = fs.readdirSync(__dirname+'/js').filter((f) => f.endsWith('.js'));
 
-    for(let f of jsfiles) {
-      expect(['js/'+f]).toHaveNoEsLintErrors();
+      for(let f of jsfiles) {
+        expect(['js/'+f]).toHaveNoEsLintErrors();
+      }
     }
   })
 });
