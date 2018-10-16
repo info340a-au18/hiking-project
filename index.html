@@ -3,68 +3,80 @@
 
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="author" content="Kyle Goodwin">
-    <meta name="description" content="backcountry planner project proposal ">
-    <title>Wilderness Recreation Project Proposal</title>
+    <meta name="description" content="app to facilitate outdoor recreation">
+    <title>AdventureFinder</title>
+    
+    <link rel="shortcut icon"  type="image/png" href="img/mtn.png"/>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="css/style.css">
+    
 </head>
 
 <body>
 
-    <header>
-        <h1> Issues in Wilderness Recreation </h1>
-    </header>
+    <div id="top-bar">
+        <nav>
+            <div id="hamburger-menu"><a href="#"><i class="fa fa-bars" aria-label="menu"></i></a></div>
+        </nav>
 
-    <section>
-        <h2>Inspiration</h2>
-        <p> Outside of any professional ambitions, most of my passions are related to enjoying
-            the natural beauty of the world. Some of the best days of my life have been spent
-            away from any connection to technology, enjoying the natural beauty and solitude
-            of the wilderness. Whether its hiking, backcountry skiing, or climbing I believe
-            everyone can benefit from some peace, quiet, and connection to the outdoor world.
-            Because of this, I have decided to address the question of how we can improve access
-            to outdoor recreation while reducing our impact on the planet.
-        </p>
-    </section>
+        <h1> ExploreMore</h1>
+    </div>
 
-    <section>
-        <h2>The Problem</h2>
-        <p> Unfortunately planning a trip into the wilderness is not an easy task, and requires consolidating
-            information across a variety of sources. Additionally, to keep wilderness areas pristine, permits are often
-            required for camping or day use, and can be confusing to obtain. Due to their annoying nature, permits are
-            often not filled out, which leaves the agencies who maintain public land with incomplete information about
-            the types of use their areas are seeing. A perfect example is the <a href="https://www.nps.gov/olym/planyourvisit/wilderness-reservations.htm"> 
-            Olympic National Park </a> backcountry permits site. It has disjointed information, and does not offer a way to
-            obtain permits online. Furthermore, there are opportunities to make natural recreation more accessible for those 
-            who are disabled or disadvantaged, and these are the people who would benefit the most from a closer connection 
-            to the natural world.
-        </p>
-    </section>
+    <main>
+        
+        <header>
+        <div class="top-image">
+        <h2> Find Your Next Adventure </h2>
+        <p> Pick your preferences and we will connect you to the perfect hike. </p>
+        </div>
+        </header>
 
-    <section>
-        <h2>Potential Web App Solutions</h2>
-        <p>Bellow I have listed a couple of ideas that could solve information problems that are present in the world of 
-        outdoor recreation.
-        </p>
+        <section class="flex-container">
 
-        <ul>
-            
-            <li>Wilderness Planning and Reservation System 
+            <div class="flex-item">
+                <h3> Access</h3>
                 <ul>
-                    <li>Create a better interface for reserving wilderness permits</li>
-                    <li>Join with <a href="https://forecast.weather.gov/">weather </a> and <a href="https://www.summitpost.org/">route information</a> to make planning simple </li>
-                </ul>
-            </li>
+                    <li> <input type="checkbox" name="vehicle1" value="Bike"> Transit </li>
+                    <li> <input type="checkbox" name="vehicle1" value="Bike"> Sedan </li>
+                    <li> <input type="checkbox" name="vehicle1" value="Bike"> SUV </li>
+                <ul>
+            </div>
 
-            <li>Improving access for Individuals with Disabilities
-                    <ul>
-                        <li>Create a comprehensive list of areas where it is possible for individuals with disabilities 
-                            to enjoy the outdoors</li>
-                        <li>Build new tools to make planning for disabled persons simple </li>
-                    </ul>
-            </li>
-        </ul>
-    </section>
+            <div class="flex-item">
+                <h3> Length </h3>
+                <ul>
+                    <li> <input type="checkbox" name="vehicle1" value="Bike"> Short Day</li>
+                    <li> <input type="checkbox" name="vehicle1" value="Bike"> Long Day </li>
+                    <li> <input type="checkbox" name="vehicle1" value="Bike"> Multi-Day</li>
+                <ul>
+            </div>
+
+            <div class="flex-item">
+                <h3> Difficulty</h3>
+                <ul>
+                        <li> <input type="checkbox" name="vehicle1" value="Bike"> Easy </li>
+                        <li> <input type="checkbox" name="vehicle1" value="Bike"> Challenging </li>
+                        <li> <input type="checkbox" name="vehicle1" value="Bike"> Leg Roaster</li>
+                <ul>
+            </div>
+
+            <div class="flex-item">
+            </div>
+
+        </section>
+
+
+
+
+    </main>
+
+
+
+    
+
+
 
 </body>
 
