@@ -6,78 +6,87 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="author" content="Kyle Goodwin">
     <meta name="description" content="app to facilitate outdoor recreation">
-    <title>AdventureFinder</title>
+    <title>ExploreMore: Find Your Adventure</title>
     
     <link rel="shortcut icon"  type="image/png" href="img/mtn.png"/>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Gothic+A1|Merriweather" rel="stylesheet">
     
 </head>
 
 <body>
 
-    <div id="top-bar">
-        <nav>
-            <div id="hamburger-menu"><a href="#"><i class="fa fa-bars" aria-label="menu"></i></a></div>
-        </nav>
 
-        <h1> ExploreMore</h1>
-    </div>
+        <nav id="top-bar">
+
+                <div id="hamburger-menu"><a href="#"><i class="fa fa-bars" aria-label="menu"></i></a></div>
+                <a class="logo" href='index.html'> ExploreMore </a>
+                <ul>
+                    <li><a class='logo' href='index.html'> ExploreMore </a> </li>
+                    <li> <a href="detail.html"> Featured Hike </a></li>
+                    <li> <a href="detail.html"> Enchatments </a></li>
+                    <li> <a href="detail.html"> Detail Page </a></li>
+                </ul>
+        
+            </nav>
+
+    <header>
+        <div class="bordered-text"> 
+            <h1> Welcome</h1>
+            <p>We want to help you foster a deeper conneciton to the natural beauty around you, no matter who you are. </p>
+        </div>
+        <div class='scroll-button'><a href="#"><i class="fa fa-arrow-down"></i></a></div>
+    </header>
 
     <main>
-        
-        <header>
-        <div class="top-image">
-        <h2> Find Your Next Adventure </h2>
-        <p> Pick your preferences and we will connect you to the perfect hike. </p>
-        </div>
-        </header>
 
-        <section class="flex-container">
-
-            <div class="flex-item">
-                <h3> Access</h3>
-                <ul>
-                    <li> <input type="checkbox" name="vehicle1" value="Bike"> Transit </li>
-                    <li> <input type="checkbox" name="vehicle1" value="Bike"> Sedan </li>
-                    <li> <input type="checkbox" name="vehicle1" value="Bike"> SUV </li>
-                <ul>
-            </div>
-
-            <div class="flex-item">
-                <h3> Length </h3>
-                <ul>
-                    <li> <input type="checkbox" name="vehicle1" value="Bike"> Short Day</li>
-                    <li> <input type="checkbox" name="vehicle1" value="Bike"> Long Day </li>
-                    <li> <input type="checkbox" name="vehicle1" value="Bike"> Multi-Day</li>
-                <ul>
-            </div>
-
-            <div class="flex-item">
-                <h3> Difficulty</h3>
-                <ul>
-                        <li> <input type="checkbox" name="vehicle1" value="Bike"> Easy </li>
-                        <li> <input type="checkbox" name="vehicle1" value="Bike"> Challenging </li>
-                        <li> <input type="checkbox" name="vehicle1" value="Bike"> Leg Roaster</li>
-                <ul>
-            </div>
-
-            <div class="flex-item">
-            </div>
-
+        <section class="moving-gradient">
+            <div class="bordered-text">
+            <h1> Find Your Next <em>Adventure</em> </h1>
+            <p> Pick your preferences and we will connect you to the perfect hike. </p>
         </section>
 
+        <section class="card-container options">
+
+            <div class="card">
+                <h3> Access</h3>
+                <ul>
+                    <li> <input type="checkbox" name="vehicle1" value="transit"> Transit </li>
+                    <li> <input type="checkbox" name="vehicle2" value="sedan"> Sedan </li>
+                    <li> <input type="checkbox" name="vehicle3" value="suv"> SUV </li>
+                <ul>
+            </div>
+
+            <div class="card">
+                <h3> Length </h3>
+                <ul>
+                    <li> <input type="checkbox" name="length1" value="short"> Short Day</li>
+                    <li> <input type="checkbox" name="length1" value="long"> Long Day </li>
+                    <li> <input type="checkbox" name="length3" value="multi"> Multi-Day</li>
+                <ul>
+            </div>
+
+            <div class="card">
+                <h3> Difficulty</h3>
+                <ul>
+                        <li> <input type="checkbox" name="difficulty1" value="easy"> Easy </li>
+                        <li> <input type="checkbox" name="difficulty2" value="medium"> Challenging </li>
+                        <li> <input type="checkbox" name="difficulty3" value="hard"> Leg Roaster</li>
+                <ul>
+            </div>
 
 
+            <div class="submit-container"> <a href="detail.html" class="form-submit" role="button">Find Your Adventure!</a> </div>
 
+            
+
+        </section>
     </main>
 
-
+    <footer> Design and Images by Kyle Goodwin </footer>
 
     
-
-
-
 </body>
 
 </html>
