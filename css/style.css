@@ -6,8 +6,44 @@ body{
     padding: 0;
 }
 
+h1{
+    font-size: 1.5em;
+    margin-top: 0.83em;
+    margin-bottom: 0.83em;
+    margin-left: 0;
+    margin-right: 0;
 
-.logo, .logo visited{
+}
+
+h2{
+    text-align: left;
+    color: #1C3238;
+    text-shadow: 1px black;
+    margin-left: 1em;
+}
+
+nav{
+    text-align: center;
+}
+
+#top-bar{
+    z-index: 1;
+    width: 100%;
+    height: 3em;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 10px;
+    display: block;
+    background-color: rgba(255,255,255,0.75);
+
+}
+
+.logo{
+    font-size: 1.5em;
+}
+
+.logo, .logo:visited{
     color: #1C3238;
     text-align: center;
     margin: 0;
@@ -15,14 +51,6 @@ body{
     font-style: italic;
     text-decoration: none;
     font-weight: bold;
-}
-
-nav{
-    text-align: center;
-}
-
-.logo{
-    font-size: 1.5em;
 }
 
 .bordered-text{
@@ -45,19 +73,11 @@ header{
     position: relative;
 }
 
-h1{
-    font-size: 1.5em;
-    margin-top: 0.83em;
-    margin-bottom: 0.83em;
-    margin-left: 0;
-    margin-right: 0;
-
-}
-
 header h1{
     padding: .5em;
 }
 
+/* Specifics for second page */
 .detail-header{
     background-image: url('../img/medium-detail.jpg');
 }
@@ -87,46 +107,6 @@ header h1{
     color: white;
 }
 
-h3{
-    text-align: left;
-    color: #1C3238;
-    text-shadow: 1px black;
-    margin-left: 1em;
-}
-
-#hamburger-menu i,#hamburger-menu i:visited{
-    float: left;
-    color: #1C3238;
-    font-size: 1.5em;
-}
-
-#top-bar{
-    z-index: 1;
-    width: 100%;
-    height: 3em;
-    position: fixed;
-    top: 0;
-    left: 0;
-    padding: 10px;
-    display: block;
-    background-color: rgba(255,255,255,0.75);
-
-}
-
-#top-bar ul{
-    display: none;
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    text-align: left;
-}
-
-#top-bar ul li a, #top-bar ul li a:visited{
-    display:block;
-    color:  #1C3238;
-    text-decoration: none;
-    margin-right: 1em;
-}
 /* Background gradient animation */
 /* help from https://www.gradient-animator.com/ */
 
@@ -156,7 +136,7 @@ h3{
     animation: liveGradient  9s ease infinite;
 
     width: 100%;
-    height: 333px;
+    height: 300px;
     padding: 3em 1em 1em 1em;
 }
 
@@ -193,11 +173,6 @@ h3{
     margin-bottom: 5px;
 }
 
-.card img{
-    box-shadow: none;
-    background-color: rgba(44,50,56,0.2);
-}
-
 .card ul li:hover{
     background-color:  #729BB4;
 }
@@ -212,13 +187,14 @@ h3{
     display: block;
     margin-left: auto;
     margin-right: auto;
+    box-shadow: none;
 }
 
 .options .card{
     background-color: navajowhite;
 }
 
-.form-submit,.form-submit:visited{
+.form-submit{
     display: block;
     width: fit-content;
     text-align: center;
@@ -254,14 +230,27 @@ h3{
 
 }
 
-.google-map{
-width: 80%;
-margin: auto;
+#hamburger-menu i,#hamburger-menu i:visited{
+    float: left;
+    color: #1C3238;
+    font-size: 1.5em;
 }
 
-.google-map iframe{
-    width: 100%;
+#top-bar ul{
+    display: none;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    text-align: left;
 }
+
+#top-bar ul li a, #top-bar ul li a:visited{
+    display:block;
+    color:  #1C3238;
+    text-decoration: none;
+    margin-right: 1em;
+} 
+
 
 footer{
     text-align: center;
@@ -287,15 +276,27 @@ footer{
     display: flex;
     justify-content: left;
  }
+
+ footer{
+     text-align: left;
+ }
 }
 
 @media (min-width: 768px){
+
     header{
+        background-image: url('../img/large-welcome.jpg');
         height: 500px;
+    }
+    .detail-header{
+        background-image: url('../img/large-detail.jpg');
+        height: 500px;
+
     }
 
     .hike-photos{
         flex-grow: 1;
+        
     }
 }
 
