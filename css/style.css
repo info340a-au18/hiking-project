@@ -39,6 +39,14 @@ nav{
 
 }
 
+/* Leaflet Mapping things */
+#hikemap { 
+    height: 500px; 
+    width: 100%;
+    margin: auto;
+    display: none;
+}
+
 .logo{
     font-size: 1.5em;
 }
@@ -143,11 +151,23 @@ header h1{
 .card-container{
     display: flex;
     flex-wrap: wrap;
-    /* Help from https://www.css-gradient.com/ */
-    background: #729BB4;
+    /* Help from https://www.css-gradient.com/
+    /*background: #729BB4;
     background: linear-gradient(to bottom, #729BB4, #1C3238);
+    */
+    background: linear-gradient( rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5) ), url('../img/large-detail.jpg');
+    background-size: cover;
     padding: 1em;
 
+}
+
+.options .card{
+    background-color: rgba(255,255,255,0.0);
+
+}
+
+.hike-results{
+    background: linear-gradient(to bottom, #729BB4, #1C3238);
 }
 
 .card-container a{
@@ -157,6 +177,9 @@ header h1{
 .card{
     margin: 10px auto;
     flex-basis: 350px;
+}
+
+.hike-results .card{
     background-color: white;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     border-radius: 5px;
@@ -173,8 +196,20 @@ header h1{
     margin-bottom: 5px;
 }
 
-.card ul li:hover{
-    background-color:  #729BB4;
+#distance-slider,#elevation-slider{
+    margin: 2em;
+}
+
+#city-input{
+    width: 100%;
+    height: 1.75em;
+    font-size: 1em;
+    padding: 10px;
+    margin-top: 5px;
+}
+
+#max-distance{
+    width: 100%;
 }
 
 .card p, .card cite{
@@ -190,8 +225,34 @@ header h1{
     box-shadow: none;
 }
 
-.options .card{
-    background-color: navajowhite;
+.hike-filters{
+    background: white;
+    display: none;
+}
+
+.hike-results{
+    background-color: darkolivegreen;
+}
+
+.hike-results .card p{
+    margin: 1em;
+    padding: 0;
+}
+
+.weather{
+    margin: auto;
+    display: block;
+    height: 75px;
+    width: 75px;
+    background-size: cover
+}
+
+.hike-photo{
+    height: 250px;
+    width: 250px;
+    background-size: cover;
+    margin: auto;
+
 }
 
 .form-submit{
@@ -258,6 +319,13 @@ footer{
     background-color: white;
 }
 
+.toggle-content {
+    visibility: hidden;
+    opacity: 0;
+    height: 0px;
+    transition: visibility 0s linear 0.33s, opacity 0.33s linear;
+}
+
 /* Responsive Media Queries */
 @media (min-width: 598px){
  header{
@@ -288,7 +356,7 @@ footer{
         background-image: url('../img/large-welcome.jpg');
         height: 500px;
     }
-    .detail-header{
+    .detail-header,.card-container .options{
         background-image: url('../img/large-detail.jpg');
         height: 500px;
 

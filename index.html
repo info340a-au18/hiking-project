@@ -10,8 +10,12 @@
 
     <link rel="shortcut icon" type="image/png" href="img/mtn.png" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
+    integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+    crossorigin=""/>
     <link type="text/css" rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Gothic+A1" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/12.1.0/nouislider.css">
 
 </head>
 
@@ -48,44 +52,38 @@
         <section class="card-container options">
 
             <div class="card">
-                <h2> Access</h2>
-                <ul>
-                    <label for="transit"><li><input type="checkbox" name="vehicle1" id="transit"> Transit </li></label>
-                    <label for="sedan"><li> <input type="checkbox" name="vehicle2" id="sedan"> Sedan </li></label>
-                    <label for="suv"><li> <input type="checkbox" name="vehicle3" id="suv"> SUV </li></label>
-                </ul>
+                <h2>Where to?</h2>
+                    <label for="city-input">Starting City or Address <input type="text" name="city" id="city-input" value='Seattle, WA'></label>
+                    <label for="myRange">Distance from Start Point <span id="max-distance-value"> </span><input type="range" min="0" max="200" value="50" class="slider" id="max-distance"></label>
             </div>
 
-            <div class="card">
-                <h2> Length </h2>
-                <ul>
-                    <label for="short"><li> <input type="checkbox" name="length1" id="short"> Short Day</li></label>
-                    <label for="long"><li> <input type="checkbox" name="length1" id="long"> Long Day </li></label>
-                    <label for="multi"><li> <input type="checkbox" name="length1" id="multi"> Multi-Day</li></label>
-                </ul>
+            <div class="submit-container"> <a class="form-submit" role="button">Find Your Adventure!</a>
             </div>
-
-            <div class="card">
-                <h2> Difficulty</h2>
-                <ul>
-                    <label for="easy"><li> <input type="checkbox" name="difficulty1" id="easy"> Easy </li></label>
-                    <label for="medium"><li> <input type="checkbox" name="difficulty2" id="medium"> Challenging </li></label>
-                    <label for="hard"><li> <input type="checkbox" name="difficulty3" id="hard"> Leg Roaster</li></label>
-                </ul>
-            </div>
-
-
-            <div class="submit-container"> <a href="detail.html" class="form-submit" role="button">Find Your Adventure!</a>
-            </div>
-
-
-
         </section>
+
+        <section class="card-container hike-filters">
+                <div class="card">
+                        <p>Hike Distance: <span id='hike-distance'></span> Miles</p>
+                        <div id='distance-slider'></div>
+                        <p>Hike Elevation: <span id='hike-elevation'></span> Foot Gain</p>
+                        <div id='elevation-slider'></div>
+                    </div>
+        </section>
+        <section id="hikemap"></section>
+
     </main>
 
     <footer> Design and Images by Kyle Goodwin </footer>
 
 
 </body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js"></script>
+<script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"
+integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
+crossorigin=""></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/es6-promise/4.1.1/es6-promise.auto.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/12.1.0/nouislider.js"></script>
+<script src="js/index.js"></script>
 
 </html>
