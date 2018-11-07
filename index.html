@@ -25,49 +25,48 @@
         <a class="logo" href="index.html"> ExploreMore </a>
         <ul>
             <li><a class="logo" href="index.html"> ExploreMore </a> </li>
-            <li> <a href="detail.html"> Featured Hike </a></li>
-            <li> <a href="detail.html"> Enchatments </a></li>
-            <li> <a href="detail.html"> Detail Page </a></li>
+            <li> <a href="#city-input"> Find a Hike </a></li>
+            <li> <a href="#hikemap"> Map</a></li>
+            <li> <a href="#hike-results"> Results </a></li>
         </ul>
     </nav>
 
     <header>
         <div class="bordered-text">
-            <h1> Welcome</h1>
-            <p>We want to help you foster a deeper conneciton to the natural beauty around you, no matter who you are.
-            </p>
+                <h1> Find Your Next <em>Adventure</em> </h1>
+                <p> Pick your preferences and we will connect you to the perfect hike. </p>
+            </div>
         </div>
         <div class="scroll-button"><a href="#"><i class="fa fa-arrow-down"></i></a></div>
     </header>
 
     <main>
 
-        <section class="moving-gradient">
-            <div class="bordered-text">
-                <h1> Find Your Next <em>Adventure</em> </h1>
-                <p> Pick your preferences and we will connect you to the perfect hike. </p>
-            </div>
-        </section>
-
         <section class="card-container options">
-
-            <div class="card">
-                <h2>Where to?</h2>
-                    <label for="city-input">Starting City or Address <input type="text" name="city" id="city-input" value='Seattle, WA'></label>
-                    <label for="myRange">Distance from Start Point <span id="max-distance-value"> </span><input type="range" min="0" max="200" value="50" class="slider" id="max-distance"></label>
-            </div>
-
-            <div class="submit-container"> <a class="form-submit" role="button">Find Your Adventure!</a>
-            </div>
+                <h2>Where are you now?</h2>
+                <div class="card">
+                        <label for="city-input">Starting City or Address <input type="text" name="city" id="city-input" value='Seattle, WA'></label>
+                        <label for="myRange">Distance from Start Point <span id="max-distance-value"> </span><input type="range" min="0" max="200" value="50" class="slider" id="max-distance"></label>
+                </div>
+        
+                    <div id="submit-container" class="pref-button"> <a class="form-submit" role="button">Find Your Adventure!</a></div>
         </section>
 
         <section class="card-container hike-filters">
+                <h2>Preferences</h2>
                 <div class="card">
                         <p>Hike Distance: <span id='hike-distance'></span> Miles</p>
                         <div id='distance-slider'></div>
                         <p>Hike Elevation: <span id='hike-elevation'></span> Foot Gain</p>
                         <div id='elevation-slider'></div>
                     </div>
+                <h2> Sort By </h2>
+                <ul>
+                    <li id="sort-rating">Rating</li>
+                    <li id="sort-votes">Most Votes</li>
+                    <li id="sort-long">Longest First </li>
+                <ul>
+                <div id="submit-pref" class="pref-button"> <a id="pref-submit" class="form-submit" role="button">Change Preferences</a></div>
         </section>
         <section id="hikemap"></section>
 

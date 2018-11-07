@@ -1,10 +1,6 @@
 'use strict';
 
-let state = {location: {lat:'47.6062095',lng:'-122.3320708',maxDist: 100}, options: {location:'', maxDist: 10,maxResults: 100}};
-
-function getWeather(lat,long){
-    let promise = fetch('https://forecast.weather.gov/MapClick.php?lat='+ lat + '&lon=' + lon + '&unit=0&lg=english&FcstType=json');
-};
+let state = {location: {lat:'47.6062095',lng:'-122.3320708'}, options: {location:'', maxDist: 100,maxResults: 100}};
 
 function getCordinates(address){
     let url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + address + '&key=AIzaSyBifT_4HbuyAHS6I01s-4ZRjO_P5F3plGg';
@@ -12,8 +8,8 @@ function getCordinates(address){
 }
 
 function getHikes(){
-
-    let url = 'https://www.hikingproject.com/data/get-trails?lat=' + state.location.lat + '&lon=' + state.location.lng + '&maxDistance=' + state.location.maxDist + '&maxResults='+ state.options.maxResults + '&key=200378416-92e9bd6c5dd48e7dfa8c0a563189c165';
+    console.log('here '+ state.options.maxDist);
+    let url = 'https://www.hikingproject.com/data/get-trails?lat=' + state.location.lat + '&lon=' + state.location.lng + '&maxDistance=' + state.options.maxDist + '&maxResults='+ state.options.maxResults + '&key=200378416-92e9bd6c5dd48e7dfa8c0a563189c165';
     console.log('getHikes URL: '+url)
     requestHandler(url,processHikes);
     
@@ -39,115 +35,25 @@ function processWeather(data,id){
 
      //Add weather to hikes
      let card = document.getElementById('' + hike.id);
+     let title = document.createElement('h2');
+     title.innerText = "Tomorrow's Forecast";
      let forecast = document.createElement('p');
      let image = document.createElement('div');
      image.style.backgroundImage = 'url('+ hike.weather.iconLink[2] + ')';
      image.classList.add('weather');
 
      //This retreives the forecast for the next day
-     forecast.innerHTML = hike.weather.temperature[2] + " " + hike.weather.weather[2];
+     forecast.innerHTML = hike.weather.temperature[2] + "&deg; " + hike.weather.weather[2];
 
-     card.append(image);
-     card.append(forecast);
+    card.append(title);
+    card.append(image);
+    card.append(forecast);
 
-}
-
-function processHikes(data){
-
-    let container;
-
-    if(document.querySelector('.hike-results') == null){
-        container = document.createElement('div');
-        container.classList.add('card-container');
-        container.classList.add('hike-results');
-        document.querySelector('main').append(container);
-    }else{
-        container = document.querySelector('.hike-results');
-    }
-
-
-    state.allHikes = data.trails;
-
-    state.hikes = state.allHikes.slice(0,10);
-
-    state.hikes.forEach(function(hike){
-        renderHike(hike);
-    });
-
-    state.displayHikes
-
-    getWeather();
-}
-
-function updateCords(data){
-
-
-    try{
-        let location = data.results[0].geometry.location;
-        state.location = location;
-        console.log(state.location);
-        getHikes();
-       // getWeather(state.location); 
-    }catch{
-        alert('Location not found. Please Enter a City, Address, or Zip Code');
-    }
-    
-}
-
-function requestHandler(url,handlerFunction,id){
-
-    let promise = fetch(url);
-
-    promise.then(function(response){
-        return response.json();
-    })
-    .then(function (data){
-        handlerFunction(data,id);
-    })
-    .catch(function (err){
-        alert(err);
-    });
-
-}
-
-function updateMaxDistance(){
-    state.options.maxDist = document.getElementById('max-distance').value;
-    document.getElementById('max-distance-value').innerText = state.options.maxDist;
-}
-
-function submitOptions(){
-
-
-    let input = document.getElementById('city-input').value;
-
-    //If there is a new search, get new hikes
-    if(input != state.options.location){
-        clearChildren('.hike-results');
-        state.options.location = input;
-        getCordinates(state.options.location);
-    }
-    else{
-        //If the location is not updated, use the filters
-    }
-    
-
-    
-    document.getElementById('hikemap').style.display = 'block';
-    makeMap();
-    document.querySelector('.hike-filters').style.display='block';
-}
-
-function clearChildren(query){
-    let parent = document.querySelector(query);
-
-    if(parent != null){
-        while(parent.firstChild){
-            parent.removeChild(parent.firstChild);
-        }
-    }
 }
 
 function renderHike(hike){
+
+    console.log(hike);
 
     let options = document.querySelector('.options');
     
@@ -169,7 +75,7 @@ function renderHike(hike){
 
     //Add stats
     let hikeDistance = document.createElement('p');
-    hikeDistance.innerText = hike.length;
+    hikeDistance.innerText = hike.length + ' Miles';
     let hikeElevation = document.createElement('p');
     hikeElevation.innerText = hike.ascent + ' Feet Gain';
     let hikeDesc = document.createElement('p');
@@ -200,6 +106,151 @@ function renderHike(hike){
 
 }
 
+function processHikes(data){
+
+    state.allHikes = data.trails;
+
+    state.hikes = state.allHikes.slice(0,15);
+
+    renderHikes();
+}
+
+function renderHikes(){
+    let container;
+    let title = document.createElement('h1');
+    title.innerText= 'Your Hikes';
+
+    if(document.querySelector('.hike-results') == null){
+        container = document.createElement('div');
+        container.classList.add('card-container');
+        container.classList.add('hike-results');
+        container.id = 'hike-results';
+        container.append(title);
+        document.querySelector('main').append(container);
+    }else{
+        container = document.querySelector('.hike-results');
+        clearChildren('.hike-results');
+        container.append(title);
+    }
+
+    state.hikes.forEach(function(hike){
+        renderHike(hike);
+    });
+
+    getWeather();
+
+    container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function updateCords(data){
+
+
+    try{
+        let location = data.results[0].geometry.location;
+        state.location = location;
+        console.log(state.location);
+        getHikes();
+    }catch{
+        alert('Location not found. Please Enter a City, Address, or Zip Code');
+    }
+    
+}
+
+function requestHandler(url,handlerFunction,id,err){
+
+    let promise = fetch(url);
+
+    promise.then(function(response){
+        return response.json();
+    })
+    .then(function (data){
+        handlerFunction(data,id);
+    })
+    .catch(function (err){
+        console.log(err);
+    });
+
+}
+
+function updateMaxDistance(){
+    document.getElementById('max-distance-value').innerText = document.getElementById('max-distance').value;
+}
+
+function pickSort(event){
+    let element = document.getElementById(event.target.id);
+
+    let others = document.querySelectorAll('.hike-filters ul li');
+
+    //Set button to selected
+    others.forEach( (item) =>{
+        item.classList.remove('hike-filters-selected');
+    })
+    element.classList.add('hike-filters-selected');
+
+    //Update state about which way to sort
+    state.options.sort = event.target.id;
+
+}
+
+function submitOptions(){
+
+
+    let inputLoc = document.getElementById('city-input').value;
+    let inputDist = document.getElementById('max-distance').value.toString();
+
+    //If there is a new search, get new hikes
+    if(inputLoc != state.options.location || inputDist != state.options.maxDist ){
+        state.options.location = inputLoc;
+        state.options.maxDist = inputDist;
+        console.log(state.options.maxDist);
+        getCordinates(state.options.location);
+    }
+
+    document.getElementById('hikemap').style.display = 'block';
+    makeMap();
+    document.querySelector('.hike-filters').style.display='block';
+
+}
+
+function submitPrefs(){
+    let allHikes = state.allHikes;
+
+    allHikes = allHikes.filter(distanceFilter);
+    allHikes = allHikes.filter(elevationFilter);
+
+    if(state.options.sort === 'sort-rating'){
+        allHikes = allHikes.sort( (hike1,hike2) => {
+            return hike2.stars - hike1.stars;
+        });
+    }else if(state.options.sort === 'sort-votes'){
+        allHikes = allHikes.sort( (hike1,hike2) => {
+            return hike2.starVotes - hike1.starVotes;
+        });
+    }else if(state.options.sort === 'sort-long'){
+        allHikes = allHikes.sort( (hike1,hike2) => {
+            return hike2.length - hike1.length
+        });
+    }
+
+    state.hikes = allHikes.slice(0,15);
+    
+    console.log(allHikes);
+    renderHikes();
+    
+
+}
+
+function clearChildren(query){
+    let parent = document.querySelector(query);
+
+    if(parent != null){
+        while(parent.firstChild){
+            parent.removeChild(parent.firstChild);
+        }
+    }
+}
+
+
 function makeSliders(){
     let distanceSlider = document.querySelector('#distance-slider');
     let elevationSlider = document.querySelector('#elevation-slider');
@@ -207,11 +258,11 @@ function makeSliders(){
 
 
     noUiSlider.create(distanceSlider, {
-        start: [0, 50],
+        start: [0, 30],
         connect: true,
         range: {
             'min': 0,
-            'max': 100
+            'max': 30
         }
     });
 
@@ -252,17 +303,21 @@ function distanceFilter(hike){
 }
 
 function elevationFilter(hike){
-
+    return (hike.ascent <= state.options.hikeElvMax & hike.ascent >= state.options.hikeElvMin);
 }
 
 function initializePage(){
     document.getElementById('max-distance').addEventListener('input',updateMaxDistance);
-    //document.getElementById('city-input').addEventListener('input',updateLocation);
-    document.querySelector('.submit-container').addEventListener('click',submitOptions);
+    document.querySelector('#submit-container').addEventListener('click',submitOptions);
+    document.getElementById('sort-rating').addEventListener('click', (event)=> pickSort(event));
+    document.getElementById('sort-votes').addEventListener('click',(event)=> pickSort(event));
+    document.getElementById('sort-long').addEventListener('click',(event)=> pickSort(event));
+
+    //Filter Options
+    document.querySelector('#submit-pref').addEventListener('click',submitPrefs);
+
     updateMaxDistance();
     makeSliders();
-
-    
 }
 
 //Mapping things
@@ -280,8 +335,4 @@ function makeMap(){
 
 }
 
-
-
-
-//getCordinates('Seattle,WA');
 initializePage();

@@ -27,7 +27,7 @@ nav{
 }
 
 #top-bar{
-    z-index: 1;
+    z-index: 10;
     width: 100%;
     height: 3em;
     position: fixed;
@@ -41,6 +41,7 @@ nav{
 
 /* Leaflet Mapping things */
 #hikemap { 
+    z-index: 1;
     height: 500px; 
     width: 100%;
     margin: auto;
@@ -103,6 +104,11 @@ header h1{
     padding: 0 0 0 1em;
 }
 
+.options label{
+    display: block;
+    margin-top: 2em;
+}
+
 .scroll-button{
     text-align: center;
     font-size: 2.5em;
@@ -134,18 +140,24 @@ header h1{
     100%{background-position:51% 0%}
 }
 
-.moving-gradient{
+.options{
 
     background: linear-gradient(3deg, #12a40e, #76b9d6);
     background-size: 400% 400%;
 
-    -webkit-animation: liveGradient  9s ease infinite;
-    -moz-animation: liveGradient  9s ease infinite;
-    animation: liveGradient  9s ease infinite;
+    -webkit-animation: liveGradient  18s ease infinite;
+    -moz-animation: liveGradient  18s ease infinite;
+    animation: liveGradient  18s ease infinite;
 
     width: 100%;
-    height: 300px;
     padding: 3em 1em 1em 1em;
+}
+
+.options h2{
+    font-size: 2em;
+    width: 100%;
+    text-align: center;
+    color: white;
 }
 
 .card-container{
@@ -155,14 +167,9 @@ header h1{
     /*background: #729BB4;
     background: linear-gradient(to bottom, #729BB4, #1C3238);
     */
-    background: linear-gradient( rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5) ), url('../img/large-detail.jpg');
-    background-size: cover;
+    /*background: linear-gradient( rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5) ), url('../img/large-detail.jpg');
+    */
     padding: 1em;
-
-}
-
-.options .card{
-    background-color: rgba(255,255,255,0.0);
 
 }
 
@@ -183,6 +190,8 @@ header h1{
     background-color: white;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     border-radius: 5px;
+    flex-grow: 1;
+    margin: 5px;
 }
 
 .card ul li, .card img{
@@ -201,15 +210,24 @@ header h1{
 }
 
 #city-input{
-    width: 100%;
-    height: 1.75em;
+    height: 50px;
     font-size: 1em;
-    padding: 10px;
-    margin-top: 5px;
+    width: 100%;
+    margin: 1em 0 1em 0;
+    padding: 1em;
+    border-radius: 5px 5px 5px 5px;
+    border: none;
 }
+
+.card label{
+    color: white;
+    font-size: 1em;
+}
+
 
 #max-distance{
     width: 100%;
+    margin-top: 50px;
 }
 
 .card p, .card cite{
@@ -229,14 +247,44 @@ header h1{
     background: white;
     display: none;
 }
+.hike-filters h1{
+    margin-left: .5em;
+}
+
+.hike-filters ul li{
+    display: inline-block;
+    padding: 1em;
+    border: solid 1px black;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.hike-filters-selected{
+    background-color: gray;
+}
 
 .hike-results{
     background-color: darkolivegreen;
+    padding-top: (inherit + 3em);
+    margin-top: -3em;
 }
 
 .hike-results .card p{
     margin: 1em;
-    padding: 0;
+    padding: 0 1em 0 1em;
+}
+
+.hike-results h1{
+    font-size: 2em;
+    color: white;
+    display: block;
+    width: 100%;
+    margin-left: 1em;
+    padding-top: 1em;
+}
+
+.hike-results h2{
+    padding: 1em;
 }
 
 .weather{
@@ -263,16 +311,23 @@ header h1{
     padding: 1em;
     text-decoration: none;
     color: black;
-    border-radius: 5px;
     height: 3em;
+    border: 5px black;
+    border-radius: 5px;
 
 }
-
-.submit-container{
+.pref-button{
     margin: 1em auto;
     width: 100%;
 
 }
+
+#pref-submit{
+    background-color: lightgrey;
+    margin-top: 3em;
+}
+
+
 
 .hike-photos{
     background-color: white;
