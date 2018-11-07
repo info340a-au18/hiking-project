@@ -281,7 +281,7 @@ function makeSliders(){
     });
 
     noUiSlider.create(elevationSlider, {
-        start: [0, 50],
+        start: [0, 2000],
         connect: true,
         range: {
             'min': 0,
