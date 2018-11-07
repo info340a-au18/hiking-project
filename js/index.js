@@ -1,4 +1,6 @@
 'use strict';
+/*global L*/
+/*global noUiSlider*/
 
 let state = {location: {lat:'47.6062095',lng:'-122.3320708'}, options: {location:'', maxDist: 100,maxResults: 100}};
 
@@ -8,9 +10,7 @@ function getCordinates(address){
 }
 
 function getHikes(){
-    console.log('here '+ state.options.maxDist);
     let url = 'https://www.hikingproject.com/data/get-trails?lat=' + state.location.lat + '&lon=' + state.location.lng + '&maxDistance=' + state.options.maxDist + '&maxResults='+ state.options.maxResults + '&key=200378416-92e9bd6c5dd48e7dfa8c0a563189c165';
-    console.log('getHikes URL: '+url)
     requestHandler(url,processHikes);
     
 }
@@ -19,13 +19,11 @@ function getWeather(){
 
     state.hikes.forEach( function(hike){
         let url = 'https://forecast.weather.gov/MapClick.php?lat=' + hike.latitude + '&lon=' + hike.longitude + '&unit=0&lg=english&FcstType=json';
-        console.log('url ' +url);
         requestHandler(url, processWeather, hike.id);
     });
 }
 
 function processWeather(data,id){
-    console.log(data);
 
     var hike = state.hikes.filter( obj => {
         return (obj.id == id);
@@ -53,12 +51,6 @@ function processWeather(data,id){
 
 function renderHike(hike){
 
-    console.log(hike);
-
-    let options = document.querySelector('.options');
-    
-    //options.style.display = 'none';
-
     let container = document.querySelector('.hike-results');
 
     document.querySelector('main').append()
@@ -84,6 +76,9 @@ function renderHike(hike){
     //Add images
     let hikeImage = document.createElement('div');
         hikeImage.classList.add('hike-photo');
+
+        //Make it work on screen readers
+        hikeImage.setAttribute('aria-label',"Photo of " + hike.name);
     if( hike.imgMedium != ""){
         hikeImage.style.backgroundImage = 'url('+hike.imgMedium + ')';
     }else{
@@ -101,7 +96,7 @@ function renderHike(hike){
     container.append(card);
 
     //Also Add it to a map
-    var marker = L.marker([hike.latitude, hike.longitude]).addTo(state.map);
+    var marker = L.marker([hike.latitude, hike.longitude]).addTo(state.mapLayer);
     marker.bindPopup("<span class='map-hike-title'>" + hike.name + "</span><br>" + hike.location + '<br> <a href="#'+ hike.id +'">Link</a>' ).openPopup();
 
 }
@@ -132,6 +127,8 @@ function renderHikes(){
         clearChildren('.hike-results');
         container.append(title);
     }
+    
+    //Clear map
 
     state.hikes.forEach(function(hike){
         renderHike(hike);
@@ -148,15 +145,16 @@ function updateCords(data){
     try{
         let location = data.results[0].geometry.location;
         state.location = location;
-        console.log(state.location);
+
         getHikes();
-    }catch{
-        alert('Location not found. Please Enter a City, Address, or Zip Code');
+    }catch(err){
+          console.log(err);
+          alert('Location not found. Please Enter a City, Address, or Zip Code');
     }
     
 }
 
-function requestHandler(url,handlerFunction,id,err){
+function requestHandler(url,handlerFunction,id){
 
     let promise = fetch(url);
 
@@ -202,13 +200,18 @@ function submitOptions(){
     if(inputLoc != state.options.location || inputDist != state.options.maxDist ){
         state.options.location = inputLoc;
         state.options.maxDist = inputDist;
-        console.log(state.options.maxDist);
         getCordinates(state.options.location);
     }
 
     document.getElementById('hikemap').style.display = 'block';
-    makeMap();
     document.querySelector('.hike-filters').style.display='block';
+    if(window.innerWidth >= 800){
+        document.getElementById('hikemap').style.height = document.querySelector('.hike-filters').clientHeight + 'px';
+    }else{
+        document.getElementById('hikemap').style.height = '400px';
+    }
+
+    makeMap();
 
 }
 
@@ -233,8 +236,7 @@ function submitPrefs(){
     }
 
     state.hikes = allHikes.slice(0,15);
-    
-    console.log(allHikes);
+    state.mapLayer.clearLayers();
     renderHikes();
     
 
@@ -266,7 +268,7 @@ function makeSliders(){
         }
     });
 
-    distanceSlider.noUiSlider.on('update',function(event){
+    distanceSlider.noUiSlider.on('update',function(){
         let min = parseInt(distanceSlider.noUiSlider.get()[0]);
         let max = parseInt(distanceSlider.noUiSlider.get()[1]);
 
@@ -287,7 +289,7 @@ function makeSliders(){
         }
     });
 
-    elevationSlider.noUiSlider.on('update',function(event){
+    elevationSlider.noUiSlider.on('update',function(){
         let min = parseInt(elevationSlider.noUiSlider.get()[0]);
         let max = parseInt(elevationSlider.noUiSlider.get()[1]);
 
@@ -313,6 +315,14 @@ function initializePage(){
     document.getElementById('sort-votes').addEventListener('click',(event)=> pickSort(event));
     document.getElementById('sort-long').addEventListener('click',(event)=> pickSort(event));
 
+    window.addEventListener('resize',() => {
+        if(window.innerWidth >= 800){
+            document.getElementById('hikemap').style.height = document.querySelector('.hike-filters').clientHeight + 'px';
+        }else{
+            document.getElementById('hikemap').style.height = '400px';
+        }
+    });
+
     //Filter Options
     document.querySelector('#submit-pref').addEventListener('click',submitPrefs);
 
@@ -323,6 +333,8 @@ function initializePage(){
 //Mapping things
 function makeMap(){
 
+
+    if(state.map == undefined){
     var mymap = L.map('hikemap').setView([state.location.lat, state.location.lng], 9);
     
     //attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -331,7 +343,17 @@ function makeMap(){
         accessToken: 'pk.eyJ1Ijoia2pnb29kd2lucyIsImEiOiJjam8zNnF4YmUwdTA3M3BybGtocWkzejY4In0.9eALJdo0A_rMgg2cgZWHlQ'
     }).addTo(mymap);
 
+
     state.map = mymap;
+    state.mapLayer = L.layerGroup();
+    state.mapLayer.addTo(state.map);
+    }else{
+        state.mapLayer.clearLayers()
+        state.mapLayer = L.layerGroup();
+        state.mapLayer.addTo(state.map);
+        state.map.panTo(new L.LatLng(state.hikes[0].latitude, state.hikes[0].longitude))
+    }
+
 
 }
 

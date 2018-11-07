@@ -39,14 +39,6 @@ nav{
 
 }
 
-/* Leaflet Mapping things */
-#hikemap { 
-    z-index: 1;
-    height: 500px; 
-    width: 100%;
-    margin: auto;
-    display: none;
-}
 
 .logo{
     font-size: 1.5em;
@@ -86,23 +78,6 @@ header h1{
     padding: .5em;
 }
 
-/* Specifics for second page */
-.detail-header{
-    background-image: url('../img/medium-detail.jpg');
-}
-
-.detail-header .bordered-text{
-    position: absolute;
-    bottom: 1em;
-    left: 0;
-    border-radius: 0 5px 5px 0;
-    padding: 0;
-    margin: 0;
-}
-
-.detail-header h1{
-    padding: 0 0 0 1em;
-}
 
 .options label{
     display: block;
@@ -163,18 +138,8 @@ header h1{
 .card-container{
     display: flex;
     flex-wrap: wrap;
-    /* Help from https://www.css-gradient.com/
-    /*background: #729BB4;
-    background: linear-gradient(to bottom, #729BB4, #1C3238);
-    */
-    /*background: linear-gradient( rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5) ), url('../img/large-detail.jpg');
-    */
     padding: 1em;
 
-}
-
-.hike-results{
-    background: linear-gradient(to bottom, #729BB4, #1C3238);
 }
 
 .card-container a{
@@ -243,7 +208,25 @@ header h1{
     box-shadow: none;
 }
 
+.combined{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* Leaflet Mapping things */
+#hikemap { 
+    z-index: 1;
+    margin: auto;
+    display: none;
+    flex-grow: 2;
+    flex-basis: 400px;
+    height: 400px;
+}
+
+
 .hike-filters{
+    flex-basis: 400px;
+    flex-grow: 1;
     background: white;
     display: none;
 }
@@ -254,6 +237,7 @@ header h1{
 .hike-filters ul li{
     display: inline-block;
     padding: 1em;
+    margin: 5px;
     border: solid 1px black;
     border-radius: 5px;
     text-decoration: none;
@@ -264,7 +248,7 @@ header h1{
 }
 
 .hike-results{
-    background-color: darkolivegreen;
+    background: linear-gradient(to bottom, #729BB4, #1C3238);
     padding-top: (inherit + 3em);
     margin-top: -3em;
 }
@@ -370,8 +354,9 @@ header h1{
 
 footer{
     text-align: center;
-    padding: .5em;
+    padding: 1em;
     background-color: white;
+    font-size: .75em;
 }
 
 .toggle-content {
@@ -400,9 +385,6 @@ footer{
     justify-content: left;
  }
 
- footer{
-     text-align: left;
- }
 }
 
 @media (min-width: 768px){
@@ -411,7 +393,7 @@ footer{
         background-image: url('../img/large-welcome.jpg');
         height: 500px;
     }
-    .detail-header,.card-container .options{
+    .card-container .options{
         background-image: url('../img/large-detail.jpg');
         height: 500px;
 
