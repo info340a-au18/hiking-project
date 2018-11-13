@@ -1,0 +1,62 @@
+
+        <!-- Part 0
+        <header>
+            <h1>Hiking for beginners</h1>
+        </header>
+        <main>
+            <section>
+                <h2>Topic Overview</h2>
+                <p>
+                    This web app assist and guide people as they begin their first hike and track their progress in future hikes. 
+                    Hiking is a great way for one to connect with and enjoy nature around them. Most people, such as myself this summer, 
+                    have been wanting to get started with a trail so like anyone would do, we take to the internet and research 
+                    everything before going out. Most sites immediately tell you about all the gear you need to go through the hike: 
+                    backpacks with water packs, waterproof jackets, hiking boots and socks. After buying hundreds of dollars worth of 
+                    equipment and finally go to the trail you are met with the beginner’s trail that you chose that you finished in 2 hours. 
+                    All that equipment that you bought was unnecessary to the small trip that you made that day. 
+                </p>
+                <p>
+                    Most hiking apps out there tell you that the elevation is however many feet and however many miles long but that 
+                    doesn’t really inform a beginner about what they will need for that trail. A beginner might think that all that 
+                    equipment was crucial to the surviving out in the wilderness but really wasn’t. Most apps out there aren’t targeted 
+                    towards beginners and spill out a bunch of information that seems like Greek to someone who is just starting out. 
+                    I would like to make this app with beginners in mind and cater specifically out to them, but also have options for 
+                    hiking veterans. Through an account-based system this app could really provide the proper information to those who 
+                    need it, such as equipment people usually take on that specific trail, current weather conditions on the trail, and 
+                    other stats in terms that beginners could understand/visualize. 
+                </p>
+            </section>
+            <section>
+                <h2>Potential Applications</h2>
+                <ul>
+                    <li>
+                        Trail Information
+                        <ul><li>
+                            This page will show general information about a trail in terms that the user could understand according to their 
+                            experience. This page would show a map of the trail, gain/elevation, a description of the trail, usual equipment 
+                            necessary for the trail, and comments made by other hikers using the app. 
+                        </li></ul>
+                    </li>
+                    <li>
+                        Progress Tracker
+                        <ul><li>
+                            This page would track the progress made by the user according to the trails that they have been through. 
+                            The page could also award people in their accomplishments (like completing a trail, going x amount of miles, 
+                            climbing x amount of feet in elevation)
+                        </li></ul>
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <h2>Resources</h2>
+                <ul>
+                    <li><a href="https://www.wta.org/go-hiking/hikes/heliotrope-ridge">Example to a current trail information site</a></li>
+                    <li><a href="https://www.rei.com/learn/expert-advice/hiking-for-beginners.html">Current hike information page for beginners</a></li>
+                    <li><a href="https://www.hikingproject.com/data">Data API that could be used in the site</a></li>
+                </ul>
+            </section>
+        </main>
+        <footer>
+
+        </footer>
+    -->

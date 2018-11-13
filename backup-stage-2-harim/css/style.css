@@ -1,0 +1,488 @@
+/* General Style*/
+
+*{box-sizing: border-box;}
+
+html{
+    scroll-behavior: smooth;
+}
+
+body{
+    background-color: rgb(97, 124, 95);
+    margin:0;
+}
+
+a{
+    text-decoration: none;
+    color:black;
+}
+
+.button{
+    text-align: center;
+    padding: 16px 40px;
+    border: 1px solid black;
+    border-radius: 25px;
+    background-color:#C4C4C4;
+    color:black;
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+}
+
+.quick-links{
+    position: absolute;
+    top: -2000px;
+}
+
+
+/* Header style*/
+.container{
+    display:flex;
+    flex-wrap: wrap;
+    background-color: rgba(196, 196, 196, 0.3);
+}
+
+    /*Menu Button*/
+.fa-bars, .fa-arrow-left, .fa-spinner{
+    font-size: 30px;
+    margin: 20px 0 10px 20px;
+    color:white;
+    stroke: black;
+    stroke-width: 2px;
+    cursor: pointer;
+}
+.fa-bars{
+    margin:0;
+    position: absolute;
+    top:20px;
+    left:20px;
+}
+.fa-spinner{
+    margin: 0 auto;
+    font-size: 70px;
+}
+
+
+
+.navbar{
+    display:flex;
+    flex-direction: column;
+    position: absolute;
+    left:-300px;
+    background-color: #556F44;
+    height: 100vh;
+}
+
+
+.navbar .button{
+    margin:10px;
+}
+
+.navbarShown{
+    animation-duration: .5s;
+    animation-name: slidein;
+    left: 0;
+}
+.navbarHidden{
+    animation-duration: .5s;
+    animation-name: slideOut;
+    left: -300px;
+}
+
+/*Main Style*/
+
+
+main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.dd-hide{
+    display:none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dd-show{
+    display:flex;
+
+}
+
+
+.simple-pagination{
+    padding:0;
+    display:flex;
+    justify-content: center;
+}
+
+.description{
+    margin: 36px 17px;
+}
+
+#sign-up-button{
+    margin: 0px 33%;
+    padding: 10px 0;
+    text-decoration: none;
+}
+
+main{
+    margin-top: 10%;
+}
+
+.img, .icon{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80vw;
+}
+.icon{ 
+    padding-top: 20px;
+    width:auto;
+}
+
+h1, h2, h3{
+    font-size: 4em;
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+    color: white;
+    text-shadow: 2px 2px black;
+}
+h1{
+    flex-basis: 100%;
+}
+
+h2{
+    font-size: 2em;
+}
+h3{
+    font-size: 1.5em;
+}
+
+p{
+    margin: 0 1em;
+    color: white;
+    text-align: left;
+    background-color: rgba(196, 196, 196, 0.3);
+    line-height: 33px;
+    font-size: 20px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.row{
+    display: flex;
+    flex-direction: column;
+}
+
+.col{
+    flex-basis: 50%;
+}
+
+ul {
+    list-style-type: none;
+    padding:0;
+}
+
+.pagination li {
+    display:inline-block;
+    padding:5px;
+    margin: 20px auto;
+}
+
+div.trailCard{
+    background-color: rgba(196, 196, 196, 0.3);
+    border-radius: 25px;
+    padding: 20px;
+    margin: 20px;
+    box-shadow: 5px 5px rgba(63, 63, 63, 0.3);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+
+}
+
+.bigTrailCard{
+    display: block;
+}
+
+#mapid { height: 180px; }
+
+.trailIcon{
+    height: 150px;
+}
+
+.trailCard h2{
+    flex-basis: 100%;
+}
+
+.trailCard span{
+    font-size: 1em;
+    text-align: center;
+    color: white;
+    text-shadow: 1px 1px black;
+    margin: 0 10px;
+}
+
+#trail-search{
+    font-size: 16px;
+    padding: 18px; 
+    border: 1px solid rgb(97, 97, 97);
+    margin: 0 30px;
+}
+
+.filters .button:hover{
+    cursor: pointer;
+}
+
+.hide, .trailCard.hideCard{
+    display:none;
+}
+.trailCard.showCard, .show{
+    display:flex;
+}
+
+.extra-info{
+    flex-direction: column;
+    flex-wrap: wrap;
+    flex-basis: 100%;
+}
+
+
+.extra-info ul{
+    text-align: center;
+    display:flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+
+}
+
+.extra-info li{
+    background-color: rgba(97, 124, 95, .5);
+    border-radius: 20px;
+    margin: 10px;
+    padding: 10px;
+    flex-basis: 33%;
+    color: white;
+    text-shadow: 1px 1px black;
+
+}
+
+.map-img{
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    height: 80%;
+    border: 5px solid black;
+    max-width: 700px;
+    max-height: 700px;
+}
+
+div p{
+    text-align: center;
+    border-radius: 20px;
+}
+div p a{
+    color:white;
+    text-decoration: underline;
+}
+
+.filters{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    background: rgba(196, 196, 196, 0.3);
+    padding: 20px;
+    border-radius: 20px;
+    margin: 10px;
+}
+.filters p{
+    background: none;
+}
+
+.dropdown{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    margin:20px;
+}
+
+button.button, .sort.button{
+    font-size: 13px;
+}
+
+
+.sorting{
+    flex-grow: 2;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
+    flex-wrap: wrap;
+}
+.sorting p{
+    align-self: center;
+    line-height: 20px;
+    font-size: 15px;
+}
+.sorting div{
+    display:flex;
+    align-items: center;
+    margin:10px;
+}
+.sorting label{
+    color:white;
+    padding:5px;
+    font-size: 17px;
+    text-shadow: 1px 1px black;
+}
+
+
+
+/*Footer style*/
+footer{
+    background-color: rgba(196, 196, 196, 0.3);
+    margin-top: 2em;
+}
+
+.copyright{
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 25px;
+    background-color: transparent;
+}
+
+.footer-buttons{
+    display:flex;
+    justify-content: center;
+}
+
+.footer-buttons .button{
+    flex-basis: 34%;
+    text-align: center;
+    
+}
+
+@media (min-width:768px){
+    
+    /*Header Style*/
+
+    body{
+        background-image: url("../img/jake-melara-30681-unsplash-bg-lg.jpg");
+        background-size: 100vw auto;
+        background-repeat: no-repeat;
+        background-attachment: scroll;
+        height: calc(100vw / 1.5);
+    }
+    header{
+        margin-bottom: calc(100vw / 1.75);
+    }
+    
+    h1{
+        flex-basis: 100%;
+    }
+    header h1{
+        font-size:3em;
+        text-decoration: underline;
+    }
+
+    .container{
+        background-color: transparent;
+        margin-bottom: 2em;
+    }
+
+    input[type=checkbox]#menu-toggle:checked~.navbar{
+        height: calc(100vw / 1.5 - 50px);
+    }
+    
+
+    
+    /*Main Style*/
+
+    main{
+        margin: 0 auto;
+    }
+    /*Footer Style*/
+
+    footer{
+        
+        flex-basis: 100vw;
+    }
+    
+}
+
+@media (min-width: 992px){
+
+    body{
+        background-attachment: fixed;
+    }
+
+    .row{
+        flex-direction: row;
+    }
+    header{
+        margin-bottom: calc(100vw / 3);
+    }
+    header h1{
+        font-size: 4em;
+    }
+    
+    .img{
+        width: 40vw;
+    }
+
+    .filters, div.trailCard{
+        background-color:rgba(97, 124, 95, .5);
+    }
+
+    main{
+        background-color: rgba(131, 131, 131, 0.95);
+        border-radius: 25px;
+        padding:20px;
+        margin: 20px;
+    }
+
+    main p{
+        background-color: rgba(97, 124, 95, .8);
+        border-radius: 10px;
+    }
+
+    .extra-info li{
+        background-color: rgba(196, 196, 196, .8);
+    }
+}
+@media (min-width: 1196px){
+    header{
+        margin-bottom: calc(100vw / 4);
+    }
+    header h1{
+        font-size:6em;
+    }
+
+}
+
+@keyframes slidein{
+    from {
+        position: absolute;
+        left:-300px
+      }
+    
+      to {
+          position: absolute;
+          left: 0;
+    }
+}
+@keyframes slideOut{
+    from {
+        position: absolute;
+        left: 0;
+    } 
+    to {
+        position: absolute;
+        left:-300px
+    }  
+}

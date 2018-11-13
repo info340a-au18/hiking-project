@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="application-name" content="Lets go on an Adventure">
+    <meta name="author" content="Harim Sanchez">
+    <meta name="description" content="Ever wanted to go on an adventure outdoors but don’t know where to begin? This web app assist and guide people as they begin their first hike and track their progress in their hiking adventures">
+    <meta name="keywords" content="hike, hiking, adventure, nature, outdoors, guide, progress">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- normalize.css for cross-browser stuff -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin=""/>
+    <link rel='stylesheet' href='css/simplePagination.css'>
+
+    <!-- misc imports -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kaushan+Script">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+
+    <!-- My stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!--icon-->
+    <link rel="icon" href="img/icon.png">
+
+    <title>Lets go on an adventure - Nearby Trails</title>
+</head>
+<body>
+    <header>
+        <nav class="quick-links">
+            <a href="#navbar">Jump to Navigation</a>
+            <a href="#main-content">Jump to Main Content</a>
+            <a href="#footer">Jump to Footer</a>
+        </nav>
+        <div class="container">
+            <!--Goning to make it so that when you hover over/click on the hamburger icon in smaller screens it shows the rest of the menu-->
+            <span class="fa fa-bars show-menu"></span> 
+            <nav class="navbar" id="navbar" role="navigation">
+                <i class="fa fa-arrow-left hide-menu"></i>
+
+                <a class="button" href="index.html">Home</a>
+                <a class="button" href="nearby-trails.html">Nearby Trails</a>
+                <a class="button" href="my-stats.html">My Stats</a>
+                <a class="button" href="about-us.html">About Us</a>
+                <a class="sign-up button" href="sign-up.html">Sign Up</a>
+            </nav>
+            <h1>Nearby Trails</h1>
+        </div>
+    </header>
+    
+    <main id="main-content" role='main'>
+        
+        <div class="filters">
+            <!--
+            <span><input type="text" id="trail-search" placeholder="Search for trails.."></span>
+            <span><a class='button'>Search</a></span>
+            -->
+            <span class='dropdown'>
+                <button class='dropdown-button button' role='dropdown menu'>Results per page <i class="fa fa-angle-down"></i></button>
+                <div class='dropdown-content dd-hide'>
+                    <button class='button'>5</button>
+                    <button class='button'>10</button>
+                    <button class='button'>15</button>
+                </div>
+            </span>
+
+            <div class='sort-container'>
+                <p>Sort By (Ascending Order)</p>
+                <div class='sorting'>
+                    <div><input type='radio' name='sortBy' value='highest' id='highest'><label for='highest'> Highest Point</label></div>
+                    <div><input type='radio' name='sortBy' value='gain' id='gain'><label for='gain'> Gain</label></div>         
+                    <div><input type='radio' name='sortBy' value='length' id='length'><label for='length'> Length</label></div>
+                    <div><input type='radio' class='location' name='sortBy' value='distance' checked='checked' id='distance'><label for='distance' class='location'>Distance From Me</label></div>
+                    <div><input type='button' class='sort button' value='Sort' aria-label="Sort"></div>
+                </div>
+            </div>
+
+
+
+        </div>
+        <i class="hide fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+        <span class="sr-only">Loading...</span>
+        <div class="trails" id='trails'>
+            <div id="light-pagination" class="hide pagination light-theme simple-pagination" aria-label="page selection"></div>
+            <ul class='list'>
+                <!--JS adds JSON data-->
+            </ul>
+        </div>
+
+        <div>
+            <p>Data from <a href='https://data.world/nick-hassell/washington-state-hiking-trails'>Washington State Hiking Trails</a></p>
+        </div>
+
+    </main>
+
+    <footer id="footer">
+
+        <p class="copyright">2018 Let’s go on an Adventure</p>
+        <div class="footer-buttons">
+            <a class="button" href="terms.html">Terms</a>
+            <a class="button">Social Media</a>  
+            <a class="button" href="about-us.html">About Us</a>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.4/fetch.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+    <script src="js/jquery.simplePagination.js"></script>
+    <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js" integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA==" crossorigin=""></script>
+
+    <script src='js/sidebar-menu.js'></script>
+    <script src="js/data.js"></script>
+</body>
+</html>
