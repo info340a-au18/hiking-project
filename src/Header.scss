@@ -1,11 +1,10 @@
 $myBlue: #274476;
 
 header {
-    background-image: url('./img/nature-small.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    padding: 35% 10%;
+    
+    background-color: rgba(39, 68, 118, .5);
+
+    padding: 20px 0;
     #headline {
         color: white;
         font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -13,13 +12,14 @@ header {
         font-weight: bold;
         justify-content: center;
         align-items: center;
-        margin-left: 5%;
+        margin-left: 30px;
+    }
+
+    form{
+        margin: 1em 30px;
     }
     
     #searchBox {
-        margin-top: 1em;
-        margin-left: 5%;
-        padding-bottom: 40%;
         width:100%;
     }
     
@@ -27,11 +27,12 @@ header {
         border-radius: 2em;
         text-align: center;
         border: none;
-        margin-right: 5px;
+        margin: 10px;
     }
     
     button {
         border-radius: 2em;
         border:none;
+        margin: 5px;
     }
 }

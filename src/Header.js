@@ -6,8 +6,9 @@ export class Header extends Component {
 
     constructor(props){
         super(props);
+
         this.state = {
-            searchTerm: ''
+            searchTerm: '',
         }
     }
 
@@ -16,9 +17,25 @@ export class Header extends Component {
         console.log(event.target.value);
     }
 
-    search = (event) =>{
+    search = (event) => {
         event.preventDefault();
         this.props.howToSearch(this.state.searchTerm)
+    }
+
+    getLocation = (event) => {
+        event.preventDefault();
+        if (!navigator.geolocation) {
+            
+        }
+
+        let success = (position) => {
+            this.props.getLocation(position.coords.latitude, position.coords.longitude)
+        }
+        let error = (position) => {
+            console.log("Couldnt get user location");
+        }
+        navigator.geolocation.getCurrentPosition(success, error);
+
     }
 
     render() {
@@ -32,6 +49,9 @@ export class Header extends Component {
                     <button id="search" onClick={this.search}>
                         Search
                         <i className="fa fa-search fa-rotate-90" aria-hidden="true" aria-label="this is a search icon"></i>
+                    </button>
+                    <button id="location" onClick={this.getLocation}>
+                        Get my Location
                     </button>
                 </form>
             </header>

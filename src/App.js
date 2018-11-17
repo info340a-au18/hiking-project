@@ -12,7 +12,9 @@ class App extends Component {
         super(props);
 
         this.state = {
-            searchTerm: ''
+            searchTerm: '',
+            userLat: 0,
+            userLon: 0
         }
 
     }
@@ -23,13 +25,21 @@ class App extends Component {
         })
     }
 
+    getLocation = (lat, lon) => {
+        this.setState((state) => {
+             return {
+                 userLat: lat,
+                 userLon: lon
+             }
+        })
+    }
+
     render() {
-        console.log(this.state.searchTerm);
         return (
             <div className='home'>
                 <NavBar />
-                <Header searchTerm={this.state.searchTerm} howToSearch={this.search}/>
-                <Main searchTerm={this.state.searchTerm}/>
+                <Header searchTerm={this.state.searchTerm} userLat={this.state.userLat} userLon={this.state.userLon} howToSearch={this.search} getLocation={this.getLocation}/>
+                <Main searchTerm={this.state.searchTerm} userLat={this.state.userLat} userLon={this.state.userLon}/>
                 <Footer />
             </div>
         )
