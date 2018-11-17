@@ -5,8 +5,11 @@ import {NavBar} from './NavBar';
 import {Header} from './Header';
 import {Main} from './Main';
 import {Footer} from './Footer';
+import {Results, HikeCard, CardContainer} from './Results';
 
 class App extends Component {
+
+
 
     constructor(props){
         super(props);
@@ -30,7 +33,7 @@ class App extends Component {
                 <NavBar />
                 <Header searchTerm={this.state.searchTerm} howToSearch={this.search}/>
                 <Main searchTerm={this.state.searchTerm}/>
-                <Footer />
+                <CardContainer />
             </div>
         )
     }
