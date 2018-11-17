@@ -1,33 +1,40 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.scss';
-import logo from './img/Hamburger.png';
+import {NavBar} from './NavBar';
 import {Header} from './Header';
 import {Main} from './Main';
 import {Footer} from './Footer';
 
 class App extends Component {
+
+    constructor(props){
+        super(props);
+
+        this.state = {
+            searchTerm: ''
+        }
+
+    }
+
+    search = (search) => {
+        this.setState((state) => {
+            return {searchTerm: search}
+        })
+    }
+
     render() {
+        console.log(this.state.searchTerm);
         return (
             <div className='home'>
-                <nav>
-                    <ul>
-                        <li><a className="logo" href="index.html"> ExploreMore </a> </li>
-                        <li> <a href="#city-input"> Find a Hike </a></li>
-                        <li> <a href="#hikemap"> Map</a></li>
-                        <li> <a href="#hike-results"> Results </a></li>
-                    </ul>
-                    <div>
-                        <img src={logo} alt='icon' />
-                        <h1>WA HIKIERS</h1>
-                    </div>
-                </nav>
-                <Header />
-                <Main />
+                <NavBar />
+                <Header searchTerm={this.state.searchTerm} howToSearch={this.search}/>
+                <Main searchTerm={this.state.searchTerm}/>
                 <Footer />
             </div>
         )
     }
 }
+
 
 export default App;
