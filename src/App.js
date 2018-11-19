@@ -17,11 +17,12 @@ class App extends Component {
 
         this.state = {
             searchTerm: '',
-            lat: '47.6062095',
-            lng: '-122.3320708',
+            lat: '44.253271',
+            lng: '-115.671681',
             hikes: {},
             maxDist: 100,
             maxResults: 10,
+
         }
 
     }
@@ -32,17 +33,27 @@ class App extends Component {
         })
     }
 
+    getLocation = (lat, lon) => {
+        this.setState((state) => {
+             return {
+                 lat: lat,
+                 lng: lon
+             }
+        })
+    }
+
     render() {
-        console.log(this.state.searchTerm);
         return (
             <div className='home'>
                 <NavBar />
-                <Header searchTerm={this.state.searchTerm} howToSearch={this.search}/>
-                <Main searchTerm={this.state.searchTerm}/>
+                <Header searchTerm={this.state.searchTerm} userLat={this.state.userLat} userLon={this.state.userLon} howToSearch={this.search} getLocation={this.getLocation}/>
+                <Main searchTerm={this.state.searchTerm} userLat={this.state.userLat} userLon={this.state.userLon}/>
                 <div id="hikemap">
                 <MapArea lat={this.state.lat} lng={this.state.lng} />
                 </div>
                 <CardContainer lat={this.state.lat} lng={this.state.lng} maxDist={this.state.maxDist} maxResults={this.state.maxResults}/>
+                
+                <Footer />
             </div>
         )
     }
