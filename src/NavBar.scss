@@ -1,16 +1,19 @@
-$myBlue: #274476;
+$myBlue: #185b64;
 
 nav {
-    background-color: $myBlue;
+    margin: 0;
+    padding: 0;
+    background-color: white;
     height: 3em;
     text-align: center;
     padding: 0.5em 0;
-    color: white;
+    color: $myBlue;
     img{
         height: 2.2em;
         width: 2em;
         float: left;
         margin: 0 1.5em;
+        margin-right: 0;
     }
     h1{
         padding: 0;

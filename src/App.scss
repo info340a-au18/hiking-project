@@ -1,9 +1,4 @@
 html, body {
-    background-image: url('./img/nature-small.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    
     margin: 0;
     padding: 0;
     height: 100%;
@@ -11,9 +6,5 @@ html, body {
 
 * {
     box-sizing: border-box;
-}
- .leaflet-container{
-    height: 400px;
-    width: 100%;
 }
 

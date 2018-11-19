@@ -1,20 +1,12 @@
-$myBlue: #274476;
+$myBlue: #185b64;
 
 footer {
-    position: fixed;
-    left:0;
-    bottom:0;
-    width:100%;
-    background-color: $myBlue;
-    color: white;
+    background-color: white;
+    color: $myBlue;
     text-align: center;
     padding-top: 1em;
-    main {
-        height: 100%;
-        position: relative;
-    }
     p {
-        margin: 0.5em;
+        margin: 0 0.5em;
     }
     #mountain {
         height: 2em;

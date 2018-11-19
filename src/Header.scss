@@ -1,14 +1,17 @@
-$myBlue: #274476;
+$myBlue: #87b1fa;
 
 header {
-    
-    background-color: rgba(39, 68, 118, .5);
-
+    background-image: url('./img/nature2-small.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    height: 600px;
     padding: 20px 0;
     #headline {
         color: white;
+        background-color: rgba(39, 68, 118, .1);
         font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-        font-size: 3em;
+        font-size: 1em;
         font-weight: bold;
         justify-content: center;
         align-items: center;

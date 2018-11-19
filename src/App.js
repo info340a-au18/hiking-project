@@ -5,12 +5,8 @@ import {NavBar} from './NavBar';
 import {Header} from './Header';
 import {Main} from './Main';
 import {Footer} from './Footer';
-import {Results, HikeCard, CardContainer} from './Results';
-import {MapArea} from './Map';
 
 class App extends Component {
-
-
 
     constructor(props){
         super(props);
@@ -46,13 +42,10 @@ class App extends Component {
         return (
             <div className='home'>
                 <NavBar />
-                <Header searchTerm={this.state.searchTerm} userLat={this.state.userLat} userLon={this.state.userLon} howToSearch={this.search} getLocation={this.getLocation}/>
-                <Main searchTerm={this.state.searchTerm} userLat={this.state.userLat} userLon={this.state.userLon}/>
-                <div id="hikemap">
-                <MapArea lat={this.state.lat} lng={this.state.lng} />
-                </div>
-                <CardContainer lat={this.state.lat} lng={this.state.lng} maxDist={this.state.maxDist} maxResults={this.state.maxResults}/>
-                
+                <Header searchTerm={this.state.searchTerm} lat={this.state.userLat} 
+                lng={this.state.userLon} howToSearch={this.search} getLocation={this.getLocation}/>
+                <Main searchTerm={this.state.searchTerm} lat={this.state.lat} lng={this.state.lng} maxDist={this.state.maxDist} 
+                maxResults={this.state.maxResults}/>
                 <Footer />
             </div>
         )
