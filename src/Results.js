@@ -31,6 +31,7 @@ export class CardContainer extends Component{
         };
 
     }
+    
 
     componentDidMount = () => { 
 

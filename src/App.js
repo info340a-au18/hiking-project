@@ -43,11 +43,13 @@ class App extends Component {
     }
 
     render() {
+
+        console.log("state test",this.state.lat,this.state.lng);
         return (
             <div className='home'>
                 <NavBar />
-                <Header searchTerm={this.state.searchTerm} userLat={this.state.userLat} userLon={this.state.userLon} howToSearch={this.search} getLocation={this.getLocation}/>
-                <Main searchTerm={this.state.searchTerm} userLat={this.state.userLat} userLon={this.state.userLon}/>
+                <Header searchTerm={this.state.searchTerm} userLat={this.state.lat} userLon={this.state.lng} howToSearch={this.search} getLocation={this.getLocation}/>
+                <Main searchTerm={this.state.searchTerm} userLat={this.state.lat} userLon={this.state.lng}/>
                 <div id="hikemap">
                 <MapArea lat={this.state.lat} lng={this.state.lng} />
                 </div>
