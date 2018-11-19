@@ -6,6 +6,7 @@ import {Header} from './Header';
 import {Main} from './Main';
 import {Footer} from './Footer';
 import {Results, HikeCard, CardContainer} from './Results';
+import {MapArea} from './Map';
 
 class App extends Component {
 
@@ -15,7 +16,12 @@ class App extends Component {
         super(props);
 
         this.state = {
-            searchTerm: ''
+            searchTerm: '',
+            lat: '47.6062095',
+            lng: '-122.3320708',
+            hikes: {},
+            maxDist: 100,
+            maxResults: 10,
         }
 
     }
@@ -33,7 +39,10 @@ class App extends Component {
                 <NavBar />
                 <Header searchTerm={this.state.searchTerm} howToSearch={this.search}/>
                 <Main searchTerm={this.state.searchTerm}/>
-                <CardContainer />
+                <div id="hikemap">
+                <MapArea lat={this.state.lat} lng={this.state.lng} />
+                </div>
+                <CardContainer lat={this.state.lat} lng={this.state.lng} maxDist={this.state.maxDist} maxResults={this.state.maxResults}/>
             </div>
         )
     }
