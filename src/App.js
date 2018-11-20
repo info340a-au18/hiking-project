@@ -36,6 +36,7 @@ class App extends Component {
                  lng: lon
              }
         })
+        console.log("does this keep doign this");
     }
 
     render() {
