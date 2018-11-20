@@ -33,3 +33,17 @@
 .btn {
     color: white;
 }
+
+.pagination-holder{
+    display: flex;
+    justify-content: center;
+    width:100%;
+}
+
+ul.pagination{
+    background-color: white
+}
+
+li.active a{
+    background-color: #007bff;
+}

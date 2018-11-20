@@ -17,7 +17,7 @@ class App extends Component {
             lng: '-115.671681',
             hikes: {},
             maxDist: 100,
-            maxResults: 10,
+            maxResults: 100,
 
         }
 

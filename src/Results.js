@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Results.scss';
+import JwPagination from 'jw-react-pagination';
 
 export class HikeCard extends Component {
 
@@ -36,33 +37,49 @@ export class HikeCard extends Component {
 
 }
 
+
 export class CardContainer extends Component {
 
     constructor(props) {
         super(props);
 
+        this.onChangePage = this.onChangePage.bind(this);
+
+        this.state = {
+            trails: this.props.trails,
+            pageOfItems: []
+        }
     }
 
+    componentWillReceiveProps(props){
+        this.setState({trails:props.trails})
+    }
+
+    onChangePage(pageOfItems){
+        this.setState({pageOfItems})
+    }
 
     render() {
-
         console.log("results ", this.props.trails);
+        console.log('trails', this.state.trails)
 
         if(this.props.trails[1] === undefined){
             return <h2> Loading </h2>;
         }
-
-        let hikeCards = this.props.trails.map((hike) => {
-            return <HikeCard key={hike.name} name={hike.name} desc={hike.summary}
-                img={hike.imgSmall} location={hike.location}
-                length={hike.length} difficulty={hike.difficulty}
-                url={hike.url} stars={hike.stars} />
-        });
-
+        
         return (
             <div className="hike-results card-container">
                 <div className='row'>
-                    {hikeCards}
+                    {this.state.pageOfItems.map((hike) => {
+                        return <HikeCard key={hike.name} name={hike.name} desc={hike.summary}
+                            img={hike.imgSmall} location={hike.location}
+                            length={hike.length} difficulty={hike.difficulty}
+                            url={hike.url} stars={hike.stars} />
+                    })}
+                    {console.log(this.state.trails, this.state.pageOfItems)}
+                </div>
+                <div className='pagination-holder'>
+                    <JwPagination items={this.state.trails} onChangePage={this.onChangePage}/>
                 </div>
             </div>
         );
