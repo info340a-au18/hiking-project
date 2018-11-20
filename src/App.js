@@ -63,8 +63,6 @@ class App extends Component {
     }
 
     render() {
-
-        console.log("state test",this.state.lat,this.state.lng);
         return (
             <div className='home'>
                 <NavBar />
