@@ -9,11 +9,11 @@ export class MapArea extends Component {
     render() {
       let hikeMarkers;
 
-      if(this.props.trails[0] != undefined){
+      if(this.props.trails[0] !== undefined){
         console.log("gang",this.props.trails);
       hikeMarkers = this.props.trails.map((hike) => {
         return (
-        <Marker position= {[hike.latitude,hike.longitude]}>
+        <Marker key={hike.name} position= {[hike.latitude,hike.longitude]}>
             <Popup>
             {hike.name} <br />
             {hike.location} <br />
