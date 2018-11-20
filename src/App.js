@@ -23,10 +23,33 @@ class App extends Component {
 
     }
 
-    search = (search) => {
+    search = (term) => {
+
+
+        let url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + term + '&key=AIzaSyBifT_4HbuyAHS6I01s-4ZRjO_P5F3plGg';
+        console.log(url);
+        /*
         this.setState((state) => {
             return {searchTerm: search}
         })
+        */
+
+       let promise = fetch(url);
+
+       promise.then(function(response){
+           return response.json();
+       })
+       .then((data) => {
+            console.log(data.results[0].geometry.location.lng,data.results[0].geometry.location.lat);
+            this.getLocation(data.results[0].geometry.location.lat,data.results[0].geometry.location.lng);
+
+       })
+       .catch(function (err){
+           console.log(err);
+       });
+   
+        
+
     }
 
     getLocation = (lat, lon) => {
@@ -45,8 +68,8 @@ class App extends Component {
         return (
             <div className='home'>
                 <NavBar />
-                <Header searchTerm={this.state.searchTerm} lat={this.state.userLat} 
-                lng={this.state.userLon} howToSearch={this.search} getLocation={this.getLocation}/>
+                <Header searchTerm={this.state.searchTerm} lat={this.state.userLat} howToSearch={this.search}
+                lng={this.state.userLon} howToSearch={this.search} getLocation={this.getLocation} />
                 <Main searchTerm={this.state.searchTerm} lat={this.state.lat} lng={this.state.lng} maxDist={this.state.maxDist} 
                 maxResults={this.state.maxResults}/>
                 <Footer />
