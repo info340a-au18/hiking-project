@@ -1,33 +1,27 @@
 import React, { Component } from 'react';
+import starPic from './img/star.png';
+import halfPic from './img/half.png';
 import './Results.scss';
 
 export class HikeCard extends Component {
 
     render() {
-
+        let stars = this.props.stars.map((star) => {
+            return star;
+        })
         return (
-            <div className='cardSet col-md-6 col-lg-4 col-xl-3'>
-                <div className='card'>
-                    <div className='card-body'>
-                        <div className='row'>
-                            <div className='col-sm-6 col-lg-12'>
-                                <img className='pb-3' src={this.props.img} alt='the hiking place' />
-                            </div>
-                            <div className='col-sm-6 col-lg-12'>
-                                <h4>{this.props.name}</h4>
-                                <div className='info'>
-                                    <ul className='card-text'>
-                                        <li>Location: {this.props.name}</li>
-                                        <li>Rating: {this.props.stars}</li>
-                                        <li>Length: {this.props.length} miles</li>
-                                        <li>Description: {this.props.desc}</li>
-                                        <li>Difficulty: {this.props.difficulty}</li>
-                                        <button className='btn btn-dark' src={this.props.url}>Go</button>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <div className="card">
+                <img className='p-3' src={this.props.img} alt='the hiking place' />
+                <div className="card-body">
+                    <h5 className="card-title">{this.props.name}</h5>
+                    <ul className="card-text">
+                        <li>Location: {this.props.location}</li>
+                        <li className='rating'>Ratings: {stars}</li>
+                        <li>Length: {this.props.length} miles</li>
+                        <li>Description: {this.props.desc}</li>
+                        <li>Difficulty: {this.props.difficulty}</li>
+                        <button href={this.props.url} className="btn btn-dark">More Info</button>
+                    </ul>
                 </div>
             </div>
         );
@@ -49,7 +43,7 @@ export class CardContainer extends Component {
         };
 
     }
-    
+
 
     componentDidMount = () => {
 
@@ -62,13 +56,19 @@ export class CardContainer extends Component {
         })
             .then((data) => {
                 let results = data.trails.map((hike) => {
+                    let ratings = [];
+                    let num = hike.stars;
+                    for (let i = 0; i < num - 1; i++) {
+                        ratings[i] = <img key={i} src={starPic} alt='fullstar' />;
+                    }
+                    if (num % 1 !== 0) {
+                        ratings[ratings.length] = <img key='half' src={halfPic} alt='halfstar' />;
+                    }
                     return <HikeCard key={hike.name} name={hike.name} desc={hike.summary}
                         img={hike.imgSmall} location={hike.location}
                         length={hike.length} difficulty={hike.difficulty}
-                        url={hike.url} stars={hike.stars} />
+                        url={hike.url} stars={ratings} />
                 });
-
-                console.log("results ", results);
 
                 this.setState(
                     { hikes: results }
