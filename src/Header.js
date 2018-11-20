@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import './Header.scss';
 
+
 export class Header extends Component {
 
     constructor(props){
@@ -12,9 +13,9 @@ export class Header extends Component {
         }
     }
 
+
     handleChange = (event) => {
         this.setState({searchTerm: event.target.value});
-        console.log(event.target.value);
     }
 
     search = (event) => {
@@ -25,7 +26,7 @@ export class Header extends Component {
     getLocation = (event) => {
         event.preventDefault();
         if (!navigator.geolocation) {
-            
+            console.log("This browser doesnt support geolocation")
         }
 
         let success = (position) => {
