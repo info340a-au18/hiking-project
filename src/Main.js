@@ -23,25 +23,20 @@ export class Main extends Component {
         promise.then(function (response) {
             return response.json();
         })
-
-            .then((data) => {
-
-                this.setState(
-                    {
-                        trailData: data.trails,
-                        displayedTrails: data.trails
-                    }
-                );
-
-
-            })
-            .catch(function (err) {
-                console.log(err);
-            });
+        .then((data) => {
+            this.setState(
+                {
+                    trailData: data.trails,
+                    displayedTrails: data.trails
+                }
+            );
+        })
+        .catch(function (err) {
+            console.log(err);
+        });
     }
 
     componentDidMount() {
-        console.log(this.props.lat, this.props.lng, this.props.maxDist, this.props.maxResults);
         this.getData(this.props.lat, this.props.lng, this.props.maxDist, this.props.maxResults);
     }
 
@@ -55,9 +50,10 @@ export class Main extends Component {
                 <div className="section">
                     <MapArea lat={this.props.lat} lng={this.props.lng} trails={this.state.trailData} />
                 </div>
+
                 <div className="section">
-                    <CardContainer trails={this.state.trailData} easy={this.props.easy} 
-                    medium={this.props.medium} hard={this.props.hard}/>
+                    <CardContainer trails={this.state.trailData} easy={this.props.easy}
+                        medium={this.props.medium} hard={this.props.hard} error={this.props.error} />
                 </div>
             </main>
         )

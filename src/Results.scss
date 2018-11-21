@@ -1,3 +1,5 @@
+$myBlue:  #185b64;
+
 .hike-results {
 
     padding-top: 3em;
@@ -12,7 +14,7 @@
 .card-container{
     display: flex;
     flex-wrap: wrap;
-    padding: 1em;
+    padding-bottom: 1em;
     background: linear-gradient(to bottom, #729BB4, #1C3238);
 
 }
@@ -45,12 +47,22 @@
     display: flex;
     justify-content: center;
     width:100%;
-}
-
-ul.pagination{
-    background-color: white
-}
-
-li.active a{
-    background-color: #007bff;
+    height: 3.5em;
+    margin: 1em;
+    padding: 0;
+    background-color: white;
+    li {
+        padding: 1em 0.8em;
+    }
+    li.first{
+        display: none;
+    }
+    li.last{
+        display: none;
+    }
+    li.active a{
+        background-color: $myBlue;
+        padding: 1em;
+        color: white;
+    }
 }

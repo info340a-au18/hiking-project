@@ -1,10 +1,13 @@
 $myBlue: #185b64;
 
 footer {
-    background-color: white;
-    color: $myBlue;
+    background-color: $myBlue;
+    color: white;
     text-align: center;
-    padding-top: 1em;
+    padding: 2em 0;
+    a{
+        color: white;
+    }
     p {
         margin: 0 0.5em;
     }

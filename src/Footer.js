@@ -4,10 +4,11 @@ import './Footer.scss';
 import mountain from './img/mountain.png';
 
 export class Footer extends Component {
-    render(){
-        return(
+    render() {
+        return (
             <footer aria-label="This is the contact info">
-                    <div id="reference">
+                <div id="reference">
+                    <cite>
                         <div className="row">
                             <div className="col-sm-2">
                                 <a href="https://github.com/info340a-au18/project-kylegoodwin">Data from:</a>
@@ -23,12 +24,13 @@ export class Footer extends Component {
                                 <a href="https://www.fs.fed.us/">US Forest Service</a>
                             </div>
                         </div>
-                        <p>
-                            Made by Kyle, Harim and Anni
-                            <img id="mountain" src={mountain} alt="the icon of mountains" />
-                        </p>
-                    </div>
-                </footer>
+                    </cite>
+                    <p>
+                        Made by Kyle, Harim and Anni
+                        <img id="mountain" src={mountain} alt="the icon of mountains" />
+                    </p>
+                </div>
+            </footer>
         )
     }
 }
