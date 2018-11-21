@@ -9,10 +9,7 @@ export class Header extends Component {
         super(props);
 
         this.state = {
-            searchTerm: '',
-            easy: true,
-            medium: true,
-            hard: true
+            searchTerm: ''
         }
     }
 
@@ -22,13 +19,8 @@ export class Header extends Component {
         let name = target.name;
         if (name === 'searchBar') {
             this.setState({ searchTerm: target.value });
-        } else {
-            if (target.checked) {
-                this.setState({ [name]: target.value });
-            } else {
-                this.setState({ [name]: !target.value });
-            }
-        }
+        } 
+        this.props.getFilter(target);
     }
 
     handleSubmit = (event) => {
@@ -38,8 +30,7 @@ export class Header extends Component {
 
     search = (event) => {
         event.preventDefault();
-        this.props.howToSearch(this.state.searchTerm, this.state.easy,
-            this.state.medium, this.state.hard, this.props.error);
+        this.props.howToSearch(this.state.searchTerm, this.props.error);
     }
 
     getLocation = (event) => {
@@ -49,8 +40,7 @@ export class Header extends Component {
         }
 
         let success = (position) => {
-            this.props.getLocation(position.coords.latitude, position.coords.longitude,
-                this.state.easy, this.state.medium, this.state.hard, this.props.error);
+            this.props.getLocation(position.coords.latitude, position.coords.longitude, this.props.error);
         }
         let error = () => {
             console.log("Couldnt get user location");
@@ -67,7 +57,7 @@ export class Header extends Component {
                         <input id="searchBar" name="searchBar" aria-label="this is a search bar" type="text"
                             onChange={this.handleChange} placeholder="Current Location" />
                         <button onClick={this.getLocation}>Current Location</button>
-                        <button onclick={this.search}>Search</button>
+                        <button onClick={this.search}>Search</button>
                     </form>
                     <form>
                         <div className="checkbox">
@@ -77,7 +67,7 @@ export class Header extends Component {
                             <input
                                     name="easy"
                                     type="checkbox"
-                                    checked={this.state.easy}
+                                    checked={this.props.easy}
                                     onChange={this.handleChange} />
                             </label>
                             <label>
@@ -85,7 +75,7 @@ export class Header extends Component {
                             <input
                                     name="medium"
                                     type="checkbox"
-                                    checked={this.state.medium}
+                                    checked={this.props.medium}
                                     onChange={this.handleChange} />
                             </label>
                             <label>
@@ -93,7 +83,7 @@ export class Header extends Component {
                             <input
                                     name="hard"
                                     type="checkbox"
-                                    checked={this.state.hard}
+                                    checked={this.props.hard}
                                     onChange={this.handleChange} />
                             </label>
                         </div>

@@ -36,7 +36,7 @@ class Menu extends Component {
         let change = this.props.open ? 'isOpen' : 'isClose';
         return (
             <div className={change} id='menu'>
-                <a href="javascript:void(0)" onClick={this.props.menu} className="closebtn">&times;</a>
+                <button onClick={this.props.menu} className="closebtn">&times;</button>
                 <a href="#hiking-trails">Hike</a>
                 <a href="#city-input">Map</a>
                 <a href="#hike-results">Results</a>

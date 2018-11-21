@@ -51,17 +51,23 @@ class App extends Component {
         })
     }
 
-    getLocation = (lat, lng, easy, medium, hard, error) => {
+    getLocation = (lat, lng, error) => {
         this.setState(() => {
              return {
                  lat: lat,
                  lng: lng,
-                 easy: easy,
-                 medium: medium,
-                 hard: hard,
                  error: error
              }
         })
+    }
+
+    getFilter = (target) => {
+        let name = target.name;
+        if (target.checked) {
+            this.setState({ [name]: target.value });
+        } else {
+            this.setState({ [name]: !target.value });
+        }
     }
 
     render() {
@@ -70,7 +76,7 @@ class App extends Component {
                 <NavBar />
                 {this.state.error && <div className="error-message">Address not found</div>}
                 <Header searchTerm={this.state.searchTerm} lat={this.state.lat} 
-                lng={this.state.lng} howToSearch={this.search} getLocation={this.getLocation} 
+                lng={this.state.lng} howToSearch={this.search} getFilter={this.getFilter} getLocation={this.getLocation} 
                 easy={this.state.easy} medium={this.state.medium} hard={this.state.hard}
                 error={this.state.error}/>
                 <Main searchTerm={this.state.searchTerm} lat={this.state.lat} lng={this.state.lng} 
