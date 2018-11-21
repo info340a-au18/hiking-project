@@ -16,23 +16,23 @@ self.__precacheManifest = [
     "url": "/project-kylegoodwin/static/js/runtime~main.f55913bb.js"
   },
   {
-    "revision": "bd012de99125893e256d",
-    "url": "/project-kylegoodwin/static/js/main.bd012de9.chunk.js"
+    "revision": "3daaaab8b2307874cf76",
+    "url": "/project-kylegoodwin/static/js/main.3daaaab8.chunk.js"
   },
   {
     "revision": "c8be67061e3c96cf55fa",
     "url": "/project-kylegoodwin/static/js/1.c8be6706.chunk.js"
   },
   {
-    "revision": "bd012de99125893e256d",
-    "url": "/project-kylegoodwin/static/css/main.30c912f7.chunk.css"
+    "revision": "3daaaab8b2307874cf76",
+    "url": "/project-kylegoodwin/static/css/main.41da7040.chunk.css"
   },
   {
     "revision": "c8be67061e3c96cf55fa",
     "url": "/project-kylegoodwin/static/css/1.92fa37fa.chunk.css"
   },
   {
-    "revision": "5d00979109799311186921f72b330705",
+    "revision": "927206030696712104a8ca5ef5d5f642",
     "url": "/project-kylegoodwin/index.html"
   }
 ];
