@@ -10,7 +10,6 @@ export class MapArea extends Component {
       let hikeMarkers;
 
       if(this.props.trails[0] !== undefined){
-        //console.log("gang",this.props.trails);
         let count = 0;
       hikeMarkers = this.props.trails.map((hike) => {
         count++;
