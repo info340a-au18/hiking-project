@@ -12,6 +12,7 @@
     "react-dom": "^16.6.3",
     "react-leaflet": "^2.1.2",
     "react-nouislider": "^2.0.1",
+    "react-paginate": "^6.0.0",
     "react-scripts": "2.1.1",
     "reactstrap": "^6.5.0"
   },

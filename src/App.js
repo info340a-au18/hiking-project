@@ -13,21 +13,22 @@ class App extends Component {
 
         this.state = {
             searchTerm: '',
-            lat: '44.253271',
-            lng: '-115.671681',
+            lat: '47.6062',
+            lng: '-122.3321',
             hikes: {},
             maxDist: 100,
             maxResults: 100,
-
+            easy: true,
+            medium: true,
+            hard: true
         }
 
     }
 
-    search = (term) => {
+    search = (term, easy, medium, hard) => {
 
 
         let url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + term + '&key=AIzaSyBifT_4HbuyAHS6I01s-4ZRjO_P5F3plGg';
-        console.log(url);
         /*
         this.setState((state) => {
             return {searchTerm: search}
@@ -40,8 +41,8 @@ class App extends Component {
            return response.json();
        })
        .then((data) => {
-            console.log(data.results[0].geometry.location.lng,data.results[0].geometry.location.lat);
-            this.getLocation(data.results[0].geometry.location.lat,data.results[0].geometry.location.lng);
+           console.log(data.results[0].geometry);
+            this.getLocation(data.results[0].geometry.location.lat,data.results[0].geometry.location.lng, easy, medium, hard);
 
        })
        .catch(function (err){
@@ -52,24 +53,28 @@ class App extends Component {
 
     }
 
-    getLocation = (lat, lon) => {
-        this.setState((state) => {
+    getLocation = (lat, lng, easy, medium, hard) => {
+        this.setState(() => {
              return {
                  lat: lat,
-                 lng: lon
+                 lng: lng,
+                 easy: easy,
+                 medium: medium,
+                 hard: hard
              }
         })
-        console.log("does this keep doign this");
     }
 
     render() {
         return (
             <div className='home'>
                 <NavBar />
-                <Header searchTerm={this.state.searchTerm} lat={this.state.userLat} howToSearch={this.search}
-                lng={this.state.userLon} howToSearch={this.search} getLocation={this.getLocation} />
-                <Main searchTerm={this.state.searchTerm} lat={this.state.lat} lng={this.state.lng} maxDist={this.state.maxDist} 
-                maxResults={this.state.maxResults}/>
+                <Header searchTerm={this.state.searchTerm} lat={this.state.lat} 
+                lng={this.state.lng} howToSearch={this.search} getLocation={this.getLocation} 
+                easy={this.state.easy} medium={this.state.medium} hard={this.state.hard}/>
+                <Main searchTerm={this.state.searchTerm} lat={this.state.lat} lng={this.state.lng} 
+                maxDist={this.state.maxDist} maxResults={this.state.maxResults}
+                easy={this.state.easy} medium={this.state.medium} hard={this.state.hard}/>
                 <Footer />
             </div>
         )

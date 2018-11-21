@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import starPic from './img/star.png';
 import halfPic from './img/half.png';
+import black from './img/black.png';
+import blue from './img/blue.png';
+import green from './img/green.png';
 import './Results.scss';
 import JwPagination from 'jw-react-pagination';
 
@@ -9,7 +12,7 @@ export class HikeCard extends Component {
     render() {
         let stars = this.props.stars.map((star) => {
             return star;
-        })
+        });
         return (
             <div className="card">
                 <img className='p-3' src={this.props.hike.imgSmall} alt='the hiking place' />
@@ -20,7 +23,7 @@ export class HikeCard extends Component {
                         <li className='rating'>Ratings: {stars}</li>
                         <li>Length: {this.props.hike.length} miles</li>
                         <li>Description: {this.props.hike.summary}</li>
-                        <li>Difficulty: {this.props.hike.difficulty}</li>
+                        <li className='diff'>Difficulty: {this.props.difficulty}</li>
                         <button href={this.props.hike.url} className="btn btn-dark">More Info</button>
                     </ul>
                 </div>
@@ -45,26 +48,25 @@ export class CardContainer extends Component {
         }
     }
 
-    componentWillReceiveProps(props){
-        this.setState({trails:props.trails})
+    componentWillReceiveProps(props) {
+        this.setState({ trails: props.trails })
     }
 
-    onChangePage(pageOfItems){
-        this.setState({pageOfItems})
+    onChangePage(pageOfItems) {
+        this.setState({ pageOfItems })
     }
 
     render() {
-        console.log("results ", this.props.trails);
-        console.log('trails', this.state.trails)
 
-        if(this.props.trails[1] === undefined){
+        if (this.props.trails[1] === undefined) {
             return <h2> Loading </h2>;
         }
-        
+
         return (
             <div className="hike-results card-container">
                 <div className='row'>
                     {this.state.pageOfItems.map((hike) => {
+                        //get rating
                         let ratings = [];
                         let num = hike.stars;
                         for (let i = 0; i < num - 1; i++) {
@@ -73,12 +75,30 @@ export class CardContainer extends Component {
                         if (num % 1 !== 0) {
                             ratings[ratings.length] = <img key='half' src={halfPic} alt='halfstar' />;
                         }
-                        return <HikeCard key={hike.name} hike = {hike} stars={ratings}/>
+                        //get difficulty
+                        let diff;
+                        if (hike.difficulty === 'green' || hike.difficulty === 'greenBlue') {
+                            if (this.props.easy !== false){
+                                diff = <img src={green} alt='easy hike'/>
+                            }
+                        } else if (hike.difficulty === 'blue' || hike.difficulty === 'blueBlack') {
+                            if (this.props.medium !== false){
+                                diff = <img src={blue} alt='medium hike'/>
+                            }
+                        } else if (hike.difficulty === 'black' || hike.difficulty === 'blackBlack'){
+                            if (this.props.hard !== false){
+                                diff = <img src={black} alt='hard hike'/>
+                            }
+                        } 
+                        if (diff !== undefined){
+                            return <HikeCard key={hike.name} hike={hike} stars={ratings} difficulty={diff}/>
+                        } else {
+                            return '';
+                        }
                     })}
-                    {console.log(this.state.trails, this.state.pageOfItems)}
                 </div>
                 <div className='pagination-holder'>
-                    <JwPagination items={this.state.trails} onChangePage={this.onChangePage}/>
+                    <JwPagination items={this.state.trails} onChangePage={this.onChangePage} />
                 </div>
             </div>
         );
