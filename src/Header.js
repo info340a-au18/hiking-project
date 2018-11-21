@@ -31,6 +31,11 @@ export class Header extends Component {
         }
     }
 
+    handleSubmit = (event) => {
+        event.preventDefault();
+        this.search(event);
+    }
+
     search = (event) => {
         event.preventDefault();
         this.props.howToSearch(this.state.searchTerm, this.state.easy,
@@ -57,10 +62,12 @@ export class Header extends Component {
         return (
             <header aria-label="contains the navbar of the page">
                 <div id="headline" aria-label="This is the headline for the page">
-                    <form id="searchBox" role="search" aria-label="This is the search box">
+                    <form id="searchBox" role="search" aria-label="This is the search box" onSubmit={this.handleSubmit}>
                         <h1>Looking for Hikes near</h1>
                         <input id="searchBar" name="searchBar" aria-label="this is a search bar" type="text"
                             onChange={this.handleChange} placeholder="Current Location" />
+                        <button onClick={this.getLocation}>Current Location</button>
+                        <button onclick={this.search}>Search</button>
                     </form>
                     <form>
                         <div className="checkbox">
