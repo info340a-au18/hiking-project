@@ -13,26 +13,23 @@ class App extends Component {
 
         this.state = {
             searchTerm: '',
-            lat: '44.253271',
-            lng: '-115.671681',
+            lat: '47.6062',
+            lng: '-122.3321',
             hikes: {},
             maxDist: 100,
-            maxResults: 100,
-
+            maxResults: 30,
+            easy: true,
+            medium: true,
+            hard: true,
+            error: false
         }
 
     }
 
-    search = (term) => {
+    search = (term, easy, medium, hard, error) => {
 
 
         let url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + term + '&key=AIzaSyBifT_4HbuyAHS6I01s-4ZRjO_P5F3plGg';
-        console.log(url);
-        /*
-        this.setState((state) => {
-            return {searchTerm: search}
-        })
-        */
 
        let promise = fetch(url);
 
@@ -40,36 +37,46 @@ class App extends Component {
            return response.json();
        })
        .then((data) => {
-            console.log(data.results[0].geometry.location.lng,data.results[0].geometry.location.lat);
-            this.getLocation(data.results[0].geometry.location.lat,data.results[0].geometry.location.lng);
-
+           let address = data.results[0].geometry;
+            this.getLocation(address.location.lat,address.location.lng, easy, medium, hard, error);
        })
-       .catch(function (err){
-           console.log(err);
+       .catch((err) => {
+           this.getError(err);
        });
-   
-        
-
     }
 
-    getLocation = (lat, lon) => {
-        this.setState((state) => {
+    getError = (error) => {
+        this.setState(() => {
+            return {error: error}
+        })
+    }
+
+    getLocation = (lat, lng, easy, medium, hard, error) => {
+        this.setState(() => {
              return {
                  lat: lat,
-                 lng: lon
+                 lng: lng,
+                 easy: easy,
+                 medium: medium,
+                 hard: hard,
+                 error: error
              }
         })
-        console.log("does this keep doign this");
     }
 
     render() {
         return (
             <div className='home'>
                 <NavBar />
-                <Header searchTerm={this.state.searchTerm} lat={this.state.userLat} howToSearch={this.search}
-                lng={this.state.userLon} howToSearch={this.search} getLocation={this.getLocation} />
-                <Main searchTerm={this.state.searchTerm} lat={this.state.lat} lng={this.state.lng} maxDist={this.state.maxDist} 
-                maxResults={this.state.maxResults}/>
+                {this.state.error && <div className="error-message">Address not found</div>}
+                <Header searchTerm={this.state.searchTerm} lat={this.state.lat} 
+                lng={this.state.lng} howToSearch={this.search} getLocation={this.getLocation} 
+                easy={this.state.easy} medium={this.state.medium} hard={this.state.hard}
+                error={this.state.error}/>
+                <Main searchTerm={this.state.searchTerm} lat={this.state.lat} lng={this.state.lng} 
+                maxDist={this.state.maxDist} maxResults={this.state.maxResults}
+                easy={this.state.easy} medium={this.state.medium} hard={this.state.hard}
+                error={this.state.error}/>
                 <Footer />
             </div>
         )

@@ -1,29 +1,31 @@
-$myBlue: #87b1fa;
+$myBlue:  #185b64;
 
 header {
     background-image: url('./img/nature2-small.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    height: 600px;
+    height: 400px;
     padding: 20px 0;
+    text-align: center;
+    background-color: rgba($myBlue, .15);
     #headline {
         color: white;
-        background-color: rgba(39, 68, 118, .1);
-        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
         font-size: 1em;
         font-weight: bold;
         justify-content: center;
         align-items: center;
         margin-left: 30px;
     }
-
+    h1{
+        text-shadow: 1px 1px #185b64;
+    }
     form{
         margin: 1em 30px;
     }
     
     #searchBox {
-        width:100%;
+        width:90%;
     }
     
     input {
@@ -33,9 +35,19 @@ header {
         margin: 10px;
     }
     
+    #searchBar {
+        width: 225px;
+    }
+    
     button {
         border-radius: 2em;
         border:none;
         margin: 5px;
+    }
+}
+
+@media (min-width: 576px) {
+    header #searchBar {
+        width: 300px;
     }
 }

@@ -78,7 +78,7 @@ function getTrail(data) {
 
 //button listen to events and return output
 $('input').keypress(function (e) {
-    var keycode = (e.keyCode ? e.keyCode : e.which);
+    let keycode = (e.keyCode ? e.keyCode : e.which);
     if (keycode == '13') {
         if ($('input').val() != undefined & $('input').val() != '') {
             return getGeo($('input').val());
