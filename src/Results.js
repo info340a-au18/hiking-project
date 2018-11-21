@@ -64,11 +64,11 @@ export class CardContainer extends Component {
     }
 
     componentWillReceiveProps(props) {
-        this.setState({ trails: props.trails })
+        this.setState({ trails: props.trails });
     }
 
     onChangePage(pageOfItems) {
-        this.setState({ pageOfItems })
+        this.setState({ pageOfItems });
     }
 
     render() {

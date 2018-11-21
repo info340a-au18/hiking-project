@@ -53,7 +53,7 @@ export class Main extends Component {
 
                 <div className="section">
                     <CardContainer trails={this.state.trailData} easy={this.props.easy}
-                        medium={this.props.medium} hard={this.props.hard} error={this.props.error} />
+                        medium={this.props.medium} hard={this.props.hard} error={this.props.error}/>
                 </div>
             </main>
         )

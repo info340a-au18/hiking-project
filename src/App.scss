@@ -1,3 +1,5 @@
+$myError: #ff7272;
+
 html, body {
     margin: 0;
     padding: 0;
@@ -10,7 +12,7 @@ html, body {
 }
 
 .error-message {
-    background-color: #ff7272;
+    background-color: $myError;
     color: white;
     padding: 1em;
   }

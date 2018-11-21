@@ -21,7 +21,7 @@ class App extends Component {
             easy: true,
             medium: true,
             hard: true,
-            error: false
+            error: ""
         }
 
     }
@@ -71,14 +71,16 @@ class App extends Component {
     }
 
     render() {
+        console.log(this.state.error);
+        let error = this.state.error !== "" ? <div className="error-message">{this.state.error}</div>: null;
         return (
             <div className='home'>
                 <NavBar />
-                {this.state.error && <div className="error-message">Address not found</div>}
+                {error}
                 <Header searchTerm={this.state.searchTerm} lat={this.state.lat} 
                 lng={this.state.lng} howToSearch={this.search} getFilter={this.getFilter} getLocation={this.getLocation} 
                 easy={this.state.easy} medium={this.state.medium} hard={this.state.hard}
-                error={this.state.error}/>
+                error={this.state.error} getError={this.getError}/>
                 <Main searchTerm={this.state.searchTerm} lat={this.state.lat} lng={this.state.lng} 
                 maxDist={this.state.maxDist} maxResults={this.state.maxResults}
                 easy={this.state.easy} medium={this.state.medium} hard={this.state.hard}
