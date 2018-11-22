@@ -40,11 +40,24 @@ export class Main extends Component {
         this.getData(this.props.lat, this.props.lng, this.props.maxDist, this.props.maxResults);
     }
 
+    /*
     componentWillReceiveProps(nextProps) {
         this.getData(nextProps.lat, nextProps.lng, nextProps.maxDist, nextProps.maxResults);
     }
+    */
+
+    componentDidUpdate(prevProps, prevState){
+        console.log("prevstate lat ",prevState.lat);
+
+
+        if(prevProps.lat != this.props.lat && prevProps.lng != this.props.lng){
+            console.log("checking");
+            this.getData(this.props.lat, this.props.lng, this.props.maxDist, this.props.maxResults);
+        }
+    }
 
     render() {
+        console.log("test");
         return (
             <main aria-label="contains the main content of the page">
                 <div className="section">
@@ -52,8 +65,7 @@ export class Main extends Component {
                 </div>
 
                 <div className="section">
-                    <CardContainer trails={this.state.trailData} easy={this.props.easy}
-                        medium={this.props.medium} hard={this.props.hard} error={this.props.error} />
+                    <CardContainer trails={this.state.trailData}  />
                 </div>
             </main>
         )

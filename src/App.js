@@ -41,6 +41,7 @@ class App extends Component {
             this.getLocation(address.location.lat,address.location.lng, easy, medium, hard, error);
        })
        .catch((err) => {
+           console.log("here");
            this.getError(err);
        });
     }

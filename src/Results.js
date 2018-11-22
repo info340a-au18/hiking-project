@@ -11,16 +11,34 @@ import JwPagination from 'jw-react-pagination';
 export class HikeCard extends Component {
 
     render() {
-        let stars = this.props.stars.map((star) => {
+        //get rating
+        let ratings = [];
+        let num = this.props.hike.stars;
+        for (let i = 0; i < num - 1; i++) {
+            ratings[i] = <img key={i} src={starPic} alt='fullstar' />;
+        }
+        if (num % 1 !== 0) {
+            ratings[ratings.length] = <img key='half' src={halfPic} alt='halfstar' />;
+        }
+        let stars = ratings.map((star) => {
             return star;
         });
         let img = this.props.hike.imgSmall;
         if (img === ''){
             img = placeHolder;
         } 
+        //get difficulty
+        let diff = this.props.hike.difficulty;
+        if (diff === 'green' || diff === 'greenBlue') {
+            diff = <img src={green} alt='easy hike' />
+        } else if (diff === 'blue' || diff === 'blueBlack') {
+            diff = <img src={blue} alt='medium hike' />
+        } else {
+            diff = <img src={black} alt='hard hike' />
+        }
         return (
             <div className="card">
-                <img className='p-3' src={img} alt='the hiking place' />
+                <img className='p-3' src={this.props.hike.imgMedium} alt='the hiking place' />
                 <div className="card-body">
                     <h5 className="card-title">{this.props.hike.name}</h5>
                     <ul className="card-text">
@@ -28,7 +46,7 @@ export class HikeCard extends Component {
                         <li className='rating'>Ratings: {stars}</li>
                         <li>Length: {this.props.hike.length} miles</li>
                         <li>Description: {this.props.hike.summary}</li>
-                        <li className='diff'>Difficulty: {this.props.difficulty}</li>
+                        <li className='diff'>Difficulty: {diff}</li>
                         <button href={this.props.hike.url} className="btn btn-dark">More Info</button>
                     </ul>
                 </div>
@@ -48,69 +66,53 @@ export class CardContainer extends Component {
         this.onChangePage = this.onChangePage.bind(this);
 
         this.state = {
-            trails: this.props.trails,
-            pageOfItems: []
+            pageOfItems: this.props.trails
         }
-    }
-
-    componentWillReceiveProps(props) {
-        this.setState({ trails: props.trails })
     }
 
     onChangePage(pageOfItems) {
         this.setState({ pageOfItems })
     }
 
+
+    easyFilter(hike){
+        return( hike.difficulty == "green" || hike.difficulty == "greenBlue");
+    }
+
+    filterDiff = (hikes) => {
+
+        let hikesToDisplay = hikes.filter( (hike) => {
+            return( this.easyFilter(hike));
+        })
+
+        console.log(hikesToDisplay);
+    }
+
     render() {
 
-        if (this.props.error) {
-            return '';
-        } else {
-            let count = 0;
-            return (
+    let hikes;
+    if(this.state.pageOfItems[1] != undefined){
+        hikes = this.state.pageOfItems.map((hike) => {
+                return (<HikeCard key={hike.id} hike={hike}  />);
+        });
+    }else{
+        hikes = <h2> Loading </h2>;
+    }
+
+
+        return(
                 <div className="hike-results card-container">
                     <div className='row'>
-                        {this.state.pageOfItems.map((hike) => {
-                            count++;
-                            //get rating
-                            let ratings = [];
-                            let num = hike.stars;
-                            for (let i = 0; i < num - 1; i++) {
-                                ratings[i] = <img key={i} src={starPic} alt='fullstar' />;
-                            }
-                            if (num % 1 !== 0) {
-                                ratings[ratings.length] = <img key='half' src={halfPic} alt='halfstar' />;
-                            }
-                            //get difficulty
-                            let diff;
-                            if (hike.difficulty === 'green' || hike.difficulty === 'greenBlue') {
-                                if (this.props.easy !== false) {
-                                    diff = <img src={green} alt='easy hike' />
-                                }
-                            } else if (hike.difficulty === 'blue' || hike.difficulty === 'blueBlack') {
-                                if (this.props.medium !== false) {
-                                    diff = <img src={blue} alt='medium hike' />
-                                }
-                            } else if (hike.difficulty === 'black' || hike.difficulty === 'blackBlack') {
-                                if (this.props.hard !== false) {
-                                    diff = <img src={black} alt='hard hike' />
-                                }
-                            }
-                            if (diff !== undefined) {
-                                return <HikeCard key={hike.name + count} hike={hike} stars={ratings} difficulty={diff} />
-                            } else {
-                                return '';
-                            }
-                        })}
+                    {hikes}
                     </div>
                     <div className='pagination-holder'>
-                        <JwPagination items={this.state.trails} onChangePage={this.onChangePage} 
+                        <JwPagination items={this.props.trails} onChangePage={this.onChangePage} 
                         pageSize={6} disableDefaultStyles={true}/>
                     </div>
                 </div>
             );
         }
-    }
+    
 
 
 }
