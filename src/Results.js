@@ -27,8 +27,20 @@ export class HikeCard extends Component {
         if (img === '') {
             img = placeHolder;
         }
-        //get difficulty
-        let diff = this.props.diff;
+
+        let diff;
+        if (this.props.hike.difficulty === "green" || this.props.hike.difficulty === "greenBlue"){
+                diff = easy;
+            
+        } else if (this.props.hike.difficulty === "blue" || this.props.hike.difficulty === "blueBlack"){
+                diff = medium;
+        } else if (this.props.hike.difficulty === "black" || this.props.hike.difficulty === "blackBlack"){
+                diff = hard;
+        } else {
+            diff = "";
+        }
+       
+
         return (
             <div className="card">
                 <img className='p-3' src={this.props.hike.imgMedium} alt='the hiking place' />
@@ -67,21 +79,7 @@ export class CardContainer extends Component {
     }
 
     filterDiff = (hike) => {
-        if (hike.difficulty === "green" || hike.difficulty === "greenBlue"){
-            if(this.props.easy){
-                return easy;
-            }
-        } else if (hike.difficulty === "blue" || hike.difficulty === "blueBlack"){
-            if (this.props.medium){
-                return medium;
-            }
-        } else if (hike.difficulty === "black" || hike.difficulty === "blackBlack"){
-            if(this.props.hard){
-                return hard;
-            }
-        } else {
-            return "";
-        }
+
     }
 
     render() {
@@ -89,10 +87,7 @@ export class CardContainer extends Component {
         if (this.state.pageOfItems[1] !== undefined) {
             hikes = this.state.pageOfItems.map((hike) => {
                 let diff = this.filterDiff(hike);
-                if (diff !== undefined){
-                    return (<HikeCard key={hike.id} hike={hike} diff={diff}/>);
-                } 
-                return "";
+                    return (<HikeCard key={hike.id} hike={hike} />);    
             });
         } 
         return (
