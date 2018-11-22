@@ -1,4 +1,6 @@
 $myBlue:  #185b64;
+$myGreen: #006400;
+$myBlack: #404040;
 
 header {
     background-image: url('./img/nature2-small.jpg');
@@ -9,24 +11,31 @@ header {
     padding: 20px 0;
     text-align: center;
     text-shadow: 1px 1px $myBlue;
-    #headline {
-        color: white;
-        font-size: 1em;
-        font-weight: bold;
-        justify-content: center;
-        align-items: center;
+    color: white;
+    font-size: 1em;
+    font-weight: bold;
+    justify-content: center;
+    align-items: center;
+
+    h1 {
+        font-size: 1.8em;
     }
+    
     form{
         margin: 1em 30px;
+        h4 {
+            font-size: 1.3em;
+        }
+        img{
+            height: 15px;
+            width: 15px;
+            margin-right: 10px;
+        }
     }
     
     #searchBox {
         opacity: 0.8;
         width:100%;
-        img {
-            height: 35px;
-            padding-bottom: 15px;
-        }
     }
     #searchBox:hover {
         opacity: 1;
@@ -47,15 +56,27 @@ header {
     
     .btn {
         height: 30px;
+        width: 30px;
         border-radius: 2em;
-        border:none;
+        border: none;
         margin: 5px;
+        padding: 0;
         box-shadow: 0.5px 0.5px $myBlue;
+        img {
+            margin: 0;
+            height: 20px;
+            width: 20px;
+        }
     }
 }
 
 @media (min-width: 576px) {
-    header #searchBar {
+    header {
+        #searchBar {
         width: 300px;
+        }
+        h1 {
+            font-size: 3em;
+        }
     }
 }

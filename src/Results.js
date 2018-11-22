@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import starPic from './img/star.png';
 import halfPic from './img/half.png';
-import black from './img/black.png';
-import blue from './img/blue.png';
-import green from './img/green.png';
+import hard from './img/black.png';
+import medium from './img/blue.png';
+import easy from './img/green.png';
 import placeHolder from './img/hiker-mini.jpg'
 import './Results.scss';
 import JwPagination from 'jw-react-pagination';
@@ -24,14 +24,14 @@ export class HikeCard extends Component {
             return star;
         });
         let img = this.props.hike.imgSmall;
-        if (img === ''){
+        if (img === '') {
             img = placeHolder;
-        } 
+        }
         //get difficulty
         let diff = this.props.diff;
         return (
             <div className="card">
-                <img className='p-3' src={img} alt='the hiking place' />
+                <img className='p-3' src={this.props.hike.imgMedium} alt='the hiking place' />
                 <div className="card-body">
                     <h5 className="card-title">{this.props.hike.name}</h5>
                     <ul className="card-text">
@@ -58,49 +58,56 @@ export class CardContainer extends Component {
         this.onChangePage = this.onChangePage.bind(this);
 
         this.state = {
-            trails: this.props.trails,
-            pageOfItems: []
+            pageOfItems: this.props.trails,
         }
-    }
-
-    componentWillReceiveProps(props) {
-        this.setState({ trails: props.trails });
     }
 
     onChangePage(pageOfItems) {
         this.setState({ pageOfItems });
     }
 
-    render() {
-        let filter = this.state.pageOfItems.map((hike) => {
-            let diff;
-            if (this.props.easy && (hike.difficulty === 'green' || hike.difficulty === 'greenBlue')){
-                diff = green;
-            } else if (this.props.medium && (hike.difficulty === 'blue' || hike.difficulty === 'blueBlack')){
-                diff = blue;
-            } else if (this.props.hard && (hike.difficulty === 'black' || hike.difficulty === 'blackBlack')){
-                diff = black;
-            } else {
-                return "";
+    filterDiff = (hike) => {
+        if (hike.difficulty === "green" || hike.difficulty === "greenBlue"){
+            if(this.props.easy){
+                return easy;
             }
-            return <HikeCard key={hike.id} hike={hike} diff={diff}/>
-        })
-        if (this.props.error) {
-            return '';
+        } else if (hike.difficulty === "blue" || hike.difficulty === "blueBlack"){
+            if (this.props.medium){
+                return medium;
+            }
+        } else if (hike.difficulty === "black" || hike.difficulty === "blackBlack"){
+            if(this.props.hard){
+                return hard;
+            }
         } else {
-            return (
-                <div className="hike-results card-container">
-                    <div className='row'>
-                        {filter}
-                    </div>
-                    <div className='pagination-holder'>
-                        <JwPagination items={this.state.trails} onChangePage={this.onChangePage} 
-                        pageSize={6} disableDefaultStyles={true}/>
-                    </div>
-                </div>
-            );
+            return "";
         }
     }
+
+    render() {
+        let hikes;
+        if (this.state.pageOfItems[1] !== undefined) {
+            hikes = this.state.pageOfItems.map((hike) => {
+                let diff = this.filterDiff(hike);
+                if (diff !== undefined){
+                    return (<HikeCard key={hike.id} hike={hike} diff={diff}/>);
+                } 
+                return "";
+            });
+        } 
+        return (
+            <div className="hike-results card-container">
+                <div className='row'>
+                    {hikes}
+                </div>
+                <div className='pagination-holder'>
+                    <JwPagination items={this.props.trails} onChangePage={this.onChangePage}
+                        pageSize={6} disableDefaultStyles={true} />
+                </div>
+            </div>
+        );
+    }
+
 
 
 }

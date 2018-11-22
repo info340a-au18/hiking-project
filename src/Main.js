@@ -31,7 +31,7 @@ export class Main extends Component {
                     }
                 );
             })
-            .catch(function (err) {
+            .catch(function () {
             });
     }
 
@@ -39,28 +39,31 @@ export class Main extends Component {
         this.getData(this.props.lat, this.props.lng, this.props.maxDist, this.props.maxResults);
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.getData(nextProps.lat, nextProps.lng, nextProps.maxDist, nextProps.maxResults);
+    componentDidUpdate(prevProps, prevState){
+        if(prevProps.lat !== this.props.lat && prevProps.lng !== this.props.lng){
+            this.getData(this.props.lat, this.props.lng, this.props.maxDist, this.props.maxResults);
+        }
     }
 
     render() {
+        let error;
         if (this.state.trailData.length === 0) {
-            return <div className="error-message">Cannot find hikes :(</div>
-        } else {
-            return (
-                <main aria-label="contains the main content of the page">
-                    <div className="section">
-                        <MapArea id="map" lat={this.props.lat} lng={this.props.lng} trails={this.state.trailData} error={this.props.error}
-                            getError={this.props.getError} />
-                    </div>
-
-                    <div className="section">
-                        <CardContainer trails={this.state.trailData} easy={this.props.easy}
-                            medium={this.props.medium} hard={this.props.hard} error={this.props.error}
-                            getError={this.props.getError} />
-                    </div>
-                </main>
-            )
+            error = <div className="error-message">Cannot find hikes :(</div>;
         }
+        return (
+            <main aria-label="contains the main content of the page">
+                {error}
+                <div className="section">
+                    <MapArea lat={this.props.lat} lng={this.props.lng} trails={this.state.trailData} />
+                </div>
+
+                <div className="section">
+                    <CardContainer trails={this.state.trailData} 
+                    easy={this.props.easy} 
+                    medium={this.props.medium} 
+                    hard={this.props.hard} />
+                </div>
+            </main>
+        )
     }
 }

@@ -41,6 +41,7 @@ class App extends Component {
             this.getLocation(address.location.lat,address.location.lng, error);
        })
        .catch((err) => {
+           console.log("here");
            this.getError(err);
        });
     }
@@ -75,7 +76,6 @@ class App extends Component {
         return (
             <div className='home'>
                 <NavBar />
-                {error}
                 <Header 
                     searchTerm={this.state.searchTerm} 
                     lat={this.state.lat} 
@@ -88,15 +88,14 @@ class App extends Component {
                     hard={this.state.hard}
                     error={this.state.error} 
                     getError={this.getError}/>
+                {error}
                 <Main searchTerm={this.state.searchTerm} 
                     lat={this.state.lat} lng={this.state.lng} 
                     maxDist={this.state.maxDist} 
                     maxResults={this.state.maxResults}
                     easy={this.state.easy} 
                     medium={this.state.medium} 
-                    hard={this.state.hard}
-                    error={this.state.error} 
-                    getError={this.getError}/>
+                    hard={this.state.hard}/>
                 <Footer />
             </div>
         )
