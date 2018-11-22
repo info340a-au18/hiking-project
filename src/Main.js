@@ -23,17 +23,16 @@ export class Main extends Component {
         promise.then(function (response) {
             return response.json();
         })
-        .then((data) => {
-            this.setState(
-                {
-                    trailData: data.trails,
-                    displayedTrails: data.trails
-                }
-            );
-        })
-        .catch(function (err) {
-            console.log(err);
-        });
+            .then((data) => {
+                this.setState(
+                    {
+                        trailData: data.trails,
+                        displayedTrails: data.trails
+                    }
+                );
+            })
+            .catch(function (err) {
+            });
     }
 
     componentDidMount() {
@@ -45,17 +44,23 @@ export class Main extends Component {
     }
 
     render() {
-        return (
-            <main aria-label="contains the main content of the page">
-                <div className="section">
-                    <MapArea lat={this.props.lat} lng={this.props.lng} trails={this.state.trailData} />
-                </div>
+        if (this.state.trailData.length === 0) {
+            return <div className="error-message">Cannot find hikes :(</div>
+        } else {
+            return (
+                <main aria-label="contains the main content of the page">
+                    <div className="section">
+                        <MapArea id="map" lat={this.props.lat} lng={this.props.lng} trails={this.state.trailData} error={this.props.error}
+                            getError={this.props.getError} />
+                    </div>
 
-                <div className="section">
-                    <CardContainer trails={this.state.trailData} easy={this.props.easy}
-                        medium={this.props.medium} hard={this.props.hard} error={this.props.error}/>
-                </div>
-            </main>
-        )
+                    <div className="section">
+                        <CardContainer trails={this.state.trailData} easy={this.props.easy}
+                            medium={this.props.medium} hard={this.props.hard} error={this.props.error}
+                            getError={this.props.getError} />
+                    </div>
+                </main>
+            )
+        }
     }
 }

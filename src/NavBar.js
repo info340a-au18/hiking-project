@@ -23,7 +23,7 @@ export class NavBar extends Component {
                 <Menu open={this.state.isOpen} menu={this.menu}/>
                 <div>
                     <img id="hamburger-menu" onClick={this.menu} src={logo} alt="icon" />
-                    <h1>WA HIKIERS</h1>
+                    <h1>WA HIKERS</h1>
                 </div>
             </nav>
         );

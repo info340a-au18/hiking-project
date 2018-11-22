@@ -130,7 +130,7 @@ class LoadingButton extends React.Component {
     render() {
         let display = this.state.loading ? <img src={loading} alt="loading"/> : <img src={this.props.img} alt="get current location"/>;
       return (
-        <Button  
+        <Button
           disabled={this.state.loading}
           onClick={!this.state.loading ? this.handleClick : null}
         >
