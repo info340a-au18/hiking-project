@@ -28,14 +28,7 @@ export class HikeCard extends Component {
             img = placeHolder;
         } 
         //get difficulty
-        let diff = this.props.hike.difficulty;
-        if (diff === 'green' || diff === 'greenBlue') {
-            diff = <img src={green} alt='easy hike' />
-        } else if (diff === 'blue' || diff === 'blueBlack') {
-            diff = <img src={blue} alt='medium hike' />
-        } else {
-            diff = <img src={black} alt='hard hike' />
-        }
+        let diff = this.props.diff;
         return (
             <div className="card">
                 <img className='p-3' src={this.props.hike.imgMedium} alt='the hiking place' />
@@ -46,7 +39,7 @@ export class HikeCard extends Component {
                         <li className='rating'>Ratings: {stars}</li>
                         <li>Length: {this.props.hike.length} miles</li>
                         <li>Description: {this.props.hike.summary}</li>
-                        <li className='diff'>Difficulty: {diff}</li>
+                        <li className='diff'>Difficulty: <img src={diff} alt={diff} /></li>
                         <button href={this.props.hike.url} className="btn btn-dark">More Info</button>
                     </ul>
                 </div>
@@ -62,7 +55,6 @@ export class CardContainer extends Component {
 
     constructor(props) {
         super(props);
-
         this.onChangePage = this.onChangePage.bind(this);
 
         this.state = {
@@ -71,7 +63,7 @@ export class CardContainer extends Component {
     }
 
     onChangePage(pageOfItems) {
-        this.setState({ pageOfItems })
+        this.setState({ pageOfItems });
     }
 
 
