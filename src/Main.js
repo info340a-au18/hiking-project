@@ -40,12 +40,6 @@ export class Main extends Component {
         this.getData(this.props.lat, this.props.lng, this.props.maxDist, this.props.maxResults);
     }
 
-    /*
-    componentWillReceiveProps(nextProps) {
-        this.getData(nextProps.lat, nextProps.lng, nextProps.maxDist, nextProps.maxResults);
-    }
-    */
-
     componentDidUpdate(prevProps, prevState){
         console.log("prevstate lat ",prevState.lat);
 
