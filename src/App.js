@@ -21,12 +21,12 @@ class App extends Component {
             easy: true,
             medium: true,
             hard: true,
-            error: ""
+            error: false
         }
 
     }
 
-    search = (term, error) => {
+    search = (term, easy, medium, hard, error) => {
 
 
         let url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + term + '&key=AIzaSyBifT_4HbuyAHS6I01s-4ZRjO_P5F3plGg';
@@ -38,10 +38,9 @@ class App extends Component {
        })
        .then((data) => {
            let address = data.results[0].geometry;
-            this.getLocation(address.location.lat,address.location.lng, error);
+            this.getLocation(address.location.lat,address.location.lng, easy, medium, hard, error);
        })
        .catch((err) => {
-           console.log("here");
            this.getError(err);
        });
     }
@@ -62,40 +61,29 @@ class App extends Component {
         })
     }
 
-    getFilter = (target) => {
-        let name = target.name;
-        if (target.checked) {
-            this.setState({ [name]: target.value });
-        } else {
-            this.setState({ [name]: !target.value });
-        }
+    getFilters = (easy, medium, hard) =>{
+        this.setState(
+            {
+            easy: easy,
+            medium: medium,
+            hard: hard
+            }
+        )
     }
 
     render() {
-        let error = this.state.error !== "" ? <div className="error-message">{this.state.error}</div>: null;
         return (
             <div className='home'>
                 <NavBar />
-                <Header 
-                    searchTerm={this.state.searchTerm} 
-                    lat={this.state.lat} 
-                    lng={this.state.lng} 
-                    howToSearch={this.search} 
-                    getFilter={this.getFilter} 
-                    getLocation={this.getLocation} 
-                    easy={this.state.easy} 
-                    medium={this.state.medium} 
-                    hard={this.state.hard}
-                    error={this.state.error} 
-                    getError={this.getError}/>
-                {error}
-                <Main searchTerm={this.state.searchTerm} 
-                    lat={this.state.lat} lng={this.state.lng} 
-                    maxDist={this.state.maxDist} 
-                    maxResults={this.state.maxResults}
-                    easy={this.state.easy} 
-                    medium={this.state.medium} 
-                    hard={this.state.hard}/>
+                {this.state.error && <div className="error-message">Address not found</div>}
+                <Header searchTerm={this.state.searchTerm} lat={this.state.lat} 
+                lng={this.state.lng} howToSearch={this.search} getLocation={this.getLocation} 
+                easy={this.state.easy} medium={this.state.medium} hard={this.state.hard}
+                error={this.state.error}/>
+                <Main searchTerm={this.state.searchTerm} lat={this.state.lat} lng={this.state.lng} 
+                maxDist={this.state.maxDist} maxResults={this.state.maxResults}
+                easy={this.state.easy} medium={this.state.medium} hard={this.state.hard}
+                error={this.state.error}/>
                 <Footer />
             </div>
         )

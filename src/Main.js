@@ -8,7 +8,7 @@ export class Main extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { trailData: {}, displayedTrails: {}, newLocation: false };
+        this.state = { trailData: {}, displayedTrails: {} };
     }
 
     //Search term from form is passed in as this.props.searchTerm
@@ -35,6 +35,29 @@ export class Main extends Component {
             });
     }
 
+    diffFilter(diffFilter){
+        let hikesToDisplay = this.state.trailData;
+    /*
+        if( !diffFilter.easy){
+            hikesToDisplay.filter( (hike) => {
+                return !(hike.difficulty === "green" || hike.difficulty === "greenBlue")
+            });
+        }else if( !diffFilter.medium){
+            hikesToDisplay.filter( (hike) => {
+                return !(hike.difficulty === "blue" || hike.difficulty === "blueBlack")
+            });
+        }else if (!diffFilter.hard){
+            hikesToDisplay.filter( (hike) => {
+                return !(hike.difficulty === "black" || hike.difficulty === "blackBlack")
+            });
+        }
+
+        this.setState( { displayedTrails: hikesToDisplay} );
+        */
+
+
+    }
+
     componentDidMount() {
         this.getData(this.props.lat, this.props.lng, this.props.maxDist, this.props.maxResults);
     }
@@ -43,13 +66,19 @@ export class Main extends Component {
         if(prevProps.lat !== this.props.lat && prevProps.lng !== this.props.lng){
             this.getData(this.props.lat, this.props.lng, this.props.maxDist, this.props.maxResults);
         }
+
+        console.log(this.props.easy,this.props.medium,this.props.hard);
+
     }
+
 
     render() {
         let error;
         if (this.state.trailData.length === 0) {
             error = <div className="error-message">Cannot find hikes :(</div>;
         }
+
+
         return (
             <main aria-label="contains the main content of the page">
                 {error}
@@ -58,10 +87,7 @@ export class Main extends Component {
                 </div>
 
                 <div className="section">
-                    <CardContainer trails={this.state.trailData} 
-                    easy={this.props.easy} 
-                    medium={this.props.medium} 
-                    hard={this.props.hard} />
+                    <CardContainer trails={this.state.trailData} />
                 </div>
             </main>
         )
