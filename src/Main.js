@@ -8,7 +8,7 @@ export class Main extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { trailData: {}, displayedTrails: {} };
+        this.state = { trailData: {}, displayedTrails: {}, newLocation: false };
     }
 
     //Search term from form is passed in as this.props.searchTerm
@@ -30,30 +30,34 @@ export class Main extends Component {
                         displayedTrails: data.trails
                     }
                 );
+                this.diffFilter();
             })
             .catch(function () {
             });
     }
 
-    diffFilter(diffFilter){
+    diffFilter(){
         let hikesToDisplay = this.state.trailData;
-    /*
-        if( !diffFilter.easy){
-            hikesToDisplay.filter( (hike) => {
+    
+        if( !this.props.easy){
+            hikesToDisplay = hikesToDisplay.filter( (hike) => {
                 return !(hike.difficulty === "green" || hike.difficulty === "greenBlue")
             });
-        }else if( !diffFilter.medium){
-            hikesToDisplay.filter( (hike) => {
+        }
+        
+        if( !this.props.medium){
+            hikesToDisplay = hikesToDisplay.filter( (hike) => {
                 return !(hike.difficulty === "blue" || hike.difficulty === "blueBlack")
             });
-        }else if (!diffFilter.hard){
-            hikesToDisplay.filter( (hike) => {
+        }
+        
+        if (!this.props.hard){
+            hikesToDisplay = hikesToDisplay.filter( (hike) => {
                 return !(hike.difficulty === "black" || hike.difficulty === "blackBlack")
             });
         }
-
         this.setState( { displayedTrails: hikesToDisplay} );
-        */
+        
 
 
     }
@@ -67,27 +71,29 @@ export class Main extends Component {
             this.getData(this.props.lat, this.props.lng, this.props.maxDist, this.props.maxResults);
         }
 
-        console.log(this.props.easy,this.props.medium,this.props.hard);
+        if(prevProps.easy !== this.props.easy || prevProps.medium !== this.props.medium || prevProps.hard != this.props.hard){
+            this.diffFilter();
+        }
 
     }
-
 
     render() {
         let error;
         if (this.state.trailData.length === 0) {
             error = <div className="error-message">Cannot find hikes :(</div>;
         }
-
-
         return (
             <main aria-label="contains the main content of the page">
                 {error}
                 <div className="section">
-                    <MapArea lat={this.props.lat} lng={this.props.lng} trails={this.state.trailData} />
+                    <MapArea lat={this.props.lat} lng={this.props.lng} trails={this.state.displayedTrails} />
                 </div>
 
                 <div className="section">
-                    <CardContainer trails={this.state.trailData} />
+                    <CardContainer trails={this.state.displayedTrails} 
+                    easy={this.props.easy} 
+                    medium={this.props.medium} 
+                    hard={this.props.hard} />
                 </div>
             </main>
         )
