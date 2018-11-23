@@ -21,6 +21,8 @@ class App extends Component {
             easy: true,
             medium: true,
             hard: true,
+            distance: [0,200],
+            elevation: [0,6000],
             error: ""
         }
 
@@ -71,6 +73,18 @@ class App extends Component {
         }
     }
 
+    changeDistance = (value) => {
+        this.setState({
+            distance: value
+        });
+    }
+
+    changeElevation = (value) => {
+        this.setState({
+            elevation: value
+        });
+    }
+
     render() {
         let error = this.state.error !== "" ? <div className="error-message">{this.state.error}</div>: null;
         return (
@@ -87,7 +101,9 @@ class App extends Component {
                     medium={this.state.medium} 
                     hard={this.state.hard}
                     error={this.state.error} 
-                    getError={this.getError}/>
+                    getError={this.getError}
+                    changeDistance={this.changeDistance}
+                    changeElevation={this.changeElevation}/>
                 {error}
                 <Main searchTerm={this.state.searchTerm} 
                     lat={this.state.lat} lng={this.state.lng} 
@@ -95,7 +111,9 @@ class App extends Component {
                     maxResults={this.state.maxResults}
                     easy={this.state.easy} 
                     medium={this.state.medium} 
-                    hard={this.state.hard}/>
+                    hard={this.state.hard}
+                    distance={this.state.distance}
+                    elevation={this.state.elevation} />
                 <Footer />
             </div>
         )

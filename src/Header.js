@@ -8,6 +8,15 @@ import medium from './img/blue.png';
 import easy from './img/green.png';
 import 'bootstrap/dist/css/bootstrap.css';
 import './Header.scss';
+import Slider from 'rc-slider';
+import 'rc-slider/assets/index.css';
+import Tooltip from 'rc-tooltip';
+
+const createSliderWithTooltip = Slider.createSliderWithTooltip;
+const Range = createSliderWithTooltip(Slider.Range);
+const Handle = Slider.Handle;
+
+
 
 
 export class Header extends Component {
@@ -18,6 +27,14 @@ export class Header extends Component {
         this.state = {
             searchTerm: ""
         }
+    }
+
+    changeDistance = (value) => {
+        this.props.changeDistance(value);
+    }
+
+    changeElevation = (value) => {
+        this.props.changeElevation(value);
     }
 
 
@@ -99,6 +116,14 @@ export class Header extends Component {
                             onChange={this.handleChange} />
                     </label>
                 </form>
+                <h4>Filter by Distance</h4>
+                <div className="slider">
+                <Range min={0} max={100} defaultValue={[0, 100]} tipFormatter={value => `${value}`} tipProps={{visible:true}} onAfterChange={this.changeDistance} />
+                </div>
+                <h4>Filter by Elevation</h4>
+                <div className="slider">
+                <Range min={0} max={6000} defaultValue={[0, 6000]} tipFormatter={value => `${value}`} tipProps={{visible:true}} onAfterChange={this.changeElevation} />
+                </div>
             </header>
         )
 

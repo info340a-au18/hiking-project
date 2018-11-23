@@ -36,8 +36,8 @@ export class Main extends Component {
             });
     }
 
-    diffFilter(){
-        let hikesToDisplay = this.state.trailData;
+    diffFilter(hikesToDisplay){
+        
     
         if( !this.props.easy){
             hikesToDisplay = hikesToDisplay.filter( (hike) => {
@@ -56,10 +56,38 @@ export class Main extends Component {
                 return !(hike.difficulty === "black" || hike.difficulty === "blackBlack")
             });
         }
-        this.setState( { displayedTrails: hikesToDisplay} );
         
+        return hikesToDisplay;
+    }
 
+    distFilter(hikesToDisplay){
+       
+        hikesToDisplay = hikesToDisplay.filter( (hike) => {
+         
+            return (hike.length >= this.props.distance[0] && hike.length <= this.props.distance[1]);
+        });
 
+        return hikesToDisplay;
+    }
+
+    elevFilter(hikesToDisplay){
+       
+        hikesToDisplay = hikesToDisplay.filter( (hike) => {
+
+            return (hike.ascent >= this.props.elevation[0] && hike.ascent <= this.props.elevation[1]);
+        });
+
+        return hikesToDisplay;
+    }
+
+    applyAllFilters = (hikesToDisplay) =>{
+        hikesToDisplay = this.diffFilter(hikesToDisplay);
+        hikesToDisplay = this.distFilter(hikesToDisplay);
+        hikesToDisplay = this.elevFilter(hikesToDisplay);
+
+        this.setState({
+            displayedTrails: hikesToDisplay
+        });
     }
 
     componentDidMount() {
@@ -67,13 +95,26 @@ export class Main extends Component {
     }
 
     componentDidUpdate(prevProps, prevState){
+        let hikesToDisplay = this.state.trailData;
+
         if(prevProps.lat !== this.props.lat && prevProps.lng !== this.props.lng){
             this.getData(this.props.lat, this.props.lng, this.props.maxDist, this.props.maxResults);
         }
 
-        if(prevProps.easy !== this.props.easy || prevProps.medium !== this.props.medium || prevProps.hard != this.props.hard){
-            this.diffFilter();
+        if(prevProps.easy !== this.props.easy || prevProps.medium !== this.props.medium || prevProps.hard !== this.props.hard){
+            this.applyAllFilters(hikesToDisplay);
         }
+
+        if(prevProps.distance !== this.props.distance){
+            this.applyAllFilters(hikesToDisplay);
+        }
+
+        
+        if(prevProps.elevation !== this.props.elevation){
+            this.applyAllFilters(hikesToDisplay);
+            
+        }
+
 
     }
 

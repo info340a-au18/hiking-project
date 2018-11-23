@@ -50,6 +50,7 @@ export class HikeCard extends Component {
                         <li>Location: {this.props.hike.location}</li>
                         <li className='rating'>Ratings: {stars}</li>
                         <li>Length: {this.props.hike.length} miles</li>
+                        <li>Elevation: {this.props.hike.ascent} feet</li>
                         <li>Description: {this.props.hike.summary}</li>
                         <li className='diff'>Difficulty: <img src={diff} alt={diff} /></li>
                         <button href={this.props.hike.url} className="btn btn-dark">More Info</button>
