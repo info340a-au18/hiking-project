@@ -10,11 +10,9 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './Header.scss';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
-import Tooltip from 'rc-tooltip';
 
 const createSliderWithTooltip = Slider.createSliderWithTooltip;
 const Range = createSliderWithTooltip(Slider.Range);
-const Handle = Slider.Handle;
 
 
 

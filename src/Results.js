@@ -87,7 +87,6 @@ export class CardContainer extends Component {
         let hikes;
         if (this.state.pageOfItems[1] !== undefined) {
             hikes = this.state.pageOfItems.map((hike) => {
-                let diff = this.filterDiff(hike);
                     return (<HikeCard key={hike.id} hike={hike} />);    
             });
         } 

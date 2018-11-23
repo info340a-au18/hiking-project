@@ -120,8 +120,8 @@ export class Main extends Component {
 
     render() {
         let error;
-        if (this.state.trailData.length === 0) {
-            error = <div className="error-message">Cannot find hikes :(</div>;
+        if (this.state.displayedTrails.length === 0) {
+            error = <div className="error-message">No Hikes Available</div>;
         }
         return (
             <main aria-label="contains the main content of the page">
@@ -131,10 +131,7 @@ export class Main extends Component {
                 </div>
 
                 <div className="section">
-                    <CardContainer trails={this.state.displayedTrails} 
-                    easy={this.props.easy} 
-                    medium={this.props.medium} 
-                    hard={this.props.hard} />
+                    <CardContainer trails={this.state.displayedTrails}  />
                 </div>
             </main>
         )
