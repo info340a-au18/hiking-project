@@ -18,7 +18,7 @@ export class Footer extends Component {
                         Association</a>
                             </div>
                             <div className="col-sm-3">
-                                <a href="https://localadventurer.com/famous-hiking-trails-hardest-permits-us/">Local Advanturer</a>
+                                <a href="https://hikingproject.org">Hiking project</a>
                             </div>
                             <div className="col-sm-3">
                                 <a href="https://www.fs.fed.us/">US Forest Service</a>

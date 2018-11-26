@@ -22,8 +22,8 @@ export class NavBar extends Component {
             <nav>
                 <Menu open={this.state.isOpen} menu={this.menu}/>
                 <div>
-                    <img id="hamburger-menu" onClick={this.menu} src={logo} alt="icon" />
-                    <h1>WA HIKERS</h1>
+                    {/*<img id="hamburger-menu" onClick={this.menu} src={logo} alt="icon" />*/}
+                    <h1>Hike Finder </h1>
                 </div>
             </nav>
         );

@@ -15,7 +15,6 @@ class App extends Component {
             searchTerm: '',
             lat: '47.6062',
             lng: '-122.3321',
-            hikes: {},
             maxDist: 100,
             maxResults: 30,
             easy: true,

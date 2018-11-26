@@ -11,6 +11,7 @@ import './Header.scss';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
+//Initalizes the settings for rc-sliders, a react packages that makes range sliders easier to implement
 const createSliderWithTooltip = Slider.createSliderWithTooltip;
 const Range = createSliderWithTooltip(Slider.Range);
 
@@ -61,6 +62,7 @@ export class Header extends Component {
         }
     }
 
+    //Gets the users location from the browser
     getLocation = (event) => {
         event.preventDefault();
         if (!navigator.geolocation) {
@@ -116,6 +118,7 @@ export class Header extends Component {
                 </form>
                 <h4>Filter by Distance</h4>
                 <div className="slider">
+                {/* These are rangesliders from the rc-slider package, here I give them visible lables and set their ranges */}
                 <Range min={0} max={100} defaultValue={[0, 100]} tipFormatter={value => `${value}`} tipProps={{visible:true}} onAfterChange={this.changeDistance} />
                 </div>
                 <h4>Filter by Elevation</h4>

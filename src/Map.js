@@ -3,6 +3,7 @@ import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
 import './Map.scss';
 
 
+//Creates a Map using react-leaflet a reac wrapper for leaflet.js
 export class MapArea extends Component {
 
 
@@ -10,12 +11,11 @@ export class MapArea extends Component {
     let hikeMarkers;
 
     if (this.props.trails[0] !== undefined) {
-      //console.log("gang",this.props.trails);
-      let count = 0;
+      //Build a list of markers to apply to the map
       hikeMarkers = this.props.trails.map((hike) => {
-        count++;
+        //Create a marker on the map for each hike, with given hike data
         return (
-          <Marker key={hike.name + count} position={[hike.latitude, hike.longitude]}>
+          <Marker key={hike.id} position={[hike.latitude, hike.longitude]}>
             <Popup>
               {hike.name} <br />
               {hike.location} <br />
@@ -29,6 +29,7 @@ export class MapArea extends Component {
     }
     const position = [this.props.lat, this.props.lng]
     return (
+      //Initialzie the map at the given position, using tiles from OpenStretMap
       <Map key={position} center={position} zoom={9}>
         <TileLayer
           attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

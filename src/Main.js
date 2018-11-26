@@ -36,6 +36,7 @@ export class Main extends Component {
             });
     }
 
+    //Filter the list of hikes by difficulty
     diffFilter(hikesToDisplay){
         
     
@@ -60,6 +61,7 @@ export class Main extends Component {
         return hikesToDisplay;
     }
 
+    //Filter hikes by distance
     distFilter(hikesToDisplay){
        
         hikesToDisplay = hikesToDisplay.filter( (hike) => {
@@ -70,6 +72,7 @@ export class Main extends Component {
         return hikesToDisplay;
     }
 
+    //Filter hikes by elevation
     elevFilter(hikesToDisplay){
        
         hikesToDisplay = hikesToDisplay.filter( (hike) => {
@@ -80,6 +83,7 @@ export class Main extends Component {
         return hikesToDisplay;
     }
 
+    //Use all of the above filters. (This makes sure that prexisting filters are applied when a new one is applied)
     applyAllFilters = (hikesToDisplay) =>{
         hikesToDisplay = this.diffFilter(hikesToDisplay);
         hikesToDisplay = this.distFilter(hikesToDisplay);
@@ -94,6 +98,7 @@ export class Main extends Component {
         this.getData(this.props.lat, this.props.lng, this.props.maxDist, this.props.maxResults);
     }
 
+    //Intercepts prop updates to fetch data and filter the list of hikes
     componentDidUpdate(prevProps, prevState){
         let hikesToDisplay = this.state.trailData;
 
@@ -121,7 +126,7 @@ export class Main extends Component {
     render() {
         let error;
         if (this.state.displayedTrails.length === 0) {
-            error = <div className="error-message">No Hikes Available</div>;
+            error = <div className="error-message">No Hikes Found With These Filters</div>;
         }
         return (
             <main aria-label="contains the main content of the page">

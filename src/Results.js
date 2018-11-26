@@ -79,10 +79,6 @@ export class CardContainer extends Component {
         this.setState({ pageOfItems });
     }
 
-    filterDiff = (hike) => {
-
-    }
-
     render() {
         let hikes;
         if (this.state.pageOfItems[1] !== undefined) {
