@@ -1,4 +1,4 @@
-# Hike Finder App [link](https://info340a-au18.github.io/project-kylegoodwin/)
+# Hike Finder App [link](https://info340a-au18.github.io/hiking-project/)
 
 How we combined our work:
 
