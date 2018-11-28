@@ -15,9 +15,6 @@ import 'rc-slider/assets/index.css';
 const createSliderWithTooltip = Slider.createSliderWithTooltip;
 const Range = createSliderWithTooltip(Slider.Range);
 
-
-
-
 export class Header extends Component {
 
     constructor(props) {
