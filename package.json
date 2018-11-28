@@ -2,7 +2,7 @@
   "name": "project-kylegoodwin",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://info340a-au18.github.io/project-kylegoodwin/",
+  "homepage": "https://github.com/info340a-au18/hiking-project",
   "dependencies": {
     "bootstrap": "^4.1.3",
     "firebase": "^5.5.9",
