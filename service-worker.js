@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/info340a-au18/hiking-project/precache-manifest.d32404ac605da8c88cbc050261a6df3b.js"
+  "/hiking-project/precache-manifest.f37cc4aeba3e72a9d468a12c669c5791.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("/info340a-au18/hiking-project/index.html", {
+workbox.routing.registerNavigationRoute("/hiking-project/index.html", {
   
   blacklist: [/^\/_/,/\/[^\/]+\.[^\/]+$/],
 });
