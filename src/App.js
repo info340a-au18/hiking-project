@@ -7,13 +7,13 @@ import { Footer } from './Footer';
 
 class App extends Component {
     render() {
+
         return (
             <div>
                 <NavBar />
                 <Switch>
                     <Route exact path='/' component={HomePage} />
                     <Route exact path='/Account' component={Account} />
-                    <Redirect to="/" />
                 </Switch>
                 <Footer />
             </div>
