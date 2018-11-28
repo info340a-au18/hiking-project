@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Link} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import './NavBar.scss';
 import {
@@ -48,8 +49,8 @@ export class NavBar extends Component {
                                     Account
                                 </DropdownToggle>
                                 <DropdownMenu right>
-                                    <DropdownItem href="/Account">
-                                        Sign in
+                                    <DropdownItem>
+                                        <Link to="/Account">Sign in</Link>
                                     </DropdownItem>
                                     <DropdownItem>
                                         Saved
