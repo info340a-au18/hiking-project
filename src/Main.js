@@ -15,19 +15,51 @@ export class Main extends Component {
     //User Latitude from header button passed in as this.props.userLat
     //User Longitude from header button passed in as this.props.userLon
 
-    getData(lat, lng, maxDist, maxResults) {
+
+    //derived from https://stackoverflow.com/questions/43167417/calculate-distance-between-two-points-in-leaflet
+    getDistance = (origin, destination) => {
+        // return distance in meters
+        var lon1 = this.toRadian(origin[1]),
+            lat1 = this.toRadian(origin[0]),
+            lon2 = this.toRadian(destination[1]),
+            lat2 = this.toRadian(destination[0]);
+
+        var deltaLat = lat2 - lat1;
+        var deltaLon = lon2 - lon1;
+
+        var a = Math.pow(Math.sin(deltaLat/2), 2) + Math.cos(lat1) * Math.cos(lat2) * Math.pow(Math.sin(deltaLon/2), 2);
+        var c = 2 * Math.asin(Math.sqrt(a));
+
+        //Earth radius in miles
+        var EARTH_RADIUS = 3959;
+
+        return (c * EARTH_RADIUS).toFixed(2);
+    }
+    toRadian = (degree) => {
+        return degree*Math.PI/180;
+    }
+
+    getData = (lat, lng, maxDist, maxResults) => {
         let promise = fetch('https://www.hikingproject.com/data/get-trails?lat=' + lat +
             '&lon=' + lng + '&maxDistance=' + maxDist + '&maxResults=' +
             maxResults + '&key=200378416-92e9bd6c5dd48e7dfa8c0a563189c165');
 
-        promise.then(function (response) {
+        promise.then( (response) => {
             return response.json();
         })
             .then((data) => {
+
+                let hikes = data.trails;
+
+                hikes.forEach( (hike) => {
+                    console.log(this.props.lat,hike.latitude);
+                    hike.distanceAway = this.getDistance([this.props.lat,this.props.lng],[hike.latitude,hike.longitude]);
+                });
+
                 this.setState(
                     {
-                        trailData: data.trails,
-                        displayedTrails: data.trails
+                        trailData: hikes,
+                        displayedTrails: hikes
                     }
                 );
                 this.diffFilter();
