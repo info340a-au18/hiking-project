@@ -54,7 +54,7 @@ export class HikeCard extends Component {
         let img = this.props.hike.imgSmall;
         if (img === '') {
             img = placeHolder;
-        }
+    }
 
         let diff;
         if (this.props.hike.difficulty === "green" || this.props.hike.difficulty === "greenBlue"){
