@@ -21,7 +21,8 @@ export class Header extends Component {
         super(props);
 
         this.state = {
-            searchTerm: ""
+            searchTerm: "",
+            filterShow: false
         }
     }
 
@@ -31,6 +32,13 @@ export class Header extends Component {
 
     changeElevation = (value) => {
         this.props.changeElevation(value);
+    }
+
+    filterToggle = () => {
+
+        this.setState({
+            filterShow: !this.state.filterShow
+        });
     }
 
 
@@ -86,6 +94,11 @@ export class Header extends Component {
                     <LoadingButton onClick={this.getLocation} img={current} />
                     <LoadingButton onClick={this.search} img={search} />
                 </form>
+                {!this.state.filterShow && <button onClick={this.filterToggle}> Show Filters</button>}
+                {this.state.filterShow && <button onClick={this.filterToggle}> Hide Filters</button>}
+
+                { this.state.filterShow &&
+                <div className="filters-container">
                 <form className="checkbox">
                     <h4>Difficulty level:</h4>
                     <label aria-label="easy">
@@ -122,6 +135,8 @@ export class Header extends Component {
                 <div className="slider">
                 <Range min={0} max={6000} defaultValue={[0, 6000]} tipFormatter={value => `${value}`} tipProps={{visible:true}} onAfterChange={this.changeElevation} />
                 </div>
+                </div>
+                }
             </header>
         )
 
