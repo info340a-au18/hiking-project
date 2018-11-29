@@ -6,10 +6,44 @@ import medium from './img/blue.png';
 import easy from './img/green.png';
 import placeHolder from './img/hiker-mini.jpg'
 import './Results.scss';
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/database';
 import JwPagination from 'jw-react-pagination';
 
 export class HikeCard extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            savedHikes:[]
+        }
+    }
+    
+    // Saving hike to Firebase database
+    addHike = () => {
+        let newHike = {
+            hike: this.props.hike,
+        }
+        firebase.database().ref('saved').push(newHike)
+            .catch((err) => {
+                console.log(err);
+            })
+    }
 
+    // getSaved = () => {
+    //     let hikeRef = firebase.database().ref('saved');
+    //     hikeRef.on('value', (snapShot) => {
+    //         let hikeData = snapShot.val();
+    //         let hikeKeys = Object.keys(hikeData);
+    //         let hikeArray = hikeKeys.map((key) => {
+    //             let hike = hikeData[key];
+    //             hike.id = key;
+    //             return hike;
+    //         })
+    //         this.setState({savedHikes: hikeArray});
+    //     })
+    // }
+    
     render() {
         //get rating
         let ratings = [];
@@ -54,6 +88,8 @@ export class HikeCard extends Component {
                         <li>Description: {this.props.hike.summary}</li>
                         <li className='diff'>Difficulty: <img src={diff} alt={diff} /></li>
                         <button href={this.props.hike.url} className="btn btn-dark">More Info</button>
+                        {/* <button onClick={this.addHike} className="btn btn-warning">Save</button> */}
+                        {this.savedOrNot}
                     </ul>
                 </div>
             </div>
