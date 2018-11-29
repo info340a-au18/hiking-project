@@ -12,12 +12,6 @@ import 'firebase/database';
 import JwPagination from 'jw-react-pagination';
 
 export class HikeCard extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            savedHikes:[]
-        }
-    }
     
     // Saving hike to Firebase database
     addHike = () => {
@@ -88,8 +82,7 @@ export class HikeCard extends Component {
                         <li>Description: {this.props.hike.summary}</li>
                         <li className='diff'>Difficulty: <img src={diff} alt={diff} /></li>
                         <button href={this.props.hike.url} className="btn btn-dark">More Info</button>
-                        {/* <button onClick={this.addHike} className="btn btn-warning">Save</button> */}
-                        {this.savedOrNot}
+                        <button onClick={this.addHike} className="btn btn-warning">Save</button>
                     </ul>
                 </div>
             </div>
