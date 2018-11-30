@@ -1,17 +1,12 @@
 import React, { Component } from 'react';
-import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
+import { Map, TileLayer, Marker, Popup} from 'react-leaflet';
 import './Map.scss';
 import L from 'leaflet';
 
 //https://stackoverflow.com/questions/47723812/custom-marker-icon-with-react-leaflet
 const iconPerson = new L.Icon({
-  iconUrl: require('./img/my-location.png'),
-  iconAnchor: null,
-  popupAnchor: null,
-  shadowUrl: null,
-  shadowSize: null,
-  shadowAnchor: null,
-  iconSize: new L.Point(33, 33)
+  iconUrl: require('./img/house.svg'),
+  iconSize: new L.Point(60, 60)
 });
 
 
@@ -46,7 +41,9 @@ export class MapArea extends Component {
       hikeMarkers = this.props.trails.map((hike) => {
         //Create a marker on the map for each hike, with given hike data
         return (
-          <Marker key={hike.id} position={[hike.latitude, hike.longitude]} onClick={() => this.selectHike(hike)}>
+          <Marker key={hike.id} position={[hike.latitude, hike.longitude]} 
+          onClick={() => this.selectHike(hike)} icon={new L.Icon({iconUrl: require('./img/holiday.svg'),
+          iconSize: new L.Point(60, 60)})}>
               <Popup>
             <a href={"#" + hike.id}>
                 {hike.name}
@@ -57,13 +54,13 @@ export class MapArea extends Component {
       });
     }
 
-    let locationMarker = <Marker position={[this.props.lat, this.props.lng]} icon={iconPerson} />
+    let locationMarker = <Marker position={[this.props.lat, this.props.lng]} icon={iconPerson} interactive={false}/>
 
     const position = [this.props.lat, this.props.lng];
     return (
       //Initialzie the map at the given position, using tiles from OpenStretMap
       <div className='hikemap'>
-        <Map className='map' key={position} center={position} zoom={9}>
+        <Map className='map' key={position} center={position} zoom={7}>
           <TileLayer
             attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url="https://api.tiles.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoia2pnb29kd2lucyIsImEiOiJjam8zNnF4YmUwdTA3M3BybGtocWkzejY4In0.9eALJdo0A_rMgg2cgZWHlQ"
