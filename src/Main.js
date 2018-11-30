@@ -62,6 +62,7 @@ export class Main extends Component {
                         displayedTrails: hikes
                     }
                 );
+
                 this.diffFilter();
             })
             .catch(function () {
