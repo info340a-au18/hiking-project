@@ -105,7 +105,7 @@ export class CardContainer extends Component {
         let hikes;
         if (this.state.pageOfItems[1] !== undefined) {
             hikes = this.state.pageOfItems.map((hike) => {
-                    return (<HikeCard key={hike.id} hike={hike} />);    
+                    return (<HikeCard key={hike.id} hike={hike}/>);    
             });
         } 
         return (

@@ -169,7 +169,7 @@ export class Main extends Component {
                         <MapArea lat={this.props.lat} lng={this.props.lng} trails={this.state.displayedTrails}/>
                     </div>
                     <div className="section" id="card">
-                        <CardContainer trails={this.state.displayedTrails} />
+                        <CardContainer trails={this.state.displayedTrails}/>
                     </div>
                 </div>
             </main>
