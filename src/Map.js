@@ -6,7 +6,7 @@ import L from 'leaflet';
 //https://stackoverflow.com/questions/47723812/custom-marker-icon-with-react-leaflet
 const iconPerson = new L.Icon({
   iconUrl: require('./img/house.svg'),
-  iconSize: new L.Point(60, 60)
+  iconSize: new L.Point(50, 50)
 });
 
 
@@ -43,7 +43,7 @@ export class MapArea extends Component {
         return (
           <Marker key={hike.id} position={[hike.latitude, hike.longitude]} 
           onClick={() => this.selectHike(hike)} icon={new L.Icon({iconUrl: require('./img/holiday.svg'),
-          iconSize: new L.Point(60, 60)})}>
+          iconSize: new L.Point(25, 25)})}>
               <Popup>
             <a href={"#" + hike.id}>
                 {hike.name}
