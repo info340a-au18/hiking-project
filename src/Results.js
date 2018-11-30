@@ -25,12 +25,12 @@ export class HikeCard extends Component {
     }
     
     render() {
-        // let saveOption;
-        // if (this.props.hike.saved) {
-        //     saveOption = <p>Hike Saved</p>
-        // } else {
-        //     saveOption = <button onClick={this.addHike} className="btn btn-warning">Save</button>
-        // }
+        let saveOption;
+        if (this.props.hike.status) {
+            saveOption = <p>Hike Saved</p>
+        } else {
+            saveOption = <button onClick={this.addHike} className="btn btn-warning">Save</button>
+        }
 
         //get rating
         let ratings = [];
@@ -75,7 +75,8 @@ export class HikeCard extends Component {
                             <li>Length: {this.props.hike.length} miles</li>
                             <li className='diff'>Difficulty: <img src={diff} alt={diff} /></li>
                             <button href={this.props.hike.url} className="btn btn-dark">More Info</button>
-                            <button onClick={this.addHike} className="btn btn-warning">Save</button>
+                            {/* <button onClick={this.addHike} className="btn btn-warning">Save</button> */}
+                            {saveOption}
                         </ul>
                     </div>
                 </a>
@@ -93,7 +94,7 @@ export class CardContainer extends Component {
         let hikes;
         if (this.props.pageOfItems[1] !== undefined) {
             hikes = this.props.pageOfItems.map((hike) => {
-                return (<HikeCard key={hike.id} hike={hike} />);
+                return (<HikeCard key={hike.id} hike={hike}/>);
             });
         }
         return (

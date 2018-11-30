@@ -10,7 +10,7 @@ export class Main extends Component {
     constructor(props) {
         super(props);
         this.onChangePage = this.onChangePage.bind(this);
-        this.state = { trailData: {}, displayedTrails: {}, newLocation: false, pageOfItems: {} };
+        this.state = { trailData: {}, displayedTrails: {}, newLocation: false, pageOfItems: {}};
     }
 
     //Search term from form is passed in as this.props.searchTerm
@@ -163,6 +163,15 @@ export class Main extends Component {
     onChangePage(pageOfItems) {
         this.setState({ pageOfItems });
     }
+
+    changeStatus = (hikeName) => {
+        for (let i=0; i < this.state.displayedTrails.length; i++) {
+            if (this.state.displayedTrails[i].name === hikeName) {
+                this.state.displayedTrails[i].status = true;
+            }
+        }
+    }
+
 
     render() {
         let error;
