@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { CardContainer } from './Results';
 import { MapArea } from './Map';
+import JwPagination from 'jw-react-pagination';
 import 'bootstrap/dist/css/bootstrap.css';
 import './Main.scss';
 
@@ -8,7 +9,8 @@ export class Main extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { trailData: {}, displayedTrails: {}, newLocation: false };
+        this.onChangePage = this.onChangePage.bind(this);
+        this.state = { trailData: {}, displayedTrails: {}, newLocation: false, pageOfItems: {}};
     }
 
     //Search term from form is passed in as this.props.searchTerm
@@ -27,7 +29,7 @@ export class Main extends Component {
         var deltaLat = lat2 - lat1;
         var deltaLon = lon2 - lon1;
 
-        var a = Math.pow(Math.sin(deltaLat/2), 2) + Math.cos(lat1) * Math.cos(lat2) * Math.pow(Math.sin(deltaLon/2), 2);
+        var a = Math.pow(Math.sin(deltaLat / 2), 2) + Math.cos(lat1) * Math.cos(lat2) * Math.pow(Math.sin(deltaLon / 2), 2);
         var c = 2 * Math.asin(Math.sqrt(a));
 
         //Earth radius in miles
@@ -36,7 +38,7 @@ export class Main extends Component {
         return (c * EARTH_RADIUS).toFixed(2);
     }
     toRadian = (degree) => {
-        return degree*Math.PI/180;
+        return degree * Math.PI / 180;
     }
 
     getData = (lat, lng, maxDist, maxResults) => {
@@ -44,24 +46,26 @@ export class Main extends Component {
             '&lon=' + lng + '&maxDistance=' + maxDist + '&maxResults=' +
             maxResults + '&key=200378416-92e9bd6c5dd48e7dfa8c0a563189c165');
 
-        promise.then( (response) => {
+        promise.then((response) => {
             return response.json();
         })
             .then((data) => {
 
                 let hikes = data.trails;
 
-                hikes.forEach( (hike) => {
-                    console.log(this.props.lat,hike.latitude);
-                    hike.distanceAway = this.getDistance([this.props.lat,this.props.lng],[hike.latitude,hike.longitude]);
+                hikes.forEach((hike) => {
+                    //console.log(this.props.lat, hike.latitude);
+                    hike.distanceAway = this.getDistance([this.props.lat, this.props.lng], [hike.latitude, hike.longitude]);
                 });
 
                 this.setState(
                     {
                         trailData: hikes,
-                        displayedTrails: hikes
+                        displayedTrails: hikes,
+                        pageOfItems: hikes
                     }
                 );
+
                 this.diffFilter();
             })
             .catch(function () {
@@ -69,35 +73,35 @@ export class Main extends Component {
     }
 
     //Filter the list of hikes by difficulty
-    diffFilter(hikesToDisplay){
-        
-    
-        if( !this.props.easy){
-            hikesToDisplay = hikesToDisplay.filter( (hike) => {
+    diffFilter(hikesToDisplay) {
+
+
+        if (!this.props.easy) {
+            hikesToDisplay = hikesToDisplay.filter((hike) => {
                 return !(hike.difficulty === "green" || hike.difficulty === "greenBlue")
             });
         }
-        
-        if( !this.props.medium){
-            hikesToDisplay = hikesToDisplay.filter( (hike) => {
+
+        if (!this.props.medium) {
+            hikesToDisplay = hikesToDisplay.filter((hike) => {
                 return !(hike.difficulty === "blue" || hike.difficulty === "blueBlack")
             });
         }
-        
-        if (!this.props.hard){
-            hikesToDisplay = hikesToDisplay.filter( (hike) => {
+
+        if (!this.props.hard) {
+            hikesToDisplay = hikesToDisplay.filter((hike) => {
                 return !(hike.difficulty === "black" || hike.difficulty === "blackBlack")
             });
         }
-        
+
         return hikesToDisplay;
     }
 
     //Filter hikes by distance
-    distFilter(hikesToDisplay){
-       
-        hikesToDisplay = hikesToDisplay.filter( (hike) => {
-         
+    distFilter(hikesToDisplay) {
+
+        hikesToDisplay = hikesToDisplay.filter((hike) => {
+
             return (hike.length >= this.props.distance[0] && hike.length <= this.props.distance[1]);
         });
 
@@ -105,9 +109,9 @@ export class Main extends Component {
     }
 
     //Filter hikes by elevation
-    elevFilter(hikesToDisplay){
-       
-        hikesToDisplay = hikesToDisplay.filter( (hike) => {
+    elevFilter(hikesToDisplay) {
+
+        hikesToDisplay = hikesToDisplay.filter((hike) => {
 
             return (hike.ascent >= this.props.elevation[0] && hike.ascent <= this.props.elevation[1]);
         });
@@ -116,13 +120,14 @@ export class Main extends Component {
     }
 
     //Use all of the above filters. (This makes sure that prexisting filters are applied when a new one is applied)
-    applyAllFilters = (hikesToDisplay) =>{
+    applyAllFilters = (hikesToDisplay) => {
         hikesToDisplay = this.diffFilter(hikesToDisplay);
         hikesToDisplay = this.distFilter(hikesToDisplay);
         hikesToDisplay = this.elevFilter(hikesToDisplay);
 
         this.setState({
-            displayedTrails: hikesToDisplay
+            displayedTrails: hikesToDisplay,
+            pageOfItems: hikesToDisplay
         });
     }
 
@@ -131,28 +136,32 @@ export class Main extends Component {
     }
 
     //Intercepts prop updates to fetch data and filter the list of hikes
-    componentDidUpdate(prevProps, prevState){
+    componentDidUpdate(prevProps, prevState) {
         let hikesToDisplay = this.state.trailData;
 
-        if(prevProps.lat !== this.props.lat && prevProps.lng !== this.props.lng){
+        if (prevProps.lat !== this.props.lat && prevProps.lng !== this.props.lng) {
             this.getData(this.props.lat, this.props.lng, this.props.maxDist, this.props.maxResults);
         }
 
-        if(prevProps.easy !== this.props.easy || prevProps.medium !== this.props.medium || prevProps.hard !== this.props.hard){
+        if (prevProps.easy !== this.props.easy || prevProps.medium !== this.props.medium || prevProps.hard !== this.props.hard) {
             this.applyAllFilters(hikesToDisplay);
         }
 
-        if(prevProps.distance !== this.props.distance){
+        if (prevProps.distance !== this.props.distance) {
             this.applyAllFilters(hikesToDisplay);
         }
 
-        
-        if(prevProps.elevation !== this.props.elevation){
+
+        if (prevProps.elevation !== this.props.elevation) {
             this.applyAllFilters(hikesToDisplay);
-            
+
         }
 
 
+    }
+
+    onChangePage(pageOfItems) {
+        this.setState({ pageOfItems });
     }
 
     render() {
@@ -161,16 +170,23 @@ export class Main extends Component {
             error = <div className="error-message">No Hikes Found With These Filters</div>;
         }
         return (
-            <main aria-label="contains the main content of the page">
+            <div>
                 {error}
-                <div className="section">
-                    <MapArea lat={this.props.lat} lng={this.props.lng} trails={this.state.displayedTrails} />
-                </div>
-
-                <div className="section">
-                    <CardContainer trails={this.state.displayedTrails}  />
-                </div>
-            </main>
+                <main aria-label="contains the main content of the page" id="main">
+                    <div className="container">
+                        <div className="section" id="map">
+                            <MapArea lat={this.props.lat} lng={this.props.lng} trails={this.state.pageOfItems} />
+                        </div>
+                        <div className="section" id="card">
+                            <CardContainer pageOfItems={this.state.pageOfItems} />
+                        </div>
+                    </div>
+                    <div className='pagination-holder'>
+                        <JwPagination items={this.state.displayedTrails} onChangePage={this.onChangePage}
+                            pageSize={6} disableDefaultStyles={true} />
+                    </div>
+                </main>
+            </div>
         )
     }
 }

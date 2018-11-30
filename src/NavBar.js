@@ -52,7 +52,7 @@ export class NavBar extends Component {
                                         <NavLink href="/Account">Sign in</NavLink>
                                     </DropdownItem>
                                     <DropdownItem>
-                                        Saved
+                                        <NavLink href="/SavedHikes">Saved</NavLink>
                                     </DropdownItem>
                                     <DropdownItem divider />
                                     <DropdownItem>

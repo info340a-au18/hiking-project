@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import './HomePage.scss';
-import firebase from 'firebase/app';
 import {Header} from './Header';
 import {Main} from './Main';
 
@@ -42,7 +41,6 @@ export class HomePage extends Component {
             this.getLocation(address.location.lat,address.location.lng, error);
        })
        .catch((err) => {
-           console.log("here");
            this.getError(err);
        });
     }
@@ -111,7 +109,7 @@ export class HomePage extends Component {
                     medium={this.state.medium} 
                     hard={this.state.hard}
                     distance={this.state.distance}
-                    elevation={this.state.elevation} />
+                    elevation={this.state.elevation}/>
             </div>
         )
     }

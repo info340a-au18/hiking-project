@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import SignUpForm from './SignUpForm';
-import firebase from 'firebase/app'
+import firebase from 'firebase/app';
 
 export class Account extends Component {
   constructor(props){
