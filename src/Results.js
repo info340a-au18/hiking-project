@@ -11,9 +11,16 @@ import 'firebase/auth';
 import 'firebase/database';
 
 export class HikeCard extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            saved: false
+        };
+    }
 
     // Saving hike to Firebase database
     addHike = () => {
+        this.setState({saved: true});
         let newHike = {
             hike: this.props.hike,
         }
@@ -26,7 +33,7 @@ export class HikeCard extends Component {
     
     render() {
         let saveOption;
-        if (this.props.hike.status) {
+        if (this.state.saved) {
             saveOption = <p>Hike Saved</p>
         } else {
             saveOption = <button onClick={this.addHike} className="btn btn-warning">Save</button>

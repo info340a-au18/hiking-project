@@ -164,15 +164,6 @@ export class Main extends Component {
         this.setState({ pageOfItems });
     }
 
-    changeStatus = (hikeName) => {
-        for (let i=0; i < this.state.displayedTrails.length; i++) {
-            if (this.state.displayedTrails[i].name === hikeName) {
-                this.state.displayedTrails[i].status = true;
-            }
-        }
-    }
-
-
     render() {
         let error;
         if (this.state.displayedTrails.length === 0) {
