@@ -21,23 +21,17 @@ export class HikeCard extends Component {
             .catch((err) => {
                 console.log(err);
             })
+        // console.log(this.props.hike);
     }
-
-    // getSaved = () => {
-    //     let hikeRef = firebase.database().ref('saved');
-    //     hikeRef.on('value', (snapShot) => {
-    //         let hikeData = snapShot.val();
-    //         let hikeKeys = Object.keys(hikeData);
-    //         let hikeArray = hikeKeys.map((key) => {
-    //             let hike = hikeData[key];
-    //             hike.id = key;
-    //             return hike;
-    //         })
-    //         this.setState({savedHikes: hikeArray});
-    //     })
-    // }
-
+    
     render() {
+        // let saveOption;
+        // if (this.props.hike.saved) {
+        //     saveOption = <p>Hike Saved</p>
+        // } else {
+        //     saveOption = <button onClick={this.addHike} className="btn btn-warning">Save</button>
+        // }
+
         //get rating
         let ratings = [];
         let num = this.props.hike.stars;

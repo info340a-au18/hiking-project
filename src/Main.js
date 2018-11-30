@@ -65,6 +65,7 @@ export class Main extends Component {
                         pageOfItems: hikes
                     }
                 );
+
                 this.diffFilter();
             })
             .catch(function () {

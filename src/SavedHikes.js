@@ -4,11 +4,11 @@ import { CardContainer } from './Results';
 import firebase from 'firebase/app';
 import 'firebase/database';
 
-export class Account extends Component {
+export class SavedHikes extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            savedHikes: [],
+            displayHikes: [],
         }
     }
 
@@ -27,7 +27,9 @@ export class Account extends Component {
             })
             console.log(hikeArray);
             console.log(hikeInfo);
-            this.setState({savedHikes: hikeInfo});
+            this.setState({
+                displayHikes: hikeInfo
+            });
         })
     }
 
