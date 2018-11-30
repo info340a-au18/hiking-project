@@ -23,21 +23,16 @@ export class SavedHikes extends Component {
                 return hike;
             })
             let hikeInfo = hikeArray.map((current) => {
-              return current.hike;
+            return current.hike;
             })
-            console.log(hikeArray);
-            console.log(hikeInfo);
-            this.setState({
-                displayHikes: hikeInfo
-            });
+            this.setState({displayHikes: hikeInfo});
         })
     }
 
     componentDidMount() {
-      this.getSaved();
+        this.getSaved();
     }
-
     render() {
-        return <CardContainer trails={this.state.savedHikes}/>
+        return <CardContainer pageOfItems={this.state.displayHikes}/>
     }
 }
