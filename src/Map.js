@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
 import './Map.scss';
 import L from 'leaflet';
-import {HikeCard} from './Results'
 
 //https://stackoverflow.com/questions/47723812/custom-marker-icon-with-react-leaflet
 const iconPerson = new L.Icon({
@@ -19,23 +18,22 @@ const iconPerson = new L.Icon({
 //Creates a Map using react-leaflet a reac wrapper for leaflet.js
 export class MapArea extends Component {
 
-  constructor(props){
+  constructor(props) {
     super(props);
 
-    this.state ={
+    this.state = {
       selectedHike: null,
       oldHike: true
     }
   }
 
   selectHike = (hike) => {
-
-   //console.log(event);
+    //console.log(event);
 
     this.setState({
       selectedHike: hike
     });
-    
+
 
   }
 
@@ -50,28 +48,29 @@ export class MapArea extends Component {
         return (
           <Marker key={hike.id} position={[hike.latitude, hike.longitude]} onClick={() => this.selectHike(hike)}>
             <Popup>
-            {hike.name}
+              <a href={"#" + hike.id}>
+                {hike.name}
+              </a>
             </Popup>
           </Marker>
         );
       });
     }
-    
+
     let locationMarker = <Marker position={[this.props.lat, this.props.lng]} icon={iconPerson} />
-    
-    const position = [this.props.lat, this.props.lng]
+
+    const position = [this.props.lat, this.props.lng];
     return (
       //Initialzie the map at the given position, using tiles from OpenStretMap
       <div className='hikemap'>
-      <Map className='map' key={position} center={position} zoom={9}>
-        <TileLayer
-          attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-          url="https://api.tiles.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoia2pnb29kd2lucyIsImEiOiJjam8zNnF4YmUwdTA3M3BybGtocWkzejY4In0.9eALJdo0A_rMgg2cgZWHlQ"
-        />
-        {hikeMarkers}
-        {locationMarker}
-      </Map>
-      {(this.state.selectedHike != null) && <HikeCard hike={this.state.selectedHike} />}
+        <Map className='map' key={position} center={position} zoom={9}>
+          <TileLayer
+            attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            url="https://api.tiles.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoia2pnb29kd2lucyIsImEiOiJjam8zNnF4YmUwdTA3M3BybGtocWkzejY4In0.9eALJdo0A_rMgg2cgZWHlQ"
+          />
+          {hikeMarkers}
+          {locationMarker}
+        </Map>
       </div>
     )
   }

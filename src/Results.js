@@ -62,18 +62,17 @@ export class HikeCard extends Component {
             diff = "";
         }
        
-
         return (
             <div className="card">
-                <img className='p-3' src={this.props.hike.imgMedium} alt='the hiking place' />
+                <div className="hoverText">
+                    <img src={this.props.hike.imgMedium} alt='the hiking place' />
+                </div>
                 <div className="card-body">
                     <h5 className="card-title">{this.props.hike.name}</h5>
                     <ul className="card-text">
                         <li>Location: {this.props.hike.location}</li>
                         <li className='rating'>Ratings: {stars}</li>
                         <li>Length: {this.props.hike.length} miles</li>
-                        <li>Elevation: {this.props.hike.ascent} feet</li>
-                        <li>Description: {this.props.hike.summary}</li>
                         <li className='diff'>Difficulty: <img src={diff} alt={diff} /></li>
                         <button href={this.props.hike.url} className="btn btn-dark">More Info</button>
                         <button onClick={this.addHike} className="btn btn-warning">Save</button>
