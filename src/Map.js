@@ -47,11 +47,11 @@ export class MapArea extends Component {
         //Create a marker on the map for each hike, with given hike data
         return (
           <Marker key={hike.id} position={[hike.latitude, hike.longitude]} onClick={() => this.selectHike(hike)}>
-            <Popup>
-              <a href={"#" + hike.id}>
+              <Popup>
+            <a href={"#" + hike.id}>
                 {hike.name}
-              </a>
-            </Popup>
+            </a>
+              </Popup>
           </Marker>
         );
       });

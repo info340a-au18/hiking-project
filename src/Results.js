@@ -9,10 +9,9 @@ import './Results.scss';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
-import JwPagination from 'jw-react-pagination';
 
 export class HikeCard extends Component {
-    
+
     // Saving hike to Firebase database
     addHike = () => {
         let newHike = {
@@ -37,7 +36,7 @@ export class HikeCard extends Component {
     //         this.setState({savedHikes: hikeArray});
     //     })
     // }
-    
+
     render() {
         //get rating
         let ratings = [];
@@ -54,36 +53,38 @@ export class HikeCard extends Component {
         let img = this.props.hike.imgSmall;
         if (img === '') {
             img = placeHolder;
-    }
+        }
 
         let diff;
-        if (this.props.hike.difficulty === "green" || this.props.hike.difficulty === "greenBlue"){
-                diff = easy;
-            
-        } else if (this.props.hike.difficulty === "blue" || this.props.hike.difficulty === "blueBlack"){
-                diff = medium;
-        } else if (this.props.hike.difficulty === "black" || this.props.hike.difficulty === "blackBlack"){
-                diff = hard;
+        if (this.props.hike.difficulty === "green" || this.props.hike.difficulty === "greenBlue") {
+            diff = easy;
+
+        } else if (this.props.hike.difficulty === "blue" || this.props.hike.difficulty === "blueBlack") {
+            diff = medium;
+        } else if (this.props.hike.difficulty === "black" || this.props.hike.difficulty === "blackBlack") {
+            diff = hard;
         } else {
             diff = "";
         }
-       
+
         return (
             <div className="card">
-                <div className="hoverText">
-                    <img src={this.props.hike.imgMedium} alt='the hiking place' />
-                </div>
-                <div className="card-body">
-                    <h5 className="card-title">{this.props.hike.name}</h5>
-                    <ul className="card-text">
-                        <li>Location: {this.props.hike.location}</li>
-                        <li className='rating'>Ratings: {stars}</li>
-                        <li>Length: {this.props.hike.length} miles</li>
-                        <li className='diff'>Difficulty: <img src={diff} alt={diff} /></li>
-                        <button href={this.props.hike.url} className="btn btn-dark">More Info</button>
-                        <button onClick={this.addHike} className="btn btn-warning">Save</button>
-                    </ul>
-                </div>
+                <a id={'' + this.props.hike.id}>
+                    <div className="hoverText">
+                        <img src={this.props.hike.imgMedium} alt='the hiking place' />
+                    </div>
+                    <div className="card-body">
+                        <h5 className="card-title">{this.props.hike.name}</h5>
+                        <ul className="card-text">
+                            <li>Location: {this.props.hike.location}</li>
+                            <li className='rating'>Ratings: {stars}</li>
+                            <li>Length: {this.props.hike.length} miles</li>
+                            <li className='diff'>Difficulty: <img src={diff} alt={diff} /></li>
+                            <button href={this.props.hike.url} className="btn btn-dark">More Info</button>
+                            <button onClick={this.addHike} className="btn btn-warning">Save</button>
+                        </ul>
+                    </div>
+                </a>
             </div>
         );
 
@@ -94,34 +95,17 @@ export class HikeCard extends Component {
 
 export class CardContainer extends Component {
 
-    constructor(props) {
-        super(props);
-        this.onChangePage = this.onChangePage.bind(this);
-
-        this.state = {
-            pageOfItems: this.props.trails,
-        }
-    }
-
-    onChangePage(pageOfItems) {
-        this.setState({ pageOfItems });
-    }
-
     render() {
         let hikes;
-        if (this.state.pageOfItems[1] !== undefined) {
-            hikes = this.state.pageOfItems.map((hike) => {
-                    return (<HikeCard key={hike.id} hike={hike} />);    
+        if (this.props.pageOfItems[1] !== undefined) {
+            hikes = this.props.pageOfItems.map((hike) => {
+                return (<HikeCard key={hike.id} hike={hike} />);
             });
-        } 
+        }
         return (
             <div className="hike-results card-container">
                 <div className='row'>
                     {hikes}
-                </div>
-                <div className='pagination-holder'>
-                    <JwPagination items={this.props.trails} onChangePage={this.onChangePage}
-                        pageSize={6} disableDefaultStyles={true} />
                 </div>
             </div>
         );

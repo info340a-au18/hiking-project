@@ -56,30 +56,3 @@ $myBlue:  #185b64;
     color: white;
     margin-top: 1em;
 }
-
-.pagination-holder{
-    display: flex;
-    justify-content: center;
-    width:100%;
-    height: 3.5em;
-    margin: 1em;
-    padding: 0;
-    background-color: white;
-    li {
-        padding: 1em 0.8em;
-    }
-    li.first{
-        display: none;
-    }
-    li.last{
-        display: none;
-    }
-    li.active a{
-        background-color: $myBlue;
-        padding: 1em;
-        color: white;
-    }
-    li:hover{
-        cursor:pointer
-    }
-}
