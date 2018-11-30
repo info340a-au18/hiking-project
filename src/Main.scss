@@ -1,10 +1,36 @@
 $myBlue:  #185b64;
 
+main{
+    box-sizing: border-box;
+    padding: 20px 0;
+}
+
 .leaflet-container{
     height: 400px;
     width: 100%;
 }
 
-.section{
-    padding: 0.5em;
+//citation: learning from online resources about scrolling
+.container {
+    padding: 0;
+    display: flex;
+    overflow: hidden;
+    height: 70vh;
+    position: relative;
+    width: 100%;
+    backface-visibility: hidden;
+    will-change: overflow;
+    #map, #card{
+        overflow: auto;
+        height: auto;
+        -webkit-overflow-scrolling: touch;
+        -ms-overflow-style: none;
+    }
+    #map{
+        width: 60%;
+        height: 100%;
+    }
+    #card{
+        width: 40%;
+    }
 }

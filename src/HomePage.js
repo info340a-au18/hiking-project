@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import './HomePage.scss';
-import firebase from 'firebase/app';
 import {Header} from './Header';
 import {Main} from './Main';
 
