@@ -10,7 +10,7 @@ export class Main extends Component {
     constructor(props) {
         super(props);
         this.onChangePage = this.onChangePage.bind(this);
-        this.state = { trailData: {}, displayedTrails: {}, newLocation: false, pageOfItems: {} };
+        this.state = { trailData: {}, displayedTrails: {}, newLocation: false, pageOfItems: {}};
     }
 
     //Search term from form is passed in as this.props.searchTerm
