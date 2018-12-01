@@ -137,6 +137,7 @@ export class Main extends Component {
     componentDidMount() {
         this.getData(this.props.lat, this.props.lng, this.props.maxDist, this.props.maxResults);
 
+        // Gets an array of the trails saved in the Firebase database
         let hikeRef = firebase.database().ref('saved');
         hikeRef.on('value', (snapShot) => {
             let hikeData = snapShot.val();
