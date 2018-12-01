@@ -170,21 +170,23 @@ export class Main extends Component {
             error = <div className="error-message">No Hikes Found With These Filters</div>;
         }
         return (
-            <main aria-label="contains the main content of the page" id="main">
+            <div>
                 {error}
-                <div className="container">
-                    <div className="section" id="map">
-                        <MapArea lat={this.props.lat} lng={this.props.lng} trails={this.state.pageOfItems} />
+                <main aria-label="contains the main content of the page" id="main">
+                    <div className="container">
+                        <div className="section" id="map">
+                            <MapArea lat={this.props.lat} lng={this.props.lng} trails={this.state.pageOfItems} />
+                        </div>
+                        <div className="section" id="card">
+                            <CardContainer pageOfItems={this.state.pageOfItems} />
+                        </div>
                     </div>
-                    <div className="section" id="card">
-                        <CardContainer pageOfItems={this.state.pageOfItems}/>
+                    <div className='pagination-holder'>
+                        <JwPagination items={this.state.displayedTrails} onChangePage={this.onChangePage}
+                            pageSize={6} disableDefaultStyles={true} />
                     </div>
-                </div>
-                <div className='pagination-holder'>
-                    <JwPagination items={this.state.displayedTrails} onChangePage={this.onChangePage}
-                        pageSize={6} disableDefaultStyles={true} />
-                </div>
-            </main>
+                </main>
+            </div>
         )
     }
 }

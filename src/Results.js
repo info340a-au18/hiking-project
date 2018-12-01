@@ -5,6 +5,7 @@ import hard from './img/black.png';
 import medium from './img/blue.png';
 import easy from './img/green.png';
 import placeHolder from './img/hiker-mini.jpg'
+import {BrowserRouter as Router, Route, Link, Switch, Redirect, NavLink} from 'react-router-dom';
 import './Results.scss';
 import firebase from 'firebase/app';
 import 'firebase/auth';
@@ -68,6 +69,18 @@ export class HikeCard extends Component {
             diff = "";
         }
 
+        this.handleClick = () => {
+            this.setState({redirect:true})
+        } 
+        
+        if(this.state.redirect){
+            return <Redirect push 
+                        to={{
+                            pathname: "/trail/" + this.props.hike.name,
+                            state: {hike: this.props.hike}
+                        }} 
+                    />
+        }
         return (
             <div className="card">
                 <a id={'' + this.props.hike.id}>
@@ -81,7 +94,7 @@ export class HikeCard extends Component {
                             <li className='rating'>Ratings: {stars}</li>
                             <li>Length: {this.props.hike.length} miles</li>
                             <li className='diff'>Difficulty: <img src={diff} alt={diff} /></li>
-                            <button href={this.props.hike.url} className="btn btn-dark">More Info</button>
+                            <button onClick={this.handleClick} className="btn btn-dark">More Info</button>
                             {/* <button onClick={this.addHike} className="btn btn-warning">Save</button> */}
                             {saveOption}
                         </ul>
