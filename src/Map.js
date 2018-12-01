@@ -32,6 +32,9 @@ export class MapArea extends Component {
 
   }
 
+  handleClick = (hike) => {
+    this.props.onClick(hike)
+  }
 
   render() {
     let hikeMarkers;
@@ -45,9 +48,7 @@ export class MapArea extends Component {
           onClick={() => this.selectHike(hike)} icon={new L.Icon({iconUrl: require('./img/holiday.svg'),
           iconSize: new L.Point(25, 25)})}>
               <Popup>
-            <a href={"#" + hike.id}>
-                {hike.name}
-            </a>
+                  <a onClick={() => this.handleClick(hike)} href="#card">{hike.name}</a>
               </Popup>
           </Marker>
         );

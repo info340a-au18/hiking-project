@@ -49,7 +49,13 @@ export class HikeCard extends Component {
         //     saveOption = <button onClick={this.addHike} className="btn btn-warning">Save</button>
         // }
 
-        let saveOption = this.checkSaved();
+
+        let saveOption;
+        if (this.state.saved) {
+            saveOption = <p>Hike Saved</p>
+        } else {
+            saveOption = <button onClick={this.addHike} className="btn btn-warning">Save</button>
+        }
 
         //get rating
         let ratings = [];
@@ -128,6 +134,7 @@ export class CardContainer extends Component {
     }
 
     render() {
+
         let hikes;
         if (this.props.pageOfItems[1] !== undefined) {
             hikes = this.props.pageOfItems.map((hike) => {
