@@ -33,6 +33,8 @@ export class HikeCard extends Component {
     }
     
     render() {
+        console.log(this.props.hike);
+
         let saveOption;
         if (this.state.saved) {
             saveOption = <p>Hike Saved</p>
@@ -111,6 +113,7 @@ export class HikeCard extends Component {
 export class CardContainer extends Component {
 
     render() {
+
         let hikes;
         if (this.props.pageOfItems[1] !== undefined) {
             hikes = this.props.pageOfItems.map((hike) => {

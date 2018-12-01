@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { CardContainer } from './Results';
+import { HikeCard } from './Results';
 import { MapArea } from './Map';
 import JwPagination from 'jw-react-pagination';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -9,8 +9,7 @@ export class Main extends Component {
 
     constructor(props) {
         super(props);
-        this.onChangePage = this.onChangePage.bind(this);
-        this.state = { trailData: {}, displayedTrails: {}, newLocation: false, pageOfItems: {}};
+        this.state = { trailData: {}, displayedTrails: {}, newLocation: false, pageOfItems: {}, cardShown: undefined};
     }
 
     //Search term from form is passed in as this.props.searchTerm
@@ -160,8 +159,10 @@ export class Main extends Component {
 
     }
 
-    onChangePage(pageOfItems) {
-        this.setState({ pageOfItems });
+
+    showCard = (hike) => {
+        console.log(hike);
+        this.setState({cardShown: hike})
     }
 
     render() {
@@ -169,21 +170,22 @@ export class Main extends Component {
         if (this.state.displayedTrails.length === 0) {
             error = <div className="error-message">No Hikes Found With These Filters</div>;
         }
+        let card;
+        if(this.state.cardShown != undefined){
+            card = <HikeCard  hike={this.state.cardShown}/>
+        } 
+
         return (
             <div>
                 {error}
                 <main aria-label="contains the main content of the page" id="main">
                     <div className="container">
                         <div className="section" id="map">
-                            <MapArea lat={this.props.lat} lng={this.props.lng} trails={this.state.pageOfItems} />
+                            <MapArea lat={this.props.lat} lng={this.props.lng} trails={this.state.pageOfItems}  onClick={this.showCard}/>
                         </div>
-                        <div className="section" id="card">
-                            <CardContainer pageOfItems={this.state.pageOfItems} />
+                        <div id="card">
+                            {card}
                         </div>
-                    </div>
-                    <div className='pagination-holder'>
-                        <JwPagination items={this.state.displayedTrails} onChangePage={this.onChangePage}
-                            pageSize={6} disableDefaultStyles={true} />
                     </div>
                 </main>
             </div>
