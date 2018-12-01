@@ -15,8 +15,18 @@ export class HikeCard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            saved: false
+            saved: false,
         };
+    }
+
+    checkSaved = () => {
+        let savedList = this.props.savedHikes;
+        for (let i=0; i < savedList.length; i++) {
+            if (savedList[i].name === this.props.hike.name) {
+                return <p>Hike Saved</p>
+            }
+        }
+        return <button onClick={this.addHike} className="btn btn-warning">Save</button>
     }
 
     // Saving hike to Firebase database
@@ -33,12 +43,13 @@ export class HikeCard extends Component {
     }
     
     render() {
-        let saveOption;
-        if (this.state.saved) {
-            saveOption = <p>Hike Saved</p>
-        } else {
-            saveOption = <button onClick={this.addHike} className="btn btn-warning">Save</button>
-        }
+        // if (this.state.saved || this.props.hike.saved) {
+        //     saveOption = <p>Hike Saved</p>
+        // } else {
+        //     saveOption = <button onClick={this.addHike} className="btn btn-warning">Save</button>
+        // }
+
+        let saveOption = this.checkSaved();
 
         //get rating
         let ratings = [];
@@ -109,12 +120,18 @@ export class HikeCard extends Component {
 
 
 export class CardContainer extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            savedHikes: [],
+        }
+    }
 
     render() {
         let hikes;
         if (this.props.pageOfItems[1] !== undefined) {
             hikes = this.props.pageOfItems.map((hike) => {
-                return (<HikeCard key={hike.id} hike={hike}/>);
+                return (<HikeCard key={hike.id} hike={hike} savedHikes={this.props.savedHikes} />);
             });
         }
         return (

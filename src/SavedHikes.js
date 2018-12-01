@@ -33,6 +33,7 @@ export class SavedHikes extends Component {
         this.getSaved();
     }
     render() {
+        console.log(this.state.displayHikes);
         return <CardContainer pageOfItems={this.state.displayHikes}/>
     }
 }
