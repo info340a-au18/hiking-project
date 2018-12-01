@@ -13,28 +13,29 @@ main{
     margin:0 auto;
     padding: 0;
     display: flex;
-    position: relative;
+    // position: relative;
     width: 100%;
-    justify-content: center;
+    // justify-content: center;
     flex-wrap: wrap; 
-    backface-visibility: hidden;
-    will-change: overflow; 
-    #map, #card{
-        -webkit-overflow-scrolling: touch;
-        -ms-overflow-style: none;
-    }
+    // backface-visibility: hidden;
+    // will-change: overflow; 
+    // #map, #card{
+    //     -webkit-overflow-scrolling: touch;
+    //     -ms-overflow-style: none;
+    // }
     #map{
         width: 100%;
     }
     #card{
-        margin: 0 auto;
+        margin: 20px;
     }
 }
 
 
-@media (min-width: 768px){
+@media (min-width: 991px){
 //citation: learning from online resources about scrolling
     .container {
+        flex-wrap: nowrap;
         // padding: 0;
         // display: flex;
         // position: relative;
