@@ -29,6 +29,7 @@ export class SavedHikes extends Component {
         })
     }
     render() {
+        
         let savedHikes = this.state.displayHikes.map((current) => {
             return <SaveHikeCard hike={current} />
         })
