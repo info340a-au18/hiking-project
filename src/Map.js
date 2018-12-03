@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Map, TileLayer, Marker, Popup} from 'react-leaflet';
+import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
 import './Map.scss';
 import L from 'leaflet';
 
@@ -32,6 +32,9 @@ export class MapArea extends Component {
 
   }
 
+  handleClick = (hike) => {
+    this.props.onClick(hike)
+  }
 
   render() {
     let hikeMarkers;
@@ -41,20 +44,22 @@ export class MapArea extends Component {
       hikeMarkers = this.props.trails.map((hike) => {
         //Create a marker on the map for each hike, with given hike data
         return (
-          <Marker key={hike.id} position={[hike.latitude, hike.longitude]} 
-          onClick={() => this.selectHike(hike)} icon={new L.Icon({iconUrl: require('./img/holiday.svg'),
-          iconSize: new L.Point(25, 25)})}>
-              <Popup>
-            <a href={"#" + hike.id}>
+          <Marker key={hike.id} position={[hike.latitude, hike.longitude]}
+            onClick={() => this.selectHike(hike)} icon={new L.Icon({
+              iconUrl: require('./img/holiday.svg'),
+              iconSize: new L.Point(25, 25)
+            })}>
+            <Popup>
+              <a href={"#" + hike.id}>
                 {hike.name}
-            </a>
-              </Popup>
+              </a>
+            </Popup>
           </Marker>
         );
       });
     }
 
-    let locationMarker = <Marker position={[this.props.lat, this.props.lng]} icon={iconPerson} interactive={false}/>
+    let locationMarker = <Marker position={[this.props.lat, this.props.lng]} icon={iconPerson} interactive={false} />
 
     const position = [this.props.lat, this.props.lng];
     return (

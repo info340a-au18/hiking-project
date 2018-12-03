@@ -2,14 +2,15 @@ $myBlue:  #185b64;
 
 .card{
     margin: 10px auto;
+    height:80%;
     flex-basis: 300px;
     .hoverText{
         position: relative;
         height: 200px;
         img{
             display: block;
-            width: 100%;
             height: 200px;
+            margin: 10px;
         }
         p{
             position: absolute;

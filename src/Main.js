@@ -1,16 +1,18 @@
+
 import React, { Component } from 'react';
 import { CardContainer } from './Results';
 import { MapArea } from './Map';
-import JwPagination from 'jw-react-pagination';
 import 'bootstrap/dist/css/bootstrap.css';
 import './Main.scss';
+
+import firebase from 'firebase/app';
+import 'firebase/database';
 
 export class Main extends Component {
 
     constructor(props) {
         super(props);
-        this.onChangePage = this.onChangePage.bind(this);
-        this.state = { trailData: {}, displayedTrails: {}, newLocation: false, pageOfItems: {}};
+        this.state = { trailData: {}, displayedTrails: {}, newLocation: false, pageOfItems: {}, savedHikes: [], cardShown: undefined };
     }
 
     //Search term from form is passed in as this.props.searchTerm
@@ -61,8 +63,7 @@ export class Main extends Component {
                 this.setState(
                     {
                         trailData: hikes,
-                        displayedTrails: hikes,
-                        pageOfItems: hikes
+                        displayedTrails: hikes
                     }
                 );
 
@@ -126,13 +127,28 @@ export class Main extends Component {
         hikesToDisplay = this.elevFilter(hikesToDisplay);
 
         this.setState({
-            displayedTrails: hikesToDisplay,
-            pageOfItems: hikesToDisplay
+            displayedTrails: hikesToDisplay
         });
     }
 
     componentDidMount() {
         this.getData(this.props.lat, this.props.lng, this.props.maxDist, this.props.maxResults);
+
+        // Gets an array of the trails saved in the Firebase database
+        let hikeRef = firebase.database().ref('saved');
+        hikeRef.on('value', (snapShot) => {
+            let hikeData = snapShot.val();
+            let hikeKeys = Object.keys(hikeData);
+            let hikeArray = hikeKeys.map((key) => {
+                let hike = hikeData[key];
+                hike.id = key;
+                return hike;
+            })
+            let hikeInfo = hikeArray.map((current) => {
+                return current.hike;
+            })
+            this.setState({ savedHikes: hikeInfo });
+        })
     }
 
     //Intercepts prop updates to fetch data and filter the list of hikes
@@ -160,8 +176,10 @@ export class Main extends Component {
 
     }
 
-    onChangePage(pageOfItems) {
-        this.setState({ pageOfItems });
+
+    showCard = (hike) => {
+        console.log(hike);
+        this.setState({ cardShown: hike })
     }
 
     render() {
@@ -175,15 +193,11 @@ export class Main extends Component {
                 <main aria-label="contains the main content of the page" id="main">
                     <div className="container">
                         <div className="section" id="map">
-                            <MapArea lat={this.props.lat} lng={this.props.lng} trails={this.state.pageOfItems} />
+                            <MapArea lat={this.props.lat} lng={this.props.lng} trails={this.state.displayedTrails} />
                         </div>
                         <div className="section" id="card">
-                            <CardContainer pageOfItems={this.state.pageOfItems} />
+                            <CardContainer pageOfItems={this.state.displayedTrails} />
                         </div>
-                    </div>
-                    <div className='pagination-holder'>
-                        <JwPagination items={this.state.displayedTrails} onChangePage={this.onChangePage}
-                            pageSize={6} disableDefaultStyles={true} />
                     </div>
                 </main>
             </div>
