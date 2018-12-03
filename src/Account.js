@@ -38,12 +38,11 @@ export class Account extends Component {
       });
     return updateProfile;
   })
-  .then(
-    this.setState({displayName: handle, photoURL:avatar})
-  )
+  .then((user) => {
+    this.setState({user:user})
+  })
   .catch((err) => {
     this.setState({errorMessage: err.message});
-    console.log(err);
   })
 
     /* TODO: sign up user here */
