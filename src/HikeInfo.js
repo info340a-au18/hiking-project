@@ -7,35 +7,43 @@ import easy from './img/green.png';
 import placeHolder from './img/hiker-mini.jpg';
 import './HikeInfo.scss';
 import firebase from 'firebase/app';
+import Moment from 'react-moment';
+import './SignUpForm.css';
 
 export class HikeInfo extends Component{
 
     constructor(props){
         super(props);
-        this.state = {trail: undefined, comments:[]};
+        this.state = {trail: undefined, comments:undefined};
     }
 
-    componentDidMount(){
-        console.log(this.props.location.state);
-        console.log('hikes/' + this.props.location.state.hike.id);
-
+    componentDidMount() {
         // if user is signed in or not
         this.authUnRegFunc = firebase.auth().onAuthStateChanged((firebaseUser) => {
             if(firebaseUser){ //signed in!
-              this.setState({user: firebaseUser})
+              this.setState({user: firebaseUser});
             } else { //signed out
-              this.setState({user: null})
+              this.setState({user: null});
             }
-          })
+        });
 
         // store the hike as the state, as well as hike comments
         this.commentRef = firebase.database().ref('hikes/' + this.props.location.state.hike.id);
         this.commentRef.on('value', (snapshot) => {
-          let val = snapshot.val();
-          this.setState({
-            trail: this.props.location.state.hike,
-            comments: val
-          })
+            let val = snapshot.val();
+            let commentsArray = undefined;
+            if (val) {
+                let commentKeys = Object.keys(val);
+                commentsArray = commentKeys.map((key) => {
+                    let obj = val[key];
+                    obj.id = key;
+                    return obj;
+                })
+            }
+            this.setState({
+                trail: this.props.location.state.hike,
+                comments: commentsArray
+            });
         });
     }
 
@@ -44,15 +52,26 @@ export class HikeInfo extends Component{
     }
 
     handleReview = (userReview) => {
+        let time = firebase.database.ServerValue.TIMESTAMP;
+
         // update firebase database
         let newComment = {
             text: userReview,
-            time: firebase.database.ServerValue.TIMESTAMP,
+            time: time,
             user: this.state.user.uid,
             userName: this.state.user.displayName,
             userPhoto: this.state.user.photoURL
         }
         this.commentRef.push(newComment);
+
+        // update user's review list
+        let userReviewRef = firebase.database().ref('users/' + this.state.user.uid + '/userReviews/'
+                                    + this.props.location.state.hike.id);
+        let newUserComment = {
+            text: userReview,
+            time: time
+        }
+        userReviewRef.push(newUserComment);
     }
 
 
@@ -110,10 +129,14 @@ export class HikeInfo extends Component{
                             <li className='diff'>Difficulty: <img src={diff} alt={diff} /></li>
                         </ul>
                     </div>
+                </div>
+
+                <div className="comments-holder">
                     <CommentBox user={this.state.user} handleReview={this.handleReview}></CommentBox>
-                    <div className="comments-holder">
-                        {/* <HikeCommentList comments={this.state.comments}></HikeCommentList> */}
-                    </div>
+                </div>
+
+                <div className="comments-holder">
+                    <HikeCommentList comments={this.state.comments}></HikeCommentList>
                 </div>
             </div>
         )
@@ -121,17 +144,27 @@ export class HikeInfo extends Component{
 
 }
 
+// Expected props
+//   user = the firebase user object
+//   handleReview = function to update reviews on firebase
 class CommentBox extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            review: ""
-        };
+            review: undefined
+        }
     }
 
     handleReview = (event) => {  
         event.preventDefault();
-        this.props.handleReview(this.state.review);
+        // alert if user didn't write anything
+        if (this.state.review) {
+            this.props.handleReview(this.state.review);
+        } else {
+            this.setState({
+                errorMessage:"You must write something first!"
+            })
+        }
     }
 
     handleChange = (event) => {
@@ -146,37 +179,38 @@ class CommentBox extends Component {
         if (!this.props.user) return null;
 
         return (
-            <form>
-                <div className="form-group">
-                    <textarea name="reivew" placeholder="Add a review..." onChange={this.handleChange}></textarea>
-                </div>
-                <div>
-                    <button className="btn btn-primary" onClick={this.handleReview}>Submit</button>
-                </div>
-            </form>
-        )
+            <div>
+                <h2>User Reviews</h2>
+                {this.state.errorMessage &&
+                <p className="alert alert-danger">{this.state.errorMessage}</p>
+                }
+            
+
+                <form>
+                    <div className="form-group mb2">
+                        <textarea className="form-control" name="reivew" placeholder="Add a review..." onChange={this.handleChange}></textarea>
+                    </div>
+                    <div className="form-group">
+                        <button className="btn btn-primary" onClick={this.handleReview}>Submit</button>
+                    </div>
+                </form>
+            </div>
+        );
     }
 }
 
-
+// Expected props:
+//   comments: the firebase object for comments
 class HikeCommentList extends Component {
     render() {
         if (!this.props.comments) return null;
-
-        let commentKeys = Object.keys(this.props.comments);
-        let commentsArray = commentKeys.map((key) => {
-            let obj = this.props.comments[key];
-            obj.id = key;
-            return obj;
-        })
-        console.log(commentsArray);
-        let renderedComments = commentsArray.map((item, index) => {
+        let renderedComments = this.props.comments.map((item, index) => {
             return <HikeComment key={index} comment={item}></HikeComment>
         });
-        console.log(renderedComments);
-        console.log(typeof(renderedComments));
         return (
-            {renderedComments}
+            <div>
+                {renderedComments}
+            </div>
         );
     }
 }
@@ -185,10 +219,19 @@ class HikeCommentList extends Component {
 //   comment - comment object
 class HikeComment extends Component {
     render() {
-        console.log(this.props.comment);
+        let comment = this.props.comment;
         return(
-            <div className="comment-box">
-                <p>username</p>
+            <div className="card">
+            <div className="card-body">
+                <h5 className="card-title">
+                    <img className="avatar" src={comment.userPhoto} alt={comment.userName} />
+                    {comment.userName}
+                </h5>
+                <h6 className="card-subtitle mb-2 text-muted">
+                    <Moment date={comment.time} fromNow></Moment>
+                </h6>
+                <p className="card-text">{comment.text}</p>
+            </div>
             </div>
         );
     }
