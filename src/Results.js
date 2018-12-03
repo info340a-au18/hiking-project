@@ -5,7 +5,8 @@ import hard from './img/black.png';
 import medium from './img/blue.png';
 import easy from './img/green.png';
 import placeHolder from './img/hiker-mini.jpg'
-import {BrowserRouter as Router, Route, Link, Switch, Redirect, NavLink} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, Switch, Redirect, NavLink } from 'react-router-dom';
+import { Tooltip } from 'reactstrap';
 import './Results.scss';
 import firebase from 'firebase/app';
 import 'firebase/auth';
@@ -15,13 +16,13 @@ export class HikeCard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            saved: false,
+            saved: false
         };
     }
 
     checkSaved = () => {
         let savedList = this.props.savedHikes;
-        for (let i=0; i < savedList.length; i++) {
+        for (let i = 0; i < savedList.length; i++) {
             if (savedList[i].name === this.props.hike.name) {
                 return <p>Hike Saved</p>
             }
@@ -31,7 +32,7 @@ export class HikeCard extends Component {
 
     // Saving hike to Firebase database
     addHike = () => {
-        this.setState({saved: true});
+        this.setState({ saved: true });
         let newHike = {
             hike: this.props.hike,
         }
@@ -41,7 +42,7 @@ export class HikeCard extends Component {
             })
         // console.log(this.props.hike);
     }
-    
+
     render() {
         // if (this.state.saved || this.props.hike.saved) {
         //     saveOption = <p>Hike Saved</p>
@@ -87,16 +88,16 @@ export class HikeCard extends Component {
         }
 
         this.handleClick = () => {
-            this.setState({redirect:true})
-        } 
-        
-        if(this.state.redirect){
-            return <Redirect push 
-                        to={{
-                            pathname: "/hiking-project/trail/" + this.props.hike.name,
-                            state: {hike: this.props.hike}
-                        }} 
-                    />
+            this.setState({ redirect: true })
+        }
+
+        if (this.state.redirect) {
+            return <Redirect push
+                to={{
+                    pathname: "/hiking-project/trail/" + this.props.hike.name,
+                    state: { hike: this.props.hike }
+                }}
+            />
         }
         return (
             <div className="card">
@@ -130,7 +131,7 @@ export class CardContainer extends Component {
         let hikes;
         if (this.props.pageOfItems[1] !== undefined) {
             hikes = this.props.pageOfItems.map((hike) => {
-                return (<HikeCard key={hike.id} hike={hike}/>);
+                return (<HikeCard key={hike.id} hike={hike} />);
             });
         }
         return (

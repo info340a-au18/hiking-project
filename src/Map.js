@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
+import { Tooltip } from 'reactstrap';
 import './Map.scss';
 import L from 'leaflet';
 
@@ -65,7 +66,7 @@ export class MapArea extends Component {
     return (
       //Initialzie the map at the given position, using tiles from OpenStretMap
       <div className='hikemap'>
-        <Map className='map' key={position} center={position} zoom={7}>
+        <Map className='map' key={position} center={position} zoom={8}>
           <TileLayer
             attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url="https://api.tiles.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoia2pnb29kd2lucyIsImEiOiJjam8zNnF4YmUwdTA3M3BybGtocWkzejY4In0.9eALJdo0A_rMgg2cgZWHlQ"
