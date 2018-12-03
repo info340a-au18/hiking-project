@@ -93,7 +93,7 @@ export class HikeCard extends Component {
         if(this.state.redirect){
             return <Redirect push 
                         to={{
-                            pathname: "/trail/" + this.props.hike.name,
+                            pathname: "/hiking-project/trail/" + this.props.hike.name,
                             state: {hike: this.props.hike}
                         }} 
                     />
