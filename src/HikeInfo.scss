@@ -36,7 +36,16 @@ h2{
     
 }
 
-.comment-holder{
+.comments-holder {    
     display: flex;
-    justify-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 20px;
+    padding: 10px;
+    width: 100%;
+}
+
+.comment-box {
+    border: 1px solid black;
+
 }
