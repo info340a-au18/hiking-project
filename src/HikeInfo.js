@@ -7,6 +7,8 @@ import easy from './img/green.png';
 import placeHolder from './img/hiker-mini.jpg';
 import './HikeInfo.scss';
 import firebase from 'firebase/app';
+import Moment from 'react-moment';
+import './SignUpForm.css';
 
 export class HikeInfo extends Component{
 
@@ -127,10 +129,14 @@ export class HikeInfo extends Component{
                             <li className='diff'>Difficulty: <img src={diff} alt={diff} /></li>
                         </ul>
                     </div>
+                </div>
+
+                <div className="comments-holder">
                     <CommentBox user={this.state.user} handleReview={this.handleReview}></CommentBox>
-                    <div className="comments-holder">
-                        <HikeCommentList comments={this.state.comments}></HikeCommentList>
-                    </div>
+                </div>
+
+                <div className="comments-holder">
+                    <HikeCommentList comments={this.state.comments}></HikeCommentList>
                 </div>
             </div>
         )
@@ -145,13 +151,20 @@ class CommentBox extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            review: ""
-        };
+            review: undefined
+        }
     }
 
     handleReview = (event) => {  
         event.preventDefault();
-        this.props.handleReview(this.state.review);
+        // alert if user didn't write anything
+        if (this.state.review) {
+            this.props.handleReview(this.state.review);
+        } else {
+            this.setState({
+                errorMessage:"You must write something first!"
+            })
+        }
     }
 
     handleChange = (event) => {
@@ -166,15 +179,23 @@ class CommentBox extends Component {
         if (!this.props.user) return null;
 
         return (
-            <form>
-                <div className="form-group">
-                    <textarea name="reivew" placeholder="Add a review..." onChange={this.handleChange}></textarea>
-                </div>
-                <div>
-                    <button className="btn btn-primary" onClick={this.handleReview}>Submit</button>
-                </div>
-            </form>
-        )
+            <div>
+                <h2>User Reviews</h2>
+                {this.state.errorMessage &&
+                <p className="alert alert-danger">{this.state.errorMessage}</p>
+                }
+            
+
+                <form>
+                    <div className="form-group mb2">
+                        <textarea className="form-control" name="reivew" placeholder="Add a review..." onChange={this.handleChange}></textarea>
+                    </div>
+                    <div className="form-group">
+                        <button className="btn btn-primary" onClick={this.handleReview}>Submit</button>
+                    </div>
+                </form>
+            </div>
+        );
     }
 }
 
@@ -198,9 +219,19 @@ class HikeCommentList extends Component {
 //   comment - comment object
 class HikeComment extends Component {
     render() {
+        let comment = this.props.comment;
         return(
-            <div className="comment-box">
-                
+            <div className="card">
+            <div className="card-body">
+                <h5 className="card-title">
+                    <img className="avatar" src={comment.userPhoto} alt={comment.userName} />
+                    {comment.userName}
+                </h5>
+                <h6 className="card-subtitle mb-2 text-muted">
+                    <Moment date={comment.time} fromNow></Moment>
+                </h6>
+                <p className="card-text">{comment.text}</p>
+            </div>
             </div>
         );
     }

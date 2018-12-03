@@ -45,7 +45,10 @@ export class MapArea extends Component {
         //Create a marker on the map for each hike, with given hike data
         return (
           <Marker key={hike.id} position={[hike.latitude, hike.longitude]}
-            onClick={() => this.selectHike(hike)} icon={new L.Icon({
+            onClick={() => {
+              this.selectHike(hike)
+              document.getElementById(hike.id).scrollIntoView();
+            }} icon={new L.Icon({
               iconUrl: require('./img/holiday.svg'),
               iconSize: new L.Point(25, 25)
             })}>
