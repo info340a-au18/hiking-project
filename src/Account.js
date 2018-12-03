@@ -6,7 +6,8 @@ export class Account extends Component {
   constructor(props){
     super(props);
     this.state = {
-      loading:true
+      loading:true,
+      signUp: false
     };
   }
 
@@ -70,17 +71,28 @@ export class Account extends Component {
       })
   }
 
+  newUser = () => {
+      this.setState({signUp: true});
+  }
+
+  returnUser = () => {
+      this.setState({signUp: false});
+  }
+
   render() {
 
     let content = null; //content to render
-
     if(!this.state.user) { //if logged out, show signup form
+      let greeting = this.state.signUp ? <h1>Sign Up</h1> : <h1>Sign In</h1>;
       content = (
         <div className="container">
-          <h1>Sign Up</h1>
+          {greeting}
           <SignUpForm 
             signUpCallback={this.handleSignUp} 
-            signInCallback={this.handleSignIn} 
+            signInCallback={this.handleSignIn}
+            signUp={this.state.signUp}
+            newUser={this.newUser}
+            returnUser={this.returnUser}
             />
         </div>
       );

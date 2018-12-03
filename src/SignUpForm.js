@@ -39,6 +39,29 @@ class SignUpForm extends Component {
     }
 
     render() {
+        let signUp = <div><div className="form-group">
+            <label htmlFor="handle">User Name</label>
+            <input className="form-control"
+                id="handle"
+                name="handle"
+                onChange={this.handleChange}
+            />
+        </div>
+
+            <div className="form-group">
+                <label htmlFor="avatar">Profile Picture</label>
+                <InputGroup>
+                    <Input />
+                    <InputGroupAddon addonType="append">
+                        <InputGroupText>Upload Image</InputGroupText>
+                    </InputGroupAddon>
+                </InputGroup>
+            </div>
+        </div>;
+        let signUpButton = <button className="btn btn-success mr-2" onClick={this.handleSignUp}>Sign-up</button>;
+        let returnUser = <button className="btn btn-dark mr-2" onClick={this.props.returnUser}>Have an account?</button>;
+        let signInButton = <button className="btn btn-success" onClick={this.handleSignIn}>Sign-in</button>;
+        let newUser = <button className="btn btn-dark mr-2" onClick={this.props.newUser}>Need an account?</button>;
         return (
             <form>
                 {/* email */}
@@ -97,8 +120,8 @@ class SignUpForm extends Component {
 
                 {/* buttons */}
                 <div className="form-group">
-                    <button className="btn btn-primary mr-2" onClick={this.handleSignUp}>Sign-up</button>
-                    <button className="btn btn-primary" onClick={this.handleSignIn}>Sign-in</button>
+                    {this.props.signUp ? signUpButton : signInButton}
+                    {this.props.signUp ? returnUser : newUser}
                 </div>
             </form >
         )

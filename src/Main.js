@@ -1,8 +1,7 @@
 
 import React, { Component } from 'react';
-import { HikeCard } from './Results';
+import { CardContainer } from './Results';
 import { MapArea } from './Map';
-import JwPagination from 'jw-react-pagination';
 import 'bootstrap/dist/css/bootstrap.css';
 import './Main.scss';
 
@@ -13,7 +12,7 @@ export class Main extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { trailData: {}, displayedTrails: {}, newLocation: false, pageOfItems: {}, savedHikes: [], cardShown: undefined};
+        this.state = { trailData: {}, displayedTrails: {}, newLocation: false, pageOfItems: {}, savedHikes: [], cardShown: undefined };
     }
 
     //Search term from form is passed in as this.props.searchTerm
@@ -64,8 +63,7 @@ export class Main extends Component {
                 this.setState(
                     {
                         trailData: hikes,
-                        displayedTrails: hikes,
-                        pageOfItems: hikes
+                        displayedTrails: hikes
                     }
                 );
 
@@ -129,8 +127,7 @@ export class Main extends Component {
         hikesToDisplay = this.elevFilter(hikesToDisplay);
 
         this.setState({
-            displayedTrails: hikesToDisplay,
-            pageOfItems: hikesToDisplay
+            displayedTrails: hikesToDisplay
         });
     }
 
@@ -148,9 +145,9 @@ export class Main extends Component {
                 return hike;
             })
             let hikeInfo = hikeArray.map((current) => {
-            return current.hike;
+                return current.hike;
             })
-            this.setState({savedHikes: hikeInfo});
+            this.setState({ savedHikes: hikeInfo });
         })
     }
 
@@ -182,7 +179,7 @@ export class Main extends Component {
 
     showCard = (hike) => {
         console.log(hike);
-        this.setState({cardShown: hike})
+        this.setState({ cardShown: hike })
     }
 
     render() {
@@ -190,21 +187,16 @@ export class Main extends Component {
         if (this.state.displayedTrails.length === 0) {
             error = <div className="error-message">No Hikes Found With These Filters</div>;
         }
-        let card;
-        if(this.state.cardShown != undefined){
-            card = <HikeCard  hike={this.state.cardShown}/>
-        } 
-
         return (
             <div>
                 {error}
                 <main aria-label="contains the main content of the page" id="main">
                     <div className="container">
                         <div className="section" id="map">
-                            <MapArea lat={this.props.lat} lng={this.props.lng} trails={this.state.pageOfItems}  onClick={this.showCard}/>
+                            <MapArea lat={this.props.lat} lng={this.props.lng} trails={this.state.displayedTrails} />
                         </div>
-                        <div id="card">
-                            {card}
+                        <div className="section" id="card">
+                            <CardContainer pageOfItems={this.state.displayedTrails} />
                         </div>
                     </div>
                 </main>

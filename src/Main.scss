@@ -1,57 +1,91 @@
 $myBlue:  #185b64;
 
-*{
-    scroll-behavior: smooth;
-}
-
 main{
     box-sizing: border-box;
     padding: 20px 0;
 }
 
+.leaflet-container{
+    height: 400px;
+    width: 100%;
+}
+
 .container {
-    margin:0 auto;
     padding: 0;
     display: flex;
-    // position: relative;
+    overflow: hidden;
+    height: 110vh;
+    position: relative;
     width: 100%;
-    // justify-content: center;
     flex-wrap: wrap; 
-    // backface-visibility: hidden;
-    // will-change: overflow; 
-    // #map, #card{
-    //     -webkit-overflow-scrolling: touch;
-    //     -ms-overflow-style: none;
-    // }
+    backface-visibility: hidden;
+    will-change: overflow; 
+    #map, #card{
+        overflow: auto;
+        height: auto;
+        -webkit-overflow-scrolling: touch;
+        -ms-overflow-style: none;
+    }
     #map{
-        width: 100%;
+        height: 50%;
+        width: 100%;                       
     }
     #card{
-        margin: 20px;
+        height: 50%;
+        overflow: scroll;
     }
 }
 
+.pagination-holder{
+    display: flex;
+    justify-content: center;
+    width:100%;
+    height: 3.5em;
+    margin: 1em;
+    padding: 0;
+    background-color: white;
+    li {
+        padding: 1em 0.8em;
+    }
+    li.first{
+        display: none;
+    }
+    li.last{
+        display: none;
+    }
+    li.active a{
+        background-color: $myBlue;
+        padding: 1em;
+        color: white;
+    }
+    li:hover{
+        cursor:pointer
+    }
+}
 
-@media (min-width: 991px){
+@media (min-width: 768px){
 //citation: learning from online resources about scrolling
     .container {
-        flex-wrap: nowrap;
-        // padding: 0;
-        // display: flex;
-        // position: relative;
-        // width: 100%;
-        // backface-visibility: hidden;
-        // will-change: overflow;
-        // #map, #card{
-        //     height: auto;
-        //     -webkit-overflow-scrolling: touch;
-        //     -ms-overflow-style: none;
-        // }
-        // #map{
-        //     height: 100%;
-        // }
-        // #card{
-            
-        // }
+        padding: 0;
+        display: flex;
+        overflow: hidden;
+        height: 70vh;
+        position: relative;
+        width: 100%;
+        backface-visibility: hidden;
+        will-change: overflow;
+        #map, #card{
+            overflow: auto;
+            height: auto;
+            -webkit-overflow-scrolling: touch;
+            -ms-overflow-style: none;
+        }
+        #map{
+            width: 60%;
+            height: 100%;
+        }
+        #card{
+            width: 40%;
+        }
     }
 }

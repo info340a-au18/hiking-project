@@ -93,7 +93,7 @@ export class HikeCard extends Component {
         if(this.state.redirect){
             return <Redirect push 
                         to={{
-                            pathname: "/trail/" + this.props.hike.name,
+                            pathname: "/hiking-project/trail/" + this.props.hike.name,
                             state: {hike: this.props.hike}
                         }} 
                     />
@@ -126,19 +126,11 @@ export class HikeCard extends Component {
 
 
 export class CardContainer extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            savedHikes: [],
-        }
-    }
-
     render() {
-
         let hikes;
         if (this.props.pageOfItems[1] !== undefined) {
             hikes = this.props.pageOfItems.map((hike) => {
-                return (<HikeCard key={hike.id} hike={hike} savedHikes={this.props.savedHikes} />);
+                return (<HikeCard key={hike.id} hike={hike}/>);
             });
         }
         return (
