@@ -13,23 +13,34 @@ export class SavedHikes extends Component {
     }
 
     componentDidMount() {
-        let hikeRef = firebase.database().ref('saved');
-        hikeRef.on('value', (snapShot) => {
-            let hikeData = snapShot.val();
-            let hikeKeys = Object.keys(hikeData);
-            let hikeArray = hikeKeys.map((key) => {
-                let hike = hikeData[key];
-                hike.id = key;
-                return hike;
+        // if user is signed in or not
+        this.authUnRegFunc = firebase.auth().onAuthStateChanged((firebaseUser) => {
+            if(firebaseUser){ //signed in!
+                this.setState({user: firebaseUser});
+            } else { //signed out
+                this.setState({user: null});
+            }
+        });
+
+        if(this.state.user) {
+            let hikeRef = firebase.database().ref('users/' + this.state.user.uid + "/savedHikes");
+            hikeRef.on('value', (snapShot) => {
+                let hikeData = snapShot.val();
+                let hikeKeys = Object.keys(hikeData);
+                let hikeArray = hikeKeys.map((key) => {
+                    let hike = hikeData[key];
+                    hike.id = key;
+                    return hike;
+                })
+                let hikeInfo = hikeArray.map((current) => {
+                    return current.hike;
+                })
+                this.setState({displayHikes: hikeInfo});
             })
-            let hikeInfo = hikeArray.map((current) => {
-            return current.hike;
-            })
-            this.setState({displayHikes: hikeInfo});
-        })
+        }
     }
+
     render() {
-        
         let savedHikes = this.state.displayHikes.map((current) => {
             return <SaveHikeCard hike={current} />
         })
