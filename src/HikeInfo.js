@@ -6,18 +6,55 @@ import medium from './img/blue.png';
 import easy from './img/green.png';
 import placeHolder from './img/hiker-mini.jpg';
 import './HikeInfo.scss';
+import firebase from 'firebase/app';
 
 export class HikeInfo extends Component{
 
     constructor(props){
         super(props);
-        this.state = {trail: undefined};
+        this.state = {trail: undefined, comments:[]};
     }
 
     componentDidMount(){
         console.log(this.props.location.state);
-        this.setState({trail: this.props.location.state.hike})
+        console.log('hikes/' + this.props.location.state.hike.id);
+
+        // if user is signed in or not
+        this.authUnRegFunc = firebase.auth().onAuthStateChanged((firebaseUser) => {
+            if(firebaseUser){ //signed in!
+              this.setState({user: firebaseUser})
+            } else { //signed out
+              this.setState({user: null})
+            }
+          })
+
+        // store the hike as the state, as well as hike comments
+        this.commentRef = firebase.database().ref('hikes/' + this.props.location.state.hike.id);
+        this.commentRef.on('value', (snapshot) => {
+          let val = snapshot.val();
+          this.setState({
+            trail: this.props.location.state.hike,
+            comments: val
+          })
+        });
     }
+
+    componentWillUnmount() {
+        this.commentRef.off();
+    }
+
+    handleReview = (userReview) => {
+        // update firebase database
+        let newComment = {
+            text: userReview,
+            time: firebase.database.ServerValue.TIMESTAMP,
+            user: this.state.user.uid,
+            userName: this.state.user.displayName,
+            userPhoto: this.state.user.photoURL
+        }
+        this.commentRef.push(newComment);
+    }
+
 
     render(){
 
@@ -72,13 +109,87 @@ export class HikeInfo extends Component{
                             <li>Description: {this.state.trail.summary}</li>
                             <li className='diff'>Difficulty: <img src={diff} alt={diff} /></li>
                         </ul>
-                        <div className="comments-holder">
-                            
-                        </div>
+                    </div>
+                    <CommentBox user={this.state.user} handleReview={this.handleReview}></CommentBox>
+                    <div className="comments-holder">
+                        {/* <HikeCommentList comments={this.state.comments}></HikeCommentList> */}
                     </div>
                 </div>
             </div>
         )
     }
 
+}
+
+class CommentBox extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            review: ""
+        };
+    }
+
+    handleReview = (event) => {  
+        event.preventDefault();
+        this.props.handleReview(this.state.review);
+    }
+
+    handleChange = (event) => {
+        event.preventDefault();
+        let value = event.target.value;
+        this.setState({
+            review: value
+        });
+    }
+
+    render() {
+        if (!this.props.user) return null;
+
+        return (
+            <form>
+                <div className="form-group">
+                    <textarea name="reivew" placeholder="Add a review..." onChange={this.handleChange}></textarea>
+                </div>
+                <div>
+                    <button className="btn btn-primary" onClick={this.handleReview}>Submit</button>
+                </div>
+            </form>
+        )
+    }
+}
+
+
+class HikeCommentList extends Component {
+    render() {
+        if (!this.props.comments) return null;
+
+        let commentKeys = Object.keys(this.props.comments);
+        let commentsArray = commentKeys.map((key) => {
+            let obj = this.props.comments[key];
+            obj.id = key;
+            return obj;
+        })
+        console.log(commentsArray);
+        let renderedComments = commentsArray.map((item, index) => {
+            return <HikeComment key={index} comment={item}></HikeComment>
+        });
+        console.log(renderedComments);
+        console.log(typeof(renderedComments));
+        return (
+            {renderedComments}
+        );
+    }
+}
+
+// expected props:
+//   comment - comment object
+class HikeComment extends Component {
+    render() {
+        console.log(this.props.comment);
+        return(
+            <div className="comment-box">
+                <p>username</p>
+            </div>
+        );
+    }
 }
