@@ -12,7 +12,7 @@ export class HikeInfo extends Component{
 
     constructor(props){
         super(props);
-        this.state = {trail: undefined, comments:[]};
+        this.state = {trail: undefined, comments:undefined};
     }
 
     componentDidMount() {
@@ -29,12 +29,15 @@ export class HikeInfo extends Component{
         this.commentRef = firebase.database().ref('hikes/' + this.props.location.state.hike.id);
         this.commentRef.on('value', (snapshot) => {
             let val = snapshot.val();
-            let commentKeys = Object.keys(val);
-            let commentsArray = commentKeys.map((key) => {
-                let obj = val[key];
-                obj.id = key;
-                return obj;
-            })
+            let commentsArray = undefined;
+            if (val) {
+                let commentKeys = Object.keys(val);
+                commentsArray = commentKeys.map((key) => {
+                    let obj = val[key];
+                    obj.id = key;
+                    return obj;
+                })
+            }
             this.setState({
                 trail: this.props.location.state.hike,
                 comments: commentsArray
