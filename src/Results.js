@@ -137,8 +137,8 @@ export class CardContainer extends Component {
         this.authUnRegFunc = firebase.auth().onAuthStateChanged((firebaseUser) => {
             if(firebaseUser){ //signed in!
                 this.setState({user: firebaseUser});
-                let hikeRef = firebase.database().ref('users/' + this.state.user.uid + "/savedHikes");
-                hikeRef.on('value', (snapShot) => {
+                this.hikeRef = firebase.database().ref('users/' + this.state.user.uid + "/savedHikes");
+                this.hikeRef.on('value', (snapShot) => {
                     let hikeData = snapShot.val();
                     let hikeKeys = Object.keys(hikeData);
                     let hikeArray = hikeKeys.map((key) => {
@@ -154,9 +154,9 @@ export class CardContainer extends Component {
         });
     }
 
-    // componentWillUnmount() {
-    //     this.hikeRef.off();
-    // }
+    componentWillUnmount() {
+        this.hikeRef.off();
+    }
 
     render() {
         console.log(this.state.savedHikes);
