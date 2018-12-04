@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/hiking-project/precache-manifest.c61a72f9a0374ecc28171324c9225a75.js"
+  "/hiking-project/precache-manifest.73be3e52825494a2aec89ff7cdb0505e.js"
 );
 
 workbox.clientsClaim();
