@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import './NavBar.scss';
+import { Link } from 'react-router-dom'
+
 import {
     Collapse,
     Navbar,
@@ -36,12 +38,12 @@ export class NavBar extends Component {
         return (
             <div>
                 <Navbar color="light" light expand="md">
-                    <NavbarBrand href="/hiking-project/Home">Hike Finder</NavbarBrand>
+                    <Link to="/Home">Hike Finder</Link>
                     <NavbarToggler onClick={this.toggle} />
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>
                             <NavItem>
-                                <NavLink href="/hiking-project/Home">Home</NavLink>
+                                <Link to="/Home">Home</Link>
                             </NavItem>
                             <UncontrolledDropdown nav inNavbar>
                                 <DropdownToggle nav caret>
@@ -49,10 +51,10 @@ export class NavBar extends Component {
                                 </DropdownToggle>
                                 <DropdownMenu right>
                                     <DropdownItem>
-                                        <NavLink href="/hiking-project/Account">Sign in</NavLink>
+                                        <Link to="/Account">Sign in</Link>
                                     </DropdownItem>
                                     <DropdownItem>
-                                        <NavLink href="/hiking-project/SavedHikes">Saved</NavLink>
+                                        <Link to="/SavedHikes">Saved</Link>
                                     </DropdownItem>
                                     <DropdownItem divider />
                                     <DropdownItem>
