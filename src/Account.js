@@ -1,22 +1,23 @@
 import React, { Component } from 'react';
 import SignUpForm from './SignUpForm';
 import firebase from 'firebase/app';
+import sun from './img/sun.mp4';
+import './Account.scss';
 
 export class Account extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
-      loading:true,
-      signUp: false
+      loading: true
     };
   }
 
   componentDidMount() {
     this.authUnRegFunc = firebase.auth().onAuthStateChanged((firebaseUser) => {
-      if(firebaseUser){ //signed in!
-        this.setState({user: firebaseUser, loading:false})
+      if (firebaseUser) { //signed in!
+        this.setState({ user: firebaseUser, loading: false })
       } else { //signed out
-        this.setState({user: null, loading:false})
+        this.setState({ user: null, loading: false })
       }
     })
 
@@ -28,102 +29,93 @@ export class Account extends Component {
 
   //A callback function for registering new users
   handleSignUp = (email, password, handle, avatar) => {
-    this.setState({errorMessage:null}); //clear any old errors
+    this.setState({ errorMessage: null }); //clear any old errors
     firebase.auth().createUserWithEmailAndPassword(email, password)
-    .then((userCredential) => {
-      let firebaseUser = userCredential.user;
-      //add the username to their account     
-      let updateProfile = firebaseUser.updateProfile({
-        displayName: handle,
-        photoURL:avatar
-      });
-    return updateProfile;
-  })
-  .then((user) => {
-    this.setState({user:user})
-  })
-  .catch((err) => {
-    this.setState({errorMessage: err.message});
-  })
+      .then((userCredential) => {
+        let firebaseUser = userCredential.user;
+        //add the username to their account     
+        let updateProfile = firebaseUser.updateProfile({
+          displayName: handle,
+          photoURL: avatar
+        });
+        return updateProfile;
+      })
+      .then((user) => {
+        this.setState({ user: user })
+      })
+      .catch((err) => {
+        this.setState({ errorMessage: err.message });
+      })
 
     /* TODO: sign up user here */
   }
 
   //A callback function for logging in existing users
   handleSignIn = (email, password) => {
-    this.setState({errorMessage:null}); //clear any old errors
+    this.setState({ errorMessage: null }); //clear any old errors
     console.log(email, password);
     /* TODO: sign in user here */
     firebase.auth().signInWithEmailAndPassword(email, password)
       .catch((err) => {
-        this.setState({errorMessage: err.message})
+        this.setState({ errorMessage: err.message })
       })
   }
 
   //A callback function for logging out the current user
   handleSignOut = () => {
-    this.setState({errorMessage:null}); //clear any old errors
+    this.setState({ errorMessage: null }); //clear any old errors
 
     /* TODO: sign out user here */
     firebase.auth().signOut()
       .catch((err) => {
-        this.setState({errorMessage: err.message})
+        this.setState({ errorMessage: err.message })
       })
-  }
-
-  newUser = () => {
-      this.setState({signUp: true});
-  }
-
-  returnUser = () => {
-      this.setState({signUp: false});
   }
 
   render() {
 
     let content = null; //content to render
-    if(!this.state.user) { //if logged out, show signup form
-      let greeting = this.state.signUp ? <h1>Sign Up</h1> : <h1>Sign In</h1>;
+    if (!this.state.user) { //if logged out, show signup form
+      
       content = (
-        <div className="container">
-          {greeting}
-          <SignUpForm 
-            signUpCallback={this.handleSignUp} 
+        <div className="login">
+          <SignUpForm
             signInCallback={this.handleSignIn}
+            signUpCallback={this.handleSignUp}
             signUp={this.state.signUp}
-            newUser={this.newUser}
             returnUser={this.returnUser}
-            />
-        </div>
-      );
-    } 
+          />
+        </div>);
+    }
     else { //if logged in, show welcome message
       content = (
         <div>
           <WelcomeHeader user={this.state.user}>
             {/* log out button is child element */}
             {this.state.user &&
-              <button className="btn btn-warning" onClick={this.handleSignOut}>
-                Log Out {this.state.user.displayName}
-              </button>
+              <button id="signOut" onClick={this.handleSignOut}>Log Out</button>
             }
           </WelcomeHeader>
         </div>
       );
     }
-    if (this.state.loading){
+    if (this.state.loading) {
       return (
-      <div className="text-center">
+        <div className="text-center">
           <i className="fa fa-spinner fa-spin fa-3x" aria-label="Connecting..."></i>
-      </div>
+        </div>
       )
     } else {
       return (
-        <div>
+        <div id="Account">
           {this.state.errorMessage &&
             <p className="alert alert-danger">{this.state.errorMessage}</p>
           }
           {content}
+          <video id="video-background" muted loop autoPlay>
+            <source src={sun} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
         </div>
       );
     }
@@ -134,14 +126,14 @@ export class Account extends Component {
 class WelcomeHeader extends Component {
   render() {
     return (
-      <header className="container">
+      <main className="container">
         <h1>
           Welcome {this.props.user.displayName}!
           {' '}
           <img className="avatar" src={this.props.user.photoURL} alt={this.props.user.displayName} />
         </h1>
         {this.props.children} {/* for button */}
-      </header>
+      </main>
     );
   }
 }

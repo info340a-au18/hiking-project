@@ -1,5 +1,5 @@
 import React, { Component } from 'react'; //import React Component
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route} from 'react-router-dom';
 import {HomePage} from './HomePage';
 import {Account} from './Account';
 import {SavedHikes} from './SavedHikes';
@@ -13,13 +13,13 @@ class App extends Component {
             <div>
                 <NavBar />
                 <Switch>
-                    <Route exact path='/hiking-project/' component={HomePage} />
-                    <Route exact path='/hiking-project/Account' component={Account} />
-                    <Route path='/hiking-project/trail/:hikeName' component={HikeInfo} />
-                    <Route exact path='/hiking-project/SavedHikes' component={SavedHikes}/>
-                    <Redirect to="/hiking-project/" />
+                    <Route exact path='/Home' component={HomePage} />
+                    <Route path='/Account' component={Account} />
+                    <Route path='/trail/:hikeName' component={HikeInfo} />
+                    <Route path='/SavedHikes' component={SavedHikes}/>
+                    <Route component={HomePage} />
                 </Switch>
-                <Footer />
+                <Footer id="footer"/>
             </div>
         )
     }

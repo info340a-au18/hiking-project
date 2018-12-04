@@ -1,0 +1,43 @@
+/* The only rule that matters */
+#video-background {
+    /*  making the video fullscreen  */
+      position: fixed;
+      right: 0; 
+      bottom: 0;
+      min-width: 100%; 
+      min-height: 100%;
+      width: auto; 
+      height: auto;
+      z-index: -100;
+}
+
+.login{
+    margin: 12% 20%;
+    margin-bottom: 50%;
+    title{
+        margin-bottom: 2em;
+    }
+}
+
+#signOut{
+    height: 50px;
+    width: 100px;
+}
+
+@media (min-width: 576px){
+    .login{
+        margin-bottom: 45%;
+    }
+}
+
+@media (min-width: 768px){
+    .login{
+        margin-bottom: 35%;
+    }
+}
+
+@media (min-width: 992px){
+    .login{
+        margin-bottom: 20%;
+    }
+}

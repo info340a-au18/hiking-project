@@ -1,6 +1,6 @@
 import React, { Component } from 'react'; //import React Component
 import { InputGroup, InputGroupAddon, Input, InputGroupText } from 'reactstrap';
-import './SignUpForm.css';
+import './SignUpForm.scss';
 
 class SignUpForm extends Component {
     constructor(props) {
@@ -10,7 +10,8 @@ class SignUpForm extends Component {
             'email': undefined,
             'password': undefined,
             'handle': undefined,
-            'avatar': '' //default to blank value
+            'avatar': '', //default to blank value
+            signUp: false
         };
     }
 
@@ -18,17 +19,19 @@ class SignUpForm extends Component {
     handleChange = (event) => {
         let field = event.target.name; //which input
         let value = event.target.value; //what value
-
         let changes = {}; //object to hold changes
         changes[field] = value; //change this field
         this.setState(changes); //update state
+    }
+
+    switch = () => {
+        this.setState({ signUp: !this.state.signUp});
     }
 
     //handle signUp button
     handleSignUp = (event) => {
         event.preventDefault(); //don't submit
         let avatar = this.state.avatar || 'https://catking.in/wp-content/uploads/2017/02/default-profile-1.png'; //default to local pic
-        console.log(this.state.email + " " + this.state.avatar);
         this.props.signUpCallback(this.state.email, this.state.password, this.state.handle, avatar);
     }
 
@@ -39,15 +42,25 @@ class SignUpForm extends Component {
     }
 
     render() {
-        let signUp = <div><div className="form-group">
-            <label htmlFor="handle">User Name</label>
-            <input className="form-control"
-                id="handle"
-                name="handle"
-                onChange={this.handleChange}
-            />
-        </div>
+        let greeting = this.state.signUp ? <h1>Sign Up</h1> : <h1>Sign In</h1>;
+        let signIn = <div>
+            <div className="form-group">
+                <button className="btn btn-dark m-2" onClick={this.switch}>New user?</button>
+                <button className="btn btn-success m-2" onClick={this.handleSignIn}>Sign-in</button>
+            </div>
+        </div>;
+        let signUp = <div>
+            {/* user name */}
+            <div className="form-group">
+                <label htmlFor="handle">User Name</label>
+                <input className="form-control"
+                    id="handle"
+                    name="handle"
+                    onChange={this.handleChange}
+                />
+            </div>
 
+            {/* avatar */}
             <div className="form-group">
                 <label htmlFor="avatar">Profile Picture</label>
                 <InputGroup>
@@ -57,13 +70,16 @@ class SignUpForm extends Component {
                     </InputGroupAddon>
                 </InputGroup>
             </div>
+
+            <div className="form-group">
+                <button className="btn btn-dark m-2" onClick={this.switch}>Return user?</button>
+                <button className="btn btn-success m-2" onClick={this.handleSignUp}>Sign-up</button>
+            </div>
         </div>;
-        let signUpButton = <button className="btn btn-success mr-2" onClick={this.handleSignUp}>Sign-up</button>;
-        let returnUser = <button className="btn btn-dark mr-2" onClick={this.props.returnUser}>Have an account?</button>;
-        let signInButton = <button className="btn btn-success" onClick={this.handleSignIn}>Sign-in</button>;
-        let newUser = <button className="btn btn-dark mr-2" onClick={this.props.newUser}>Need an account?</button>;
         return (
             <form>
+                {greeting}
+
                 {/* email */}
                 <div className="form-group">
                     <label htmlFor="email">Email</label>
@@ -86,43 +102,7 @@ class SignUpForm extends Component {
                     />
                 </div>
 
-                {/* handle */}
-                <div className="form-group">
-                    <label htmlFor="handle">User Name</label>
-                    <input className="form-control"
-                        id="handle"
-                        name="handle"
-                        onChange={this.handleChange}
-                    />
-                </div>
-
-                {/* avatar */}
-                {/* <div className="form-group">
-                    <label htmlFor="avatar">Profile Picture</label>
-                    <InputGroup>
-                        <Input />
-                        <InputGroupAddon addonType="append">
-                            <InputGroupText>Upload Image</InputGroupText>
-                        </InputGroupAddon>
-                    </InputGroup>
-                </div> */}
-                <div className="form-group">
-                <img className="avatar" src={this.state.avatar || 'img/no-user-pic.png'} alt="avatar preview" />
-                <label htmlFor="avatar">Avatar Image URL</label>
-                <input className="form-control" 
-                    id="avatar" 
-                    name="avatar" 
-                    placeholder="http://www.example.com/my-picture.jpg" 
-                    onChange={this.handleChange}
-                    />
-                </div>
-
-
-                {/* buttons */}
-                <div className="form-group">
-                    {this.props.signUp ? signUpButton : signInButton}
-                    {this.props.signUp ? returnUser : newUser}
-                </div>
+                {this.state.signUp ? signUp : signIn}
             </form >
         )
     }

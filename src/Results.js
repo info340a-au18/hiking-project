@@ -109,8 +109,9 @@ export class HikeCard extends Component {
                         <h5 className="card-title">{this.props.hike.name}</h5>
                         <ul className="card-text">
                             <li>Location: {this.props.hike.location}</li>
+                            <li>Distance from you: {this.props.hike.distanceAway} Miles</li>
                             <li className='rating'>Ratings: {stars}</li>
-                            <li>Length: {this.props.hike.length} miles</li>
+                            <li>Length: {this.props.hike.length} Miles</li>
                             <li className='diff'>Difficulty: <img src={diff} alt={diff} /></li>
                             <button onClick={this.handleClick} className="btn btn-dark">More Info</button>
                             {/* <button onClick={this.addHike} className="btn btn-warning">Save</button> */}
@@ -127,16 +128,12 @@ export class HikeCard extends Component {
 
 
 export class CardContainer extends Component {
-    constructor(props) {
-        super(props);
-    }
 
     render() {
         let hikes;
         let first;
         if (this.props.pageOfItems[1] !== undefined) {
             first = this.props.pageOfItems[0].id;
-            console.log(first);
             hikes = this.props.pageOfItems.map((hike) => {
                 return (<HikeCard key={hike.id} hike={hike}/>);
             });

@@ -7,7 +7,7 @@ import easy from './img/green.png';
 import placeHolder from './img/hiker-mini.jpg';
 import './HikeInfo.scss';
 import firebase from 'firebase/app';
-import Moment from 'react-moment';
+// import Moment from 'react-moment';
 import './SignUpForm.css';
 
 export class HikeInfo extends Component{
@@ -228,7 +228,7 @@ class HikeComment extends Component {
                     {comment.userName}
                 </h5>
                 <h6 className="card-subtitle mb-2 text-muted">
-                    <Moment date={comment.time} fromNow></Moment>
+                    {/* <Moment date={comment.time} fromNow></Moment> */}
                 </h6>
                 <p className="card-text">{comment.text}</p>
             </div>
