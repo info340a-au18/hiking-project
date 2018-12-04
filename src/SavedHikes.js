@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './SavedHikes.css';
 
 import firebase from 'firebase/app';
 import 'firebase/auth';
@@ -56,7 +57,11 @@ export class SavedHikes extends Component {
                 </div>
             );
         } else {
-           return  <h1>Log in or sign up to view saved hikes</h1>
+           return  (
+               <div className="no-sign-in">
+                   <a href="#/Account"><button type="button" className="btn btn-dark btn-lg">Login or Sign Up to View Saved Hikes </button></a>
+               </div>
+           )
         }
     }
 }
