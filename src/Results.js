@@ -49,13 +49,13 @@ export class HikeCard extends Component {
         let checkSave = this.checkSaved();
         let saveOption;
         if (this.state.saved || checkSave) {
-            saveOption = <p>Hike Saved</p>
+            saveOption = <p className='card-message'>Hike Saved</p>
         } else {
             saveOption = <button onClick={this.addHike} className="btn btn-warning">Save</button>
         }
 
         if (!this.props.user) {
-            saveOption = <p>Log in to save hikes!</p>
+            saveOption = <p className='card-message'>Log in to save hikes!</p>
         }
 
         //get rating
