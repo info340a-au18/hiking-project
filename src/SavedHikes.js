@@ -68,7 +68,7 @@ class SaveHikeCard extends Component {
                     <div className="card-body">
                         <h5 className="card-title">{this.props.hike.name}</h5>
                         <p className="card-text">{this.props.hike.location}</p>
-
+                        {/* <button onClick={this.removeHike} className="btn btn-warning">Remove</button> */}
                     </div>
                 </a>
             </div>
