@@ -5,12 +5,10 @@ import hard from './img/black.png';
 import medium from './img/blue.png';
 import easy from './img/green.png';
 import placeHolder from './img/hiker-mini.jpg';
-
 import './HikeInfo.scss';
-import './SignUpForm.css';
 import firebase from 'firebase/app';
-import Moment from 'react-moment';
-import { NavLink } from 'react-router-dom';
+// import Moment from 'react-moment';
+import './SignUpForm.css';
 
 export class HikeInfo extends Component{
 
@@ -40,11 +38,6 @@ export class HikeInfo extends Component{
                     let obj = val[key];
                     obj.id = key;
                     return obj;
-                })
-            
-                // to render earlier post first
-                commentsArray = commentsArray.sort((a, b) => {
-                    return b.time - a.time;
                 })
             }
             this.setState({
@@ -158,7 +151,7 @@ class CommentBox extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            review: undefined,
+            review: undefined
         }
     }
 
@@ -167,7 +160,6 @@ class CommentBox extends Component {
         // alert if user didn't write anything
         if (this.state.review) {
             this.props.handleReview(this.state.review);
-            this.setState({review:''})
         } else {
             this.setState({
                 errorMessage:"You must write something first!"
@@ -184,14 +176,7 @@ class CommentBox extends Component {
     }
 
     render() {
-        if (!this.props.user) {
-            return (
-                <div>
-                    <h2>User Reviews</h2>
-                    <p className="alert alert-danger"><NavLink to='/hiking-project/Account'>Sign up</NavLink> to post your own reviews!</p>
-                </div>
-            );
-        };
+        if (!this.props.user) return null;
 
         return (
             <div>
@@ -203,7 +188,7 @@ class CommentBox extends Component {
 
                 <form>
                     <div className="form-group mb2">
-                        <textarea className="form-control" name="reivew" value={this.state.review} placeholder="Add a review..." onChange={this.handleChange}></textarea>
+                        <textarea className="form-control" name="reivew" placeholder="Add a review..." onChange={this.handleChange}></textarea>
                     </div>
                     <div className="form-group">
                         <button className="btn btn-primary" onClick={this.handleReview}>Submit</button>
@@ -243,7 +228,7 @@ class HikeComment extends Component {
                     {comment.userName}
                 </h5>
                 <h6 className="card-subtitle mb-2 text-muted">
-                    <Moment date={comment.time} fromNow></Moment>
+                    {/* <Moment date={comment.time} fromNow></Moment> */}
                 </h6>
                 <p className="card-text">{comment.text}</p>
             </div>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'; //import React Component
 import { InputGroup, InputGroupAddon, Input, InputGroupText } from 'reactstrap';
-import './SignUpForm.css';
+import './SignUpForm.scss';
 
 class SignUpForm extends Component {
     constructor(props) {
@@ -11,7 +11,7 @@ class SignUpForm extends Component {
             'password': undefined,
             'handle': undefined,
             'avatar': '', //default to blank value
-            'signIn':true
+            signUp: false
         };
     }
 
@@ -19,10 +19,13 @@ class SignUpForm extends Component {
     handleChange = (event) => {
         let field = event.target.name; //which input
         let value = event.target.value; //what value
-
         let changes = {}; //object to hold changes
         changes[field] = value; //change this field
         this.setState(changes); //update state
+    }
+
+    switch = () => {
+        this.setState({ signUp: !this.state.signUp});
     }
 
     //handle signUp button
@@ -38,36 +41,16 @@ class SignUpForm extends Component {
         this.props.signInCallback(this.state.email, this.state.password);
     }
 
-    changeLogInScreen = () => {
-        this.setState({signIn:!this.state.signIn})
-    }
-
     render() {
-        let signUpButton = <button className="btn btn-success mr-2" onClick={this.handleSignUp}>Sign-up</button>;
-        let returnUser = <button className="btn btn-dark mr-2" onClick={this.changeLogInScreen}>Have an account?</button>;
-        let signInButton = <button className="btn btn-success mr-2" onClick={this.handleSignIn}>Sign-in</button>;
-        let newUser = <button className="btn btn-dark mr-2" onClick={this.changeLogInScreen}>Need an account?</button>;
-        let email = 
+        let greeting = this.state.signUp ? <h1>Sign Up</h1> : <h1>Sign In</h1>;
+        let signIn = <div>
             <div className="form-group">
-                <label htmlFor="email">Email</label>
-                <input className="form-control"
-                    id="email"
-                    type="email"
-                    name="email"
-                    onChange={this.handleChange}
-                />
-            </div>;
-        let password = 
-            <div className="form-group">
-                <label htmlFor="password">Password</label>
-                <input className="form-control"
-                    id="password"
-                    type="password"
-                    name="password"
-                    onChange={this.handleChange}
-                />
+                <button className="btn btn-dark m-2" onClick={this.switch}>New user?</button>
+                <button className="btn btn-success m-2" onClick={this.handleSignIn}>Sign-in</button>
             </div>
-        let username =
+        </div>;
+        let signUp = <div>
+            {/* user name */}
             <div className="form-group">
                 <label htmlFor="handle">User Name</label>
                 <input className="form-control"
@@ -76,53 +59,53 @@ class SignUpForm extends Component {
                     onChange={this.handleChange}
                 />
             </div>
-        let profilePic = 
+
+            {/* avatar */}
             <div className="form-group">
-                <img className="avatar" src={this.state.avatar || 'https://catking.in/wp-content/uploads/2017/02/default-profile-1.png'} alt="avatar preview" />
-                <label htmlFor="avatar">Avatar Image URL</label>
-                <input className="form-control" 
-                    id="avatar" 
-                    name="avatar" 
-                    placeholder="http://www.example.com/my-picture.jpg" 
-                    onChange={this.handleChange}
-                    />
+                <label htmlFor="avatar">Profile Picture</label>
+                <InputGroup>
+                    <Input />
+                    <InputGroupAddon addonType="append">
+                        <InputGroupText>Upload Image</InputGroupText>
+                    </InputGroupAddon>
+                </InputGroup>
             </div>
-        if (this.state.signIn) {
-            return (
-                <div>
-                <h1>Sign In</h1>
-                <form>
-                    {email}
-                    {password}
 
-                    {/* buttons */}
-                    <div className="form-group">
-                        {signInButton}
-                        {newUser}
-                    </div>
-                </form>
-                </div>
-            )
-        } else {
-            return (
-                <div>
-                <h1>Sign Up</h1>
-                <form>
-                    {email}
-                    {password}
-                    {username}
-                    {profilePic}
+            <div className="form-group">
+                <button className="btn btn-dark m-2" onClick={this.switch}>Return user?</button>
+                <button className="btn btn-success m-2" onClick={this.handleSignUp}>Sign-up</button>
+            </div>
+        </div>;
+        return (
+            <form>
+                {greeting}
 
-                    {/* buttons */}
-                    <div className="form-group">
-                        {signUpButton}
-                        {returnUser}
-                    </div>
-                </form>
+                {/* email */}
+                <div className="form-group">
+                    <label htmlFor="email">Email</label>
+                    <input className="form-control"
+                        id="email"
+                        type="email"
+                        name="email"
+                        onChange={this.handleChange}
+                    />
                 </div>
-            )
-        }
+
+                {/* password */}
+                <div className="form-group">
+                    <label htmlFor="password">Password</label>
+                    <input className="form-control"
+                        id="password"
+                        type="password"
+                        name="password"
+                        onChange={this.handleChange}
+                    />
+                </div>
+
+                {this.state.signUp ? signUp : signIn}
+            </form >
+        )
     }
 }
 
-export default SignUpForm;
+export default SignUpForm
