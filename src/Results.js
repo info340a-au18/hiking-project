@@ -5,8 +5,8 @@ import hard from './img/black.png';
 import medium from './img/blue.png';
 import easy from './img/green.png';
 import placeHolder from './img/hiker-mini.jpg'
-import { BrowserRouter as Router, Route, Link, Switch, Redirect, NavLink } from 'react-router-dom';
-import { Tooltip } from 'reactstrap';
+import up from './img/up.svg';
+import { BrowserRouter as Redirect } from 'react-router-dom';
 import './Results.scss';
 import firebase from 'firebase/app';
 import 'firebase/auth';
@@ -127,22 +127,27 @@ export class HikeCard extends Component {
 
 
 export class CardContainer extends Component {
+    constructor(props) {
+        super(props);
+    }
+
     render() {
         let hikes;
+        let first;
         if (this.props.pageOfItems[1] !== undefined) {
+            first = this.props.pageOfItems[0].id;
+            console.log(first);
             hikes = this.props.pageOfItems.map((hike) => {
-                return (<HikeCard key={hike.id} hike={hike} />);
+                return (<HikeCard key={hike.id} hike={hike}/>);
             });
         }
         return (
             <div className="hike-results card-container">
                 <div className='row'>
                     {hikes}
+                    <a className="scroll" href={"#" + first}><img src={up}/></a>
                 </div>
             </div>
         );
     }
-
-
-
 }

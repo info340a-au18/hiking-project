@@ -1,18 +1,21 @@
-
 import React, { Component } from 'react';
 import { CardContainer } from './Results';
 import { MapArea } from './Map';
 import 'bootstrap/dist/css/bootstrap.css';
 import './Main.scss';
-
-import firebase from 'firebase/app';
 import 'firebase/database';
 
 export class Main extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { trailData: {}, displayedTrails: {}, newLocation: false, savedHikes: [], cardShown: undefined };
+        this.state = {
+            trailData: {},
+            displayedTrails: {},
+            newLocation: false,
+            savedHikes: [],
+            cardShown: undefined
+        };
     }
 
     //Search term from form is passed in as this.props.searchTerm
@@ -175,7 +178,6 @@ export class Main extends Component {
 
 
     }
-
 
     showCard = (hike) => {
         console.log(hike);

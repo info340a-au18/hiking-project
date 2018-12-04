@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { CardContainer } from './Results';
 
 import firebase from 'firebase/app';
 import 'firebase/database';

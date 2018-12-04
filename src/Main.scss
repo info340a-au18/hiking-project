@@ -14,7 +14,7 @@ main{
     padding: 0;
     display: flex;
     overflow: hidden;
-    height: 110vh;
+    height: 130vh;
     position: relative;
     width: 100%;
     flex-wrap: wrap; 
@@ -27,39 +27,13 @@ main{
         -ms-overflow-style: none;
     }
     #map{
-        height: 50%;
-        width: 100%;                       
+        height: 45%;
+        width: 100%;   
+        margin: 5% 10%;                    
     }
     #card{
-        height: 50%;
+        height: 55%;
         overflow: scroll;
-    }
-}
-
-.pagination-holder{
-    display: flex;
-    justify-content: center;
-    width:100%;
-    height: 3.5em;
-    margin: 1em;
-    padding: 0;
-    background-color: white;
-    li {
-        padding: 1em 0.8em;
-    }
-    li.first{
-        display: none;
-    }
-    li.last{
-        display: none;
-    }
-    li.active a{
-        background-color: $myBlue;
-        padding: 1em;
-        color: white;
-    }
-    li:hover{
-        cursor:pointer
     }
 }
 
@@ -83,6 +57,7 @@ main{
         #map{
             width: 60%;
             height: 100%;
+            margin: 0;   
         }
         #card{
             width: 40%;
