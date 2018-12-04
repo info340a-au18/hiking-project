@@ -4,7 +4,7 @@ self.__precacheManifest = [
     "url": "/hiking-project/static/media/location.34e97ca8.svg"
   },
   {
-    "revision": "7b90ab17dcb8315e51b3",
+    "revision": "4caaaad6a566a0711a7b",
     "url": "/hiking-project/static/css/main.0d0c3d89.chunk.css"
   },
   {
@@ -24,8 +24,8 @@ self.__precacheManifest = [
     "url": "/hiking-project/static/media/hiker-mini.2ca4cb85.jpg"
   },
   {
-    "revision": "7b90ab17dcb8315e51b3",
-    "url": "/hiking-project/static/js/main.7b90ab17.chunk.js"
+    "revision": "4caaaad6a566a0711a7b",
+    "url": "/hiking-project/static/js/main.4caaaad6.chunk.js"
   },
   {
     "revision": "4570d980b9888531507d6aac554b8a5c",
@@ -48,7 +48,7 @@ self.__precacheManifest = [
     "url": "/hiking-project/static/css/1.1fe0980a.chunk.css"
   },
   {
-    "revision": "643e4a6e06276af87d15cb46b7c8f198",
+    "revision": "ea2306f3034269aead90c46b515ce004",
     "url": "/hiking-project/index.html"
   }
 ];
