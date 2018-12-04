@@ -1,10 +1,10 @@
 {
   "main.css": "/hiking-project/Home/static/css/main.49e8f13d.chunk.css",
-  "main.js": "/hiking-project/Home/static/js/main.518d3031.chunk.js",
-  "main.js.map": "/hiking-project/Home/static/js/main.518d3031.chunk.js.map",
+  "main.js": "/hiking-project/Home/static/js/main.66bb4519.chunk.js",
+  "main.js.map": "/hiking-project/Home/static/js/main.66bb4519.chunk.js.map",
   "static/css/1.1fe0980a.chunk.css": "/hiking-project/Home/static/css/1.1fe0980a.chunk.css",
-  "static/js/1.3a2942d9.chunk.js": "/hiking-project/Home/static/js/1.3a2942d9.chunk.js",
-  "static/js/1.3a2942d9.chunk.js.map": "/hiking-project/Home/static/js/1.3a2942d9.chunk.js.map",
+  "static/js/1.bf9272e1.chunk.js": "/hiking-project/Home/static/js/1.bf9272e1.chunk.js",
+  "static/js/1.bf9272e1.chunk.js.map": "/hiking-project/Home/static/js/1.bf9272e1.chunk.js.map",
   "runtime~main.js": "/hiking-project/Home/static/js/runtime~main.3863bcf5.js",
   "runtime~main.js.map": "/hiking-project/Home/static/js/runtime~main.3863bcf5.js.map",
   "static/media/hiker-mini.jpg": "/hiking-project/Home/static/media/hiker-mini.2ca4cb85.jpg",
@@ -17,6 +17,6 @@
   "static/css/main.49e8f13d.chunk.css.map": "/hiking-project/Home/static/css/main.49e8f13d.chunk.css.map",
   "static/css/1.1fe0980a.chunk.css.map": "/hiking-project/Home/static/css/1.1fe0980a.chunk.css.map",
   "index.html": "/hiking-project/Home/index.html",
-  "precache-manifest.b423f464af1c5b786960096905880194.js": "/hiking-project/Home/precache-manifest.b423f464af1c5b786960096905880194.js",
+  "precache-manifest.f81e30870319fd433bb92badf3faa5ed.js": "/hiking-project/Home/precache-manifest.f81e30870319fd433bb92badf3faa5ed.js",
   "service-worker.js": "/hiking-project/Home/service-worker.js"
 }
