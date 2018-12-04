@@ -19,20 +19,9 @@ export class HikeCard extends Component {
         };
     }
 
-    checkSaved = () => {
-        let savedList = this.props.savedHikes;
-        for (let i=0; i < savedList.length; i++) {
-            if (savedList[i].name === this.props.hike.name) {
-                return <p>Hike Saved</p>
-            }
-        }
-        return <button onClick={this.addHike} className="btn btn-warning">Save</button>
-    }
-
     // Saving hike to Firebase database
     addHike = () => {
         if (this.props.user) {
-            this.checkSaved();
             this.setState({saved: true});
             let newHike = {
                 hike: this.props.hike,
@@ -43,11 +32,22 @@ export class HikeCard extends Component {
                 })
         }
     }
+
+    checkSaved = () => {
+        let savedList = this.props.savedHikes;
+        for (let i=0; i < savedList.length; i++) {
+            if (savedList[i].hike.name === this.props.hike.name) {
+                return true;
+            }
+        }
+        return false;
+    }
     
 
     render() {
+        let checkSave = this.checkSaved();
         let saveOption;
-        if (this.state.saved) {
+        if (this.state.saved || checkSave) {
             saveOption = <p>Hike Saved</p>
         } else {
             saveOption = <button onClick={this.addHike} className="btn btn-warning">Save</button>
