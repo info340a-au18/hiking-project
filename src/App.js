@@ -13,10 +13,10 @@ class App extends Component {
             <div>
                 <NavBar />
                 <Switch>
-                    <Route exact path='/hiking-project/Home' component={HomePage} />
-                    <Route path='/hiking-project/Account' component={Account} />
+                    <Route exact path='/' component={HomePage} />
+                    <Route path='/Account' component={Account} />
                     <Route path='/trail/:hikeName' component={HikeInfo} />
-                    <Route path='/hiking-project/SavedHikes' component={SavedHikes}/>
+                    <Route path='/SavedHikes' component={SavedHikes}/>
                     <Route component={HomePage} />
                 </Switch>
                 <Footer id="footer"/>
