@@ -57,6 +57,11 @@ export class HikeCard extends Component {
             saveOption = <button onClick={this.addHike} className="btn btn-warning">Save</button>
         }
 
+        // if user is not logged into their account 
+        // if (!this.prop.user) {
+        //     saveOption = <p>Log in to save hikes!</p>
+        // }
+
         //get rating
         let ratings = [];
         let num = this.props.hike.stars;
@@ -113,7 +118,6 @@ export class HikeCard extends Component {
                             <li>Length: {this.props.hike.length} Miles</li>
                             <li className='diff'>Difficulty: <img src={diff} alt={diff} /></li>
                             <button onClick={this.handleClick} className="btn btn-dark">More Info</button>
-                            {/* <button onClick={this.addHike} className="btn btn-warning">Save</button> */}
                             {saveOption}
                         </ul>
                     </div>

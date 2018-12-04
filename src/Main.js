@@ -11,7 +11,7 @@ export class Main extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { trailData: {}, displayedTrails: {}, newLocation: false, pageOfItems: {}, savedHikes: [], cardShown: undefined };
+        this.state = { trailData: {}, displayedTrails: {}, newLocation: false, pageOfItems: {}, cardShown: undefined };
     }
 
     //Search term from form is passed in as this.props.searchTerm
@@ -184,23 +184,6 @@ export class Main extends Component {
         if (this.state.displayedTrails.length === 0) {
             error = <div className="error-message">No Hikes Found With These Filters</div>;
         }
-        console.log(this.state.user);
-        //this.hikesRef = firebase.database().ref('users/' + this.state.user.uid + "/")
-        // Gets an array of the trails saved in the Firebase database
-        // let hikeRef = firebase.database().ref('users/' + this.state.user.uid + "/savedHikes");
-        // hikeRef.on('value', (snapShot) => {
-        //     let hikeData = snapShot.val();
-        //     let hikeKeys = Object.keys(hikeData);
-        //     let hikeArray = hikeKeys.map((key) => {
-        //         let hike = hikeData[key];
-        //         hike.id = key;
-        //         return hike;
-        //     })
-        //     let hikeInfo = hikeArray.map((current) => {
-        //         return current.hike;
-        //     })
-        //     this.setState({ savedHikes: hikeInfo });
-        // })
         return (
             <div>
                 {error}
