@@ -136,19 +136,19 @@ export class Main extends Component {
 
         // Gets an array of the trails saved in the Firebase database
         let hikeRef = firebase.database().ref('saved');
-        hikeRef.on('value', (snapShot) => {
-            let hikeData = snapShot.val();
-            let hikeKeys = Object.keys(hikeData);
-            let hikeArray = hikeKeys.map((key) => {
-                let hike = hikeData[key];
-                hike.id = key;
-                return hike;
-            })
-            let hikeInfo = hikeArray.map((current) => {
-                return current.hike;
-            })
-            this.setState({ savedHikes: hikeInfo });
-        })
+        // hikeRef.on('value', (snapShot) => {
+        //     let hikeData = snapShot.val();
+        //     let hikeKeys = Object.keys(hikeData);
+        //     let hikeArray = hikeKeys.map((key) => {
+        //         let hike = hikeData[key];
+        //         hike.id = key;
+        //         return hike;
+        //     })
+        //     let hikeInfo = hikeArray.map((current) => {
+        //         return current.hike;
+        //     })
+        //     this.setState({ savedHikes: hikeInfo });
+        // })
     }
 
     //Intercepts prop updates to fetch data and filter the list of hikes
