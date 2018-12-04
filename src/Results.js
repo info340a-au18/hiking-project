@@ -159,7 +159,6 @@ export class CardContainer extends Component {
     }
 
     render() {
-        console.log(this.state.savedHikes);
         let hikes;
         if (this.props.pageOfItems[1] !== undefined) {
             hikes = this.props.pageOfItems.map((hike) => {

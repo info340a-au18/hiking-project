@@ -140,19 +140,10 @@ export class Main extends Component {
             displayedTrails: hikesToDisplay
         });
     }
-
+    
     componentDidMount() {
         this.getData(this.props.lat, this.props.lng, this.props.maxDist, this.props.maxResults);
-        
-        // if user is signed in or not
-        this.authUnRegFunc = firebase.auth().onAuthStateChanged((firebaseUser) => {
-            if(firebaseUser){ //signed in!
-                this.setState({user: firebaseUser});
-            } else { //signed out
-                this.setState({user: null});
-            }
-        });
-    }
+    }        
 
     //Intercepts prop updates to fetch data and filter the list of hikes
     componentDidUpdate(prevProps, prevState) {
@@ -193,7 +184,7 @@ export class Main extends Component {
                             <MapArea lat={this.props.lat} lng={this.props.lng} trails={this.state.displayedTrails} />
                         </div>
                         <div className="section" id="card">
-                            <CardContainer user={this.state.user} pageOfItems={this.state.displayedTrails} />
+                            <CardContainer pageOfItems={this.state.displayedTrails}/>
                         </div>
                     </div>
                 </main>
