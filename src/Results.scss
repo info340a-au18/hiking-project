@@ -1,7 +1,8 @@
 $myBlue:  #185b64;
 
 .card{
-    margin: 10px auto;
+    margin: 20px auto;
+    margin-top: 0;
     flex-basis: 300px;
     .hoverText{
         position: relative;
@@ -32,6 +33,12 @@ $myBlue:  #185b64;
 
     button{
         margin-left: 5px;
+    }
+
+    .card-saved{
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 2em;
     }
 }
 
