@@ -38,7 +38,7 @@ export class NavBar extends Component {
         return (
             <div>
                 <Navbar color="light" light expand="md">
-                    <NavLink href="/Home">Hike Finder</NavLink>
+                    <NavLink href="/hiking-project/Home">Hike Finder</NavLink>
                     <NavbarToggler onClick={this.toggle} />
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>
@@ -48,10 +48,10 @@ export class NavBar extends Component {
                                 </DropdownToggle>
                                 <DropdownMenu right>
                                     <DropdownItem>
-                                        <NavLink href="/Account">Sign in</NavLink>
+                                        <NavLink href="/hiking-project/Account">Sign in</NavLink>
                                     </DropdownItem>
                                     <DropdownItem>
-                                        <NavLink href="/SavedHikes">Saved</NavLink>
+                                        <NavLink href="/hiking-project/SavedHikes">Saved</NavLink>
                                     </DropdownItem>
                                     <DropdownItem divider />
                                     <DropdownItem>
