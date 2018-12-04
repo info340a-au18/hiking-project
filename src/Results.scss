@@ -1,7 +1,8 @@
 $myBlue:  #185b64;
 
 .card{
-    margin: 10px auto;
+    margin: 20px auto;
+    margin-top: 0;
     flex-basis: 300px;
     .hoverText{
         position: relative;
@@ -71,3 +72,29 @@ $myBlue:  #185b64;
     color: white;
     margin-top: 1em;
 }
+
+.scroll {
+    opacity: 0.3;
+    background-color: $myBlue;
+    width: 40px;
+    height: 40px;
+    position: fixed;
+    bottom: 22%;
+    right: 1%;
+    border-radius: 10px;
+    
+    &:hover {
+      opacity: 1;
+    }
+    img{
+        height: 40px;
+        width: 40px;
+        color: white;
+    }
+  }
+
+  @media (min-width: 768px){
+    .scroll {
+        right: 3%;
+    }
+  }

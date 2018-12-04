@@ -3,8 +3,6 @@ import { CardContainer } from './Results';
 import { MapArea } from './Map';
 import 'bootstrap/dist/css/bootstrap.css';
 import './Main.scss';
-
-import firebase from 'firebase/app';
 import 'firebase/database';
 
 export class Main extends Component {

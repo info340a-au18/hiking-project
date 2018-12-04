@@ -26,7 +26,7 @@ export class Footer extends Component {
                         </div>
                     </cite>
                     <p>
-                        Made by Kyle, Harim and Anni
+                        Made by Kyle, Harim, Anni, Larissa, Kateka
                         <img id="mountain" src={mountain} alt="the icon of mountains" />
                     </p>
                 </div>
