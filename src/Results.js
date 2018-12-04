@@ -19,35 +19,40 @@ export class HikeCard extends Component {
         };
     }
 
-    // checkSaved = () => {
-    //     let savedList = this.props.savedHikes;
-    //     for (let i=0; i < savedList.length; i++) {
-    //         if (savedList[i].name === this.props.hike.name) {
-    //             return <p>Hike Saved</p>
-    //         }
-    //     }
-    //     return <button onClick={this.addHike} className="btn btn-warning">Save</button>
-    // }
+    checkSaved = () => {
+        let savedList = this.props.savedHikes;
+        for (let i=0; i < savedList.length; i++) {
+            if (savedList[i].name === this.props.hike.name) {
+                return <p className="card-saved">Hike Saved</p>
+            }
+        }
+        return <button onClick={this.addHike} className="btn btn-warning">Save</button>
+    }
 
     // Saving hike to Firebase database
     addHike = () => {
-        if (this.state.user) {
-            this.setState({saved: true});
-            let newHike = {
-                hike: this.props.hike,
-            }
-            firebase.database().ref('users/' + this.state.user.uid + "/savedHikes").push(newHike)
-                .catch((err) => {
-                    console.log(err);
-                })
+        this.setState({saved: true});
+        let newHike = {
+            hike: this.props.hike,
         }
+        firebase.database().ref('saved').push(newHike)
+            .catch((err) => {
+                console.log(err);
+            })
+        // console.log(this.props.hike);
     }
-
-
+    
     render() {
+        // if (this.state.saved || this.props.hike.saved) {
+        //     saveOption = <p>Hike Saved</p>
+        // } else {
+        //     saveOption = <button onClick={this.addHike} className="btn btn-warning">Save</button>
+        // }
+
+
         let saveOption;
         if (this.state.saved) {
-            saveOption = <p>Hike Saved</p>
+            saveOption = <p className="card-saved">Hike Saved</p>
         } else {
             saveOption = <button onClick={this.addHike} className="btn btn-warning">Save</button>
         }
@@ -93,7 +98,7 @@ export class HikeCard extends Component {
         if(this.state.redirect){
             return <Redirect push 
                         to={{
-                            pathname: "/hiking-project/trail/" + this.props.hike.name,
+                            pathname: "/trail/" + this.props.hike.name,
                             state: {hike: this.props.hike}
                         }} 
                     />
@@ -108,8 +113,9 @@ export class HikeCard extends Component {
                         <h5 className="card-title">{this.props.hike.name}</h5>
                         <ul className="card-text">
                             <li>Location: {this.props.hike.location}</li>
+                            <li>Distance from you: {this.props.hike.distanceAway} Miles</li>
                             <li className='rating'>Ratings: {stars}</li>
-                            <li>Length: {this.props.hike.length} miles</li>
+                            <li>Length: {this.props.hike.length} Miles</li>
                             <li className='diff'>Difficulty: <img src={diff} alt={diff} /></li>
                             <button onClick={this.handleClick} className="btn btn-dark">More Info</button>
                             {saveOption}
@@ -129,7 +135,10 @@ export class CardContainer extends Component {
         let hikes;
         if (this.props.pageOfItems[1] !== undefined) {
             hikes = this.props.pageOfItems.map((hike) => {
+<<<<<<< HEAD
                 // return (<HikeCard user={this.state.user} key={hike.id} hike={hike}/>);
+=======
+>>>>>>> 13f851e323026a45fe96c22748ac5ffb0e51846c
                 return (<HikeCard key={hike.id} hike={hike}/>);
             });
         }
