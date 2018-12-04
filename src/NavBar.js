@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import './NavBar.scss';
-import { Link } from 'react-router-dom'
 
 import {
     NavbarBrand,
@@ -40,9 +39,6 @@ export class NavBar extends Component {
                         <Nav className="ml-auto" navbar>
                             <NavItem>
                                 <NavLink href="#/Account">Account</NavLink>
-                            </NavItem>
-                            <NavItem>
-                                <NavLink href="#/SavedHikes">Saved</NavLink>
                             </NavItem>
                         </Nav>
                     </Collapse>
