@@ -10,7 +10,8 @@ class SignUpForm extends Component {
             'email': undefined,
             'password': undefined,
             'handle': undefined,
-            'avatar': '' //default to blank value
+            'avatar': '', //default to blank value
+            'signIn':true
         };
     }
 
@@ -28,7 +29,6 @@ class SignUpForm extends Component {
     handleSignUp = (event) => {
         event.preventDefault(); //don't submit
         let avatar = this.state.avatar || 'https://catking.in/wp-content/uploads/2017/02/default-profile-1.png'; //default to local pic
-        console.log(this.state.email + " " + this.state.avatar);
         this.props.signUpCallback(this.state.email, this.state.password, this.state.handle, avatar);
     }
 
@@ -38,76 +38,47 @@ class SignUpForm extends Component {
         this.props.signInCallback(this.state.email, this.state.password);
     }
 
+    changeLogInScreen = () => {
+        this.setState({signIn:!this.state.signIn})
+    }
+
     render() {
-        let signUp = <div><div className="form-group">
-            <label htmlFor="handle">User Name</label>
-            <input className="form-control"
-                id="handle"
-                name="handle"
-                onChange={this.handleChange}
-            />
-        </div>
-
-            <div className="form-group">
-                <label htmlFor="avatar">Profile Picture</label>
-                <InputGroup>
-                    <Input />
-                    <InputGroupAddon addonType="append">
-                        <InputGroupText>Upload Image</InputGroupText>
-                    </InputGroupAddon>
-                </InputGroup>
-            </div>
-        </div>;
         let signUpButton = <button className="btn btn-success mr-2" onClick={this.handleSignUp}>Sign-up</button>;
-        let returnUser = <button className="btn btn-dark mr-2" onClick={this.props.returnUser}>Have an account?</button>;
-        let signInButton = <button className="btn btn-success" onClick={this.handleSignIn}>Sign-in</button>;
-        let newUser = <button className="btn btn-dark mr-2" onClick={this.props.newUser}>Need an account?</button>;
-        return (
-            <form>
-                {/* email */}
-                <div className="form-group">
-                    <label htmlFor="email">Email</label>
-                    <input className="form-control"
-                        id="email"
-                        type="email"
-                        name="email"
-                        onChange={this.handleChange}
-                    />
-                </div>
-
-                {/* password */}
-                <div className="form-group">
-                    <label htmlFor="password">Password</label>
-                    <input className="form-control"
-                        id="password"
-                        type="password"
-                        name="password"
-                        onChange={this.handleChange}
-                    />
-                </div>
-
-                {/* handle */}
-                <div className="form-group">
-                    <label htmlFor="handle">User Name</label>
-                    <input className="form-control"
-                        id="handle"
-                        name="handle"
-                        onChange={this.handleChange}
-                    />
-                </div>
-
-                {/* avatar */}
-                {/* <div className="form-group">
-                    <label htmlFor="avatar">Profile Picture</label>
-                    <InputGroup>
-                        <Input />
-                        <InputGroupAddon addonType="append">
-                            <InputGroupText>Upload Image</InputGroupText>
-                        </InputGroupAddon>
-                    </InputGroup>
-                </div> */}
-                <div className="form-group">
-                <img className="avatar" src={this.state.avatar || 'img/no-user-pic.png'} alt="avatar preview" />
+        let returnUser = <button className="btn btn-dark mr-2" onClick={this.changeLogInScreen}>Have an account?</button>;
+        let signInButton = <button className="btn btn-success mr-2" onClick={this.handleSignIn}>Sign-in</button>;
+        let newUser = <button className="btn btn-dark mr-2" onClick={this.changeLogInScreen}>Need an account?</button>;
+        let email = 
+            <div className="form-group">
+                <label htmlFor="email">Email</label>
+                <input className="form-control"
+                    id="email"
+                    type="email"
+                    name="email"
+                    onChange={this.handleChange}
+                />
+            </div>;
+        let password = 
+            <div className="form-group">
+                <label htmlFor="password">Password</label>
+                <input className="form-control"
+                    id="password"
+                    type="password"
+                    name="password"
+                    onChange={this.handleChange}
+                />
+            </div>
+        let username =
+            <div className="form-group">
+                <label htmlFor="handle">User Name</label>
+                <input className="form-control"
+                    id="handle"
+                    name="handle"
+                    onChange={this.handleChange}
+                />
+            </div>
+        let profilePic = 
+            <div className="form-group">
+                <img className="avatar" src={this.state.avatar || 'https://catking.in/wp-content/uploads/2017/02/default-profile-1.png'} alt="avatar preview" />
                 <label htmlFor="avatar">Avatar Image URL</label>
                 <input className="form-control" 
                     id="avatar" 
@@ -115,17 +86,43 @@ class SignUpForm extends Component {
                     placeholder="http://www.example.com/my-picture.jpg" 
                     onChange={this.handleChange}
                     />
-                </div>
+            </div>
+        if (this.state.signIn) {
+            return (
+                <div>
+                <h1>Sign In</h1>
+                <form>
+                    {email}
+                    {password}
 
-
-                {/* buttons */}
-                <div className="form-group">
-                    {this.props.signUp ? signUpButton : signInButton}
-                    {this.props.signUp ? returnUser : newUser}
+                    {/* buttons */}
+                    <div className="form-group">
+                        {signInButton}
+                        {newUser}
+                    </div>
+                </form>
                 </div>
-            </form >
-        )
+            )
+        } else {
+            return (
+                <div>
+                <h1>Sign Up</h1>
+                <form>
+                    {email}
+                    {password}
+                    {username}
+                    {profilePic}
+
+                    {/* buttons */}
+                    <div className="form-group">
+                        {signUpButton}
+                        {returnUser}
+                    </div>
+                </form>
+                </div>
+            )
+        }
     }
 }
 
-export default SignUpForm
+export default SignUpForm;

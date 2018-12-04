@@ -41,11 +41,12 @@ export class HikeInfo extends Component{
                     obj.id = key;
                     return obj;
                 })
+            
+                // to render earlier post first
+                commentsArray = commentsArray.sort((a, b) => {
+                    return b.time - a.time;
+                })
             }
-            // to render earlier post first
-            commentsArray = commentsArray.sort((a, b) => {
-                return b.time - a.time;
-            })
             this.setState({
                 trail: this.props.location.state.hike,
                 comments: commentsArray

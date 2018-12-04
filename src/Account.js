@@ -14,12 +14,11 @@ export class Account extends Component {
   componentDidMount() {
     this.authUnRegFunc = firebase.auth().onAuthStateChanged((firebaseUser) => {
       if(firebaseUser){ //signed in!
-        this.setState({user: firebaseUser, loading:false})
+        this.setState({user: firebaseUser, loading:false, signUp:false})
       } else { //signed out
-        this.setState({user: null, loading:false})
+        this.setState({user: null, loading:false, signUp:true})
       }
     })
-
   }
 
   componentWillUnmount() {
@@ -37,23 +36,20 @@ export class Account extends Component {
         displayName: handle,
         photoURL:avatar
       });
-    return updateProfile;
-  })
-  .then((user) => {
-    this.setState({user:user})
-  })
-  .catch((err) => {
-    this.setState({errorMessage: err.message});
-  })
-
-    /* TODO: sign up user here */
+      return updateProfile;
+    })
+    .then((user) => {
+      this.setState({user:user})
+    })
+    .catch((err) => {
+      this.setState({errorMessage: err.message});
+    })
   }
 
   //A callback function for logging in existing users
   handleSignIn = (email, password) => {
     this.setState({errorMessage:null}); //clear any old errors
     console.log(email, password);
-    /* TODO: sign in user here */
     firebase.auth().signInWithEmailAndPassword(email, password)
       .catch((err) => {
         this.setState({errorMessage: err.message})
@@ -64,35 +60,21 @@ export class Account extends Component {
   handleSignOut = () => {
     this.setState({errorMessage:null}); //clear any old errors
 
-    /* TODO: sign out user here */
     firebase.auth().signOut()
       .catch((err) => {
         this.setState({errorMessage: err.message})
       })
   }
 
-  newUser = () => {
-      this.setState({signUp: true});
-  }
-
-  returnUser = () => {
-      this.setState({signUp: false});
-  }
-
   render() {
 
     let content = null; //content to render
     if(!this.state.user) { //if logged out, show signup form
-      let greeting = this.state.signUp ? <h1>Sign Up</h1> : <h1>Sign In</h1>;
       content = (
         <div className="container">
-          {greeting}
           <SignUpForm 
             signUpCallback={this.handleSignUp} 
             signInCallback={this.handleSignIn}
-            signUp={this.state.signUp}
-            newUser={this.newUser}
-            returnUser={this.returnUser}
             />
         </div>
       );
