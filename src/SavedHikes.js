@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {HikeCard} from './Results'
+import './SavedHikes.css';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
@@ -21,13 +22,15 @@ export class SavedHikes extends Component {
                 this.hikeRef = firebase.database().ref('users/' + firebaseUser.uid + "/savedHikes");
                 this.hikeRef.on('value', (snapShot) => {
                     let hikeData = snapShot.val();
-                    let hikeKeys = Object.keys(hikeData);
-                    let hikeArray = hikeKeys.map((key) => {
-                        let hike = hikeData[key].hike;
-                        hike.key = key;
-                        return hike;
-                    })
-                    this.setState({displayHikes: hikeArray});
+                    if (hikeData !== null) {
+                        let hikeKeys = Object.keys(hikeData);
+                        let hikeArray = hikeKeys.map((key) => {
+                            let hike = hikeData[key].hike;
+                            hike.key = key;
+                            return hike;
+                        })
+                        this.setState({displayHikes: hikeArray});
+                    }
                 })
             } else { //signed out
                 this.setState({user: null});
@@ -36,7 +39,9 @@ export class SavedHikes extends Component {
     }
 
     componentWillUnmount() {
-        this.hikeRef.off();
+        if( this.hikeref){
+            this.hikeRef.off();
+        }
     }
 
     render() {
@@ -52,7 +57,11 @@ export class SavedHikes extends Component {
                 </div>
             );
         } else {
-           return  <h1>Log in or sign up to view saved hikes</h1>
+           return  (
+               <div className="no-sign-in">
+                   <a href="#/Account"><button type="button" className="btn btn-dark btn-lg">Login or Sign Up to View Saved Hikes </button></a>
+               </div>
+           )
         }
     }
 }

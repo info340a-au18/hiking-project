@@ -57,7 +57,7 @@ export class HikeCard extends Component {
         }
 
         if (!this.props.user) {
-            saveOption = <p className='card-message'>Log in to save hikes!</p>
+            saveOption = <p className="card-message"><a href="#/Account">Log in to save hikes!</a></p>
         }
 
         //get rating
