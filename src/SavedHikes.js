@@ -13,13 +13,11 @@ export class SavedHikes extends Component {
     }
 
     componentDidMount() {
-        let hikeRef;
         // if user is signed in or not
         this.authUnRegFunc = firebase.auth().onAuthStateChanged((firebaseUser) => {
             if(firebaseUser){ //signed in!
                 this.setState({user: firebaseUser});
-                // get saved hikes associated with the user in Firebase
-                hikeRef = firebase.database().ref('users/' + firebaseUser.uid + "/savedHikes");
+                let hikeRef = firebase.database().ref('users/' + firebaseUser.uid + "/savedHikes");
                 hikeRef.on('value', (snapShot) => {
                     let hikeData = snapShot.val();
                     let hikeKeys = Object.keys(hikeData);
@@ -37,17 +35,20 @@ export class SavedHikes extends Component {
     }
 
     render() {
-        console.log(this.state.displayHikes);
-        let savedHikes = this.state.displayHikes.map((current) => {
-            return <SaveHikeCard hike={current} key={current.id}/>
-        })
-        return (
-            <div className="hike-results card-container">
-                <div className='row'>
-                    {savedHikes}
+        if (this.state.user) {
+            let savedHikes = this.state.displayHikes.map((current) => {
+                return <SaveHikeCard hike={current} key={current.id}/>
+            })
+            return (
+                <div className="hike-results card-container">
+                    <div className='row'>
+                        {savedHikes}
+                    </div>
                 </div>
-            </div>
-        );
+            );
+        } else {
+           return  <h1>Log in or sign up to view saved hikes</h1>
+        }
     }
 }
 
