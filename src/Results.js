@@ -135,10 +135,6 @@ export class CardContainer extends Component {
         let hikes;
         if (this.props.pageOfItems[1] !== undefined) {
             hikes = this.props.pageOfItems.map((hike) => {
-<<<<<<< HEAD
-                // return (<HikeCard user={this.state.user} key={hike.id} hike={hike}/>);
-=======
->>>>>>> 13f851e323026a45fe96c22748ac5ffb0e51846c
                 return (<HikeCard key={hike.id} hike={hike}/>);
             });
         }
