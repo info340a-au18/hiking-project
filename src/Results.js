@@ -134,33 +134,37 @@ export class CardContainer extends Component {
         }
     }
 
-    // componentDidMount() {
-    //     // if user is signed in or not
-    //     this.authUnRegFunc = firebase.auth().onAuthStateChanged((firebaseUser) => {
-    //         if(firebaseUser){ //signed in!
-    //             this.setState({user: firebaseUser});
-    //             this.hikeRef = firebase.database().ref('users/' + this.state.user.uid + "/savedHikes");
-    //             this.hikeRef.on('value', (snapShot) => {
-    //                 let hikeData = snapShot.val();
-    //                 let hikeKeys = Object.keys(hikeData);
-    //                 let hikeArray = hikeKeys.map((key) => {
-    //                     let hike = hikeData[key];
-    //                     hike.id = key;
-    //                     return hike;
-    //                 })
-    //                 this.setState({ savedHikes: hikeArray });
-    //             })
-    //         } else { //signed out
-    //             this.setState({user: null});
-    //         }
-    //     });
-    // }
 
-    // componentWillUnmount() {
-    //     this.hikeRef.off();
-    // }
+    componentDidMount() {
+        // if user is signed in or not
+        this.authUnRegFunc = firebase.auth().onAuthStateChanged((firebaseUser) => {
+            if(firebaseUser){ //signed in!
+                this.setState({user: firebaseUser});
+                this.hikeRef = firebase.database().ref('users/' + this.state.user.uid + "/savedHikes");
+                this.hikeRef.on('value', (snapShot) => {
+                    let hikeData = snapShot.val();
+                    if (hikeData !== null) {
+                        let hikeKeys = Object.keys(hikeData);
+                        let hikeArray = hikeKeys.map((key) => {
+                            let hike = hikeData[key];
+                            hike.id = key;
+                            return hike;
+                        })
+                        this.setState({ savedHikes: hikeArray });
+                    }
+                })
+            } else { //signed out
+                this.setState({user: null});
+            }
+        });
+    }
+
+    componentWillUnmount() {
+        this.hikeRef.off();
+    }
 
     render() {
+        console.log(this.state.user);
         let hikes;
         let first;
         if (this.props.pageOfItems[1] !== undefined) {
