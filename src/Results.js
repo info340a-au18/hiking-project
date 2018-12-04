@@ -138,6 +138,7 @@ export class CardContainer extends Component {
     componentDidMount() {
         // if user is signed in or not
         this.authUnRegFunc = firebase.auth().onAuthStateChanged((firebaseUser) => {
+            console.log("firebase user",firebaseUser);
             if(firebaseUser){ //signed in!
                 this.setState({user: firebaseUser});
                 this.hikeRef = firebase.database().ref('users/' + this.state.user.uid + "/savedHikes");
@@ -160,7 +161,9 @@ export class CardContainer extends Component {
     }
 
     componentWillUnmount() {
-        this.hikeRef.off();
+        if( this.hikeref){
+            this.hikeRef.off();
+        }
     }
 
     render() {
