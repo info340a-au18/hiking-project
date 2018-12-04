@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import { CardContainer } from './Results';
 import { MapArea } from './Map';
@@ -133,22 +132,15 @@ export class Main extends Component {
 
     componentDidMount() {
         this.getData(this.props.lat, this.props.lng, this.props.maxDist, this.props.maxResults);
-
-        // Gets an array of the trails saved in the Firebase database
-        let hikeRef = firebase.database().ref('saved');
-        // hikeRef.on('value', (snapShot) => {
-        //     let hikeData = snapShot.val();
-        //     let hikeKeys = Object.keys(hikeData);
-        //     let hikeArray = hikeKeys.map((key) => {
-        //         let hike = hikeData[key];
-        //         hike.id = key;
-        //         return hike;
-        //     })
-        //     let hikeInfo = hikeArray.map((current) => {
-        //         return current.hike;
-        //     })
-        //     this.setState({ savedHikes: hikeInfo });
-        // })
+        
+        // if user is signed in or not
+        this.authUnRegFunc = firebase.auth().onAuthStateChanged((firebaseUser) => {
+            if(firebaseUser){ //signed in!
+                this.setState({user: firebaseUser});
+            } else { //signed out
+                this.setState({user: null});
+            }
+        });
     }
 
     //Intercepts prop updates to fetch data and filter the list of hikes
@@ -187,6 +179,23 @@ export class Main extends Component {
         if (this.state.displayedTrails.length === 0) {
             error = <div className="error-message">No Hikes Found With These Filters</div>;
         }
+        console.log(this.state.user);
+        //this.hikesRef = firebase.database().ref('users/' + this.state.user.uid + "/")
+        // Gets an array of the trails saved in the Firebase database
+        // let hikeRef = firebase.database().ref('users/' + this.state.user.uid + "/savedHikes");
+        // hikeRef.on('value', (snapShot) => {
+        //     let hikeData = snapShot.val();
+        //     let hikeKeys = Object.keys(hikeData);
+        //     let hikeArray = hikeKeys.map((key) => {
+        //         let hike = hikeData[key];
+        //         hike.id = key;
+        //         return hike;
+        //     })
+        //     let hikeInfo = hikeArray.map((current) => {
+        //         return current.hike;
+        //     })
+        //     this.setState({ savedHikes: hikeInfo });
+        // })
         return (
             <div>
                 {error}
@@ -196,7 +205,7 @@ export class Main extends Component {
                             <MapArea lat={this.props.lat} lng={this.props.lng} trails={this.state.displayedTrails} />
                         </div>
                         <div className="section" id="card">
-                            <CardContainer pageOfItems={this.state.displayedTrails} />
+                            <CardContainer user={this.state.user} pageOfItems={this.state.displayedTrails} />
                         </div>
                     </div>
                 </main>
