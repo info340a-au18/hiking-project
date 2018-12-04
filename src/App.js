@@ -17,6 +17,7 @@ class App extends Component {
                     <Route path='/Account' component={Account} />
                     <Route path='/trail/:hikeName' component={HikeInfo} />
                     <Route path='/SavedHikes' component={SavedHikes}/>
+                    <Route component={HomePage} />
                 </Switch>
                 <Footer />
             </div>
