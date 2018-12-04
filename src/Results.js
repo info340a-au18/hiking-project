@@ -15,21 +15,19 @@ export class HikeCard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            saved: false
-            //user: this.props.user
+            saved: false,
         };
-        //console.log(this.state.user);
     }
 
-    checkSaved = () => {
-        let savedList = this.props.savedHikes;
-        for (let i=0; i < savedList.length; i++) {
-            if (savedList[i].name === this.props.hike.name) {
-                return <p>Hike Saved</p>
-            }
-        }
-        return <button onClick={this.addHike} className="btn btn-warning">Save</button>
-    }
+    // checkSaved = () => {
+    //     let savedList = this.props.savedHikes;
+    //     for (let i=0; i < savedList.length; i++) {
+    //         if (savedList[i].name === this.props.hike.name) {
+    //             return <p>Hike Saved</p>
+    //         }
+    //     }
+    //     return <button onClick={this.addHike} className="btn btn-warning">Save</button>
+    // }
 
     // Saving hike to Firebase database
     addHike = () => {
@@ -44,44 +42,9 @@ export class HikeCard extends Component {
                 })
         }
     }
-    
-    componentDidMount() {
-        // if user is signed in or not
-        this.authUnRegFunc = firebase.auth().onAuthStateChanged((firebaseUser) => {
-            if(firebaseUser){ //signed in!
-                this.setState({user: firebaseUser});
-            } else { //signed out
-                this.setState({user: null});
-            }
-        });
 
-        // this.hikeRef = firebase.database().ref('users/' + this.state.user.uid + "/savedHikes");
-        // this.hikeRef.on('value', (snapShot) => {
-        //     let hikeData = snapShot.val();
-        //     let hikeKeys = Object.keys(hikeData);
-        //     let hikeArray = hikeKeys.map((key) => {
-        //         let hike = hikeData[key];
-        //         hike.id = key;
-        //         return hike;
-        //     })
-        //     let hikeInfo = hikeArray.map((current) => {
-        //         return current.hike;
-        //     })
-        //     this.setState({ savedHikes: hikeInfo });
-        // })
-    }
-
-    // componentWillUnmount() {
-    //     this.hikeRef.off();
-    // }
 
     render() {
-        // if (this.state.saved || this.props.hike.saved) {
-        //     saveOption = <p>Hike Saved</p>
-        // } else {
-        //     saveOption = <button onClick={this.addHike} className="btn btn-warning">Save</button>
-        // }
-
         let saveOption;
         if (this.state.saved) {
             saveOption = <p>Hike Saved</p>
@@ -89,9 +52,10 @@ export class HikeCard extends Component {
             saveOption = <button onClick={this.addHike} className="btn btn-warning">Save</button>
         }
 
-        if (!this.state.user) {
-            saveOption = <p>Log in to save hikes!</p>
-        }
+        // if user is not logged into their account 
+        // if (!this.prop.user) {
+        //     saveOption = <p>Log in to save hikes!</p>
+        // }
 
         //get rating
         let ratings = [];
@@ -148,7 +112,6 @@ export class HikeCard extends Component {
                             <li>Length: {this.props.hike.length} miles</li>
                             <li className='diff'>Difficulty: <img src={diff} alt={diff} /></li>
                             <button onClick={this.handleClick} className="btn btn-dark">More Info</button>
-                            {/* <button onClick={this.addHike} className="btn btn-warning">Save</button> */}
                             {saveOption}
                         </ul>
                     </div>
@@ -162,19 +125,12 @@ export class HikeCard extends Component {
 
 
 export class CardContainer extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            savedHikes: []
-        }
-        console.log(this.props.user);
-    }
-
     render() {
         let hikes;
         if (this.props.pageOfItems[1] !== undefined) {
             hikes = this.props.pageOfItems.map((hike) => {
-                return (<HikeCard user={this.props.user} key={hike.id} hike={hike}/>);
+                // return (<HikeCard user={this.state.user} key={hike.id} hike={hike}/>);
+                return (<HikeCard key={hike.id} hike={hike}/>);
             });
         }
         return (

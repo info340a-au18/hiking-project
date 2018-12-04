@@ -17,6 +17,7 @@ export class SavedHikes extends Component {
         this.authUnRegFunc = firebase.auth().onAuthStateChanged((firebaseUser) => {
             if(firebaseUser){ //signed in!
                 this.setState({user: firebaseUser});
+                // gets the trails saved by the signed in user from Firebase
                 let hikeRef = firebase.database().ref('users/' + firebaseUser.uid + "/savedHikes");
                 hikeRef.on('value', (snapShot) => {
                     let hikeData = snapShot.val();
