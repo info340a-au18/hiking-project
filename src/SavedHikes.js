@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { CardContainer } from './Results';
 
 import firebase from 'firebase/app';
+import 'firebase/auth';
 import 'firebase/database';
 
 export class SavedHikes extends Component {
@@ -13,33 +13,42 @@ export class SavedHikes extends Component {
     }
 
     componentDidMount() {
-        let hikeRef = firebase.database().ref('saved');
-        hikeRef.on('value', (snapShot) => {
-            let hikeData = snapShot.val();
-            let hikeKeys = Object.keys(hikeData);
-            let hikeArray = hikeKeys.map((key) => {
-                let hike = hikeData[key];
-                hike.id = key;
-                return hike;
-            })
-            let hikeInfo = hikeArray.map((current) => {
-            return current.hike;
-            })
-            this.setState({displayHikes: hikeInfo});
-        })
+        // if user is signed in or not
+        this.authUnRegFunc = firebase.auth().onAuthStateChanged((firebaseUser) => {
+            if(firebaseUser){ //signed in!
+                this.setState({user: firebaseUser});
+                let hikeRef = firebase.database().ref('users/' + firebaseUser.uid + "/savedHikes");
+                hikeRef.on('value', (snapShot) => {
+                    let hikeData = snapShot.val();
+                    let hikeKeys = Object.keys(hikeData);
+                    let hikeArray = hikeKeys.map((key) => {
+                        let hike = hikeData[key].hike;
+                        hike.key = key;
+                        return hike;
+                    })
+                    this.setState({displayHikes: hikeArray});
+                })
+            } else { //signed out
+                this.setState({user: null});
+            }
+        });
     }
+
     render() {
-        
-        let savedHikes = this.state.displayHikes.map((current) => {
-            return <SaveHikeCard hike={current} />
-        })
-        return (
-            <div className="hike-results card-container">
-                <div className='row'>
-                    {savedHikes}
+        if (this.state.user) {
+            let savedHikes = this.state.displayHikes.map((current) => {
+                return <SaveHikeCard hike={current} key={current.id}/>
+            })
+            return (
+                <div className="hike-results card-container">
+                    <div className='row'>
+                        {savedHikes}
+                    </div>
                 </div>
-            </div>
-        );
+            );
+        } else {
+           return  <h1>Log in or sign up to view saved hikes</h1>
+        }
     }
 }
 
