@@ -23,7 +23,7 @@ export class HikeCard extends Component {
         let savedList = this.props.savedHikes;
         for (let i=0; i < savedList.length; i++) {
             if (savedList[i].name === this.props.hike.name) {
-                return <p>Hike Saved</p>
+                return <p className="card-saved">Hike Saved</p>
             }
         }
         return <button onClick={this.addHike} className="btn btn-warning">Save</button>
@@ -52,7 +52,7 @@ export class HikeCard extends Component {
 
         let saveOption;
         if (this.state.saved) {
-            saveOption = <p>Hike Saved</p>
+            saveOption = <p className="card-saved">Hike Saved</p>
         } else {
             saveOption = <button onClick={this.addHike} className="btn btn-warning">Save</button>
         }

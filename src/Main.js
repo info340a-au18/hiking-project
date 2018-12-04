@@ -60,6 +60,8 @@ export class Main extends Component {
                     hike.distanceAway = this.getDistance([this.props.lat, this.props.lng], [hike.latitude, hike.longitude]);
                 });
 
+                this.sortDistanceAway(hikes);
+
                 this.setState(
                     {
                         trailData: hikes,
@@ -120,11 +122,20 @@ export class Main extends Component {
         return hikesToDisplay;
     }
 
+    sortDistanceAway(hikesToDisplay) {
+
+        hikesToDisplay.sort(function(a, b){return a.distanceAway - b.distanceAway});
+
+        return hikesToDisplay;
+
+    }
+
     //Use all of the above filters. (This makes sure that prexisting filters are applied when a new one is applied)
     applyAllFilters = (hikesToDisplay) => {
         hikesToDisplay = this.diffFilter(hikesToDisplay);
         hikesToDisplay = this.distFilter(hikesToDisplay);
         hikesToDisplay = this.elevFilter(hikesToDisplay);
+        hikesToDisplay = this.sortDistanceAway(hikesToDisplay);
 
         this.setState({
             displayedTrails: hikesToDisplay
@@ -174,12 +185,6 @@ export class Main extends Component {
         }
 
 
-    }
-
-
-    showCard = (hike) => {
-        console.log(hike);
-        this.setState({ cardShown: hike })
     }
 
     render() {
