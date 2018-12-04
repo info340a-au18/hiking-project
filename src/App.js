@@ -14,9 +14,9 @@ class App extends Component {
                 <NavBar />
                 <Switch>
                     <Route exact path='/Home' component={HomePage} />
-                    <Route path='/hiking-project/Account' component={Account} />
+                    <Route path='/Account' component={Account} />
                     <Route path='/trail/:hikeName' component={HikeInfo} />
-                    <Route path='/hiking-project/SavedHikes' component={SavedHikes}/>
+                    <Route path='/SavedHikes' component={SavedHikes}/>
                     <Route component={HomePage} />
                 </Switch>
                 <Footer />
