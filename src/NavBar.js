@@ -34,15 +34,15 @@ export class NavBar extends Component {
         return (
             <div>
                 <Navbar color="light" light expand="md">
-                    <Link to="/">Hike Finder</Link>
+                    <NavbarBrand href="#/">Hike Finder</NavbarBrand>
                     <NavbarToggler onClick={this.toggle} />
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>
                             <NavItem>
-                                <Link to="/Account">Account</Link>
+                                <NavLink href="#/Account">Account</NavLink>
                             </NavItem>
                             <NavItem>
-                                <Link to="/SavedHikes">Saved</Link>
+                                <NavLink href="#/SavedHikes">Saved</NavLink>
                             </NavItem>
                         </Nav>
                     </Collapse>
