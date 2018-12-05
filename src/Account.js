@@ -40,16 +40,12 @@ export class Account extends Component {
           displayName: handle,
           photoURL: avatar
         });
+        this.setState({ user: firebaseUser})
         return updateProfile;
-      })
-      .then((user) => {
-        this.setState({ user: user });
       })
       .catch((err) => {
         this.setState({ errorMessage: err.message });
       })
-
-    /* TODO: sign up user here */
   }
 
   //A callback function for logging in existing users
