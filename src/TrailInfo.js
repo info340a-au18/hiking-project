@@ -89,9 +89,9 @@ export class TrailInfo extends Component {
 
         // update user's review list
         this.userReviewRef = firebase.database().ref('users/' + this.state.user.uid + '/userReviews/'
-            + this.props.location.state.hike.id);
+            + this.props.match.params.hikeId);
         let newUserComment = {
-            displayName: this.props.location.state.hike.name,
+            displayName: this.state.hike.name,
             text: userReview,
             time: time
         }
