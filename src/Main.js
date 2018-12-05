@@ -12,6 +12,11 @@ export class Main extends Component {
         this.state = { trailData: {}, displayedTrails: {}, newLocation: false, pageOfItems: {}, cardShown: undefined };
     }
 
+    sendHikes = (hikes) => {
+        console.log("gethikes",this.props.getHikes);
+        this.props.getHikes(hikes);
+    }
+
     //Search term from form is passed in as this.props.searchTerm
     //User Latitude from header button passed in as this.props.userLat
     //User Longitude from header button passed in as this.props.userLon
@@ -53,7 +58,7 @@ export class Main extends Component {
                 let hikes = data.trails;
 
                 hikes.forEach((hike) => {
-                    //console.log(this.props.lat, hike.latitude);
+                   
                     hike.distanceAway = this.getDistance([this.props.lat, this.props.lng], [hike.latitude, hike.longitude]);
                 });
 
@@ -67,6 +72,7 @@ export class Main extends Component {
                 );
 
                 this.diffFilter();
+                this.sendHikes();
             })
             .catch(function () {
             });

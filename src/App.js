@@ -9,16 +9,27 @@ import { HikeInfo } from './HikeInfo';
 
 class App extends Component {
 
-    render() {
+    getHikes = (hikes) => {
+
+        this.setState({ hikes: hikes });
+    }
+
+    constructor(props) {
+        super(props);
+
+        this.state = { hikes: undefined };
+    }
+
+    render = () => {
+        console.log("first",this.getHikes);
         return (
             <div >
                 <NavBar />
                 <Switch>
-                    <Route exact path='/' component={HomePage} />
                     <Route path='/Account' component={Account} />
                     <Route path='/trail/:hikeName' component={HikeInfo} />
                     <Route path='/SavedHikes' component={SavedHikes} />
-                    <Route component={HomePage} />
+                    <Route render={ (props) => <HomePage {...props}  bird={"yoot"} getHikes={this.getHikes} />} />
                 </Switch>
                 <Footer id="footer" />
             </div>
