@@ -34,23 +34,23 @@ export class HikeCard extends Component {
         }
     }
 
-    // checkSaved = () => {
-    //     if (this.props.savedHikes) {
-    //         let savedList = this.props.savedHikes;
-    //         for (let i = 0; i < savedList.length; i++) {
-    //             if (savedList[i].hike.name === this.props.hike.name) {
-    //                 return true;
-    //             }
-    //         }
-    //     }
-    //     return false;
-    // }
+    checkSaved = () => {
+        if (this.props.savedHikes) {
+            let savedList = this.props.savedHikes;
+            for (let i = 0; i < savedList.length; i++) {
+                if (savedList[i].hike.name === this.props.hike.name) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
 
     render() {
-        // let checkSave = this.checkSaved();
+        let checkSave = this.checkSaved();
         let saveOption;
-        if (this.state.saved) {
+        if (this.state.saved || checkSave) {
             saveOption = <p className='card-message'>Hike Saved</p>
         } else {
             saveOption = <button onClick={this.addHike} className="btn btn-warning">Save</button>

@@ -21,7 +21,6 @@ export class SavedHikes extends Component {
                 this.hikeRef = firebase.database().ref('users/' + firebaseUser.uid + "/savedHikes");
                 this.hikeRef.on('value', (snapShot) => {
                     let hikeData = snapShot.val();
-                    console.log(hikeData);
                     if (hikeData !== null) {
                         let hikeKeys = Object.keys(hikeData);
                         let hikeArray = hikeKeys.map((key) => {
