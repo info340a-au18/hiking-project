@@ -96,7 +96,6 @@ export class Account extends Component {
               <button id="signOut" className="btn btn-dark" onClick={this.handleSignOut}>Log Out</button>
             }
           </WelcomeHeader>
-          <h1>Your Saved Hikes</h1>
           <SavedHikes />
           <UserComments user={this.state.user}/>
         </div>
