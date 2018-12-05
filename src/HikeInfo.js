@@ -68,6 +68,7 @@ export class HikeInfo extends Component{
         let userReviewRef = firebase.database().ref('users/' + this.state.user.uid + '/userReviews/'
                                     + this.props.location.state.hike.id);
         let newUserComment = {
+            displayName: this.props.location.state.hike.name,
             text: userReview,
             time: time
         }
