@@ -107,19 +107,19 @@ export class HikeCard extends Component {
                     <div className="hoverText">
                         <img src={this.props.hike.imgMedium} alt='the hiking place' />
                     </div>
-                    <div className="card-body">
-                        <h5 className="card-title">{this.props.hike.name}</h5>
-                        <ul className="card-text">
-                            <li>Location: {this.props.hike.location}</li>
-                            <li>Distance from you: {this.props.hike.distanceAway} Miles</li>
-                            <li className='rating'>Ratings: {stars}</li>
-                            <li>Length: {this.props.hike.length} Miles</li>
-                            <li className='diff'>Difficulty: <img src={diff} alt={diff} /></li>
-                            <button onClick={this.handleClick} className="btn btn-dark">More Info</button>
-                            {saveOption}
-                        </ul>
-                    </div>
                 </a>
+                <div className="card-body">
+                    <h5 className="card-title">{this.props.hike.name}</h5>
+                    <ul className="card-text">
+                        <li>Location: {this.props.hike.location}</li>
+                        <li>Distance from you: {this.props.hike.distanceAway} Miles</li>
+                        <li className='rating'>Ratings: {stars}</li>
+                        <li>Length: {this.props.hike.length} Miles</li>
+                        <li className='diff'>Difficulty: <img src={diff} alt={diff} /></li>
+                        <button onClick={this.handleClick} className="btn btn-dark">More Info</button>
+                        {saveOption}
+                    </ul>
+                </div>
             </div>
         );
 
