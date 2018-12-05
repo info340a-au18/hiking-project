@@ -155,7 +155,7 @@ export class TrailInfo extends Component {
                     {/* quick fix so footer doesn't cover cards*/}
                     <div className="hidden">
                         <div className="card-body">
-                        <h5 className="card-title">bufferrrrrrrrrrr</h5>
+                        <h5 className="card-title hidden">bufferrrrrrrrrrr</h5>
                         </div>
                     </div>
                 </div>
