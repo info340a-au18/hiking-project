@@ -93,7 +93,7 @@ export class Account extends Component {
         <div>
           <WelcomeHeader user={this.state.user}>
             {this.state.user &&
-              <button id="signOut" onClick={this.handleSignOut}>Log Out</button>
+              <button id="signOut" className="btn btn-dark" onClick={this.handleSignOut}>Log Out</button>
             }
           </WelcomeHeader>
           <SavedHikes />
@@ -133,11 +133,13 @@ class WelcomeHeader extends Component {
     }
     return (
       <main className="welcome">
-        <h1>
-          Welcome {name}!
+        <h1> Welcome {name}! </h1>
+        <div className="col d-flex justify-content-center">
           <img className="avatar" src={this.props.user.photoURL} alt={this.props.user.displayName} />
-        </h1>
-        {this.props.children} {/* for button */}
+        </div>
+        <div className="col d-flex justify-content-center">
+          {this.props.children} {/* for button */}
+        </div>
       </main>
     );
   }

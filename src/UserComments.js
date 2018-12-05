@@ -32,28 +32,36 @@ export class UserComments extends Component {
     }
 
     render() {
-        let comments = this.state.comments.map((item) => {
-            let itemKey = Object.keys(item)[0];
-            return item[itemKey];
-        })
-        let renderedComments = comments.map((item, index) => {
-            return <Comment comment={item} key={index}></Comment>
-        })
-        return (
-            <div>
-                <h1>Your Reviews</h1>
+        if (this.state.comments) {
+            let comments = this.state.comments.map((item) => {
+                let itemKey = Object.keys(item)[0];
+                return item[itemKey];
+            })
+            let renderedComments = comments.map((item, index) => {
+                return <Comment comment={item} key={index}></Comment>
+            })
+            return (
+                <div>
+                    <h1>Your Reviews</h1>
 
-                <div className="col">
-                    {renderedComments}
-                </div>
+                    <div className="col">
+                        {renderedComments}
+                    </div>
 
-                {/* quick fix so footer doesn't cover comments */}
-                <div className="hidden">
-                    <p className="card-text">buffer</p>
-                    <p className="card-text">buffer</p>
+                    {/* quick fix so footer doesn't cover comments */}
+                    <div className="hidden">
+                        <p className="card-text">buffer</p>
+                        <p className="card-text">buffer</p>
+                    </div>
                 </div>
-            </div>
-        );
+            );
+        } else {
+            return (
+                <div>
+                    <h1>Start Review Hikes!</h1>
+                </div>
+            )
+        }
     }
 }
 

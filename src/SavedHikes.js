@@ -53,7 +53,7 @@ export class SavedHikes extends Component {
         
         return (
             <div className="hike-results card-container">
-                <div className='row'>
+                <div className='col d-flex justify-content-center'>
                     {savedHikes}
                 </div>
             </div>
