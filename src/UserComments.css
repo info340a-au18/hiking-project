@@ -1,4 +1,10 @@
 h1 {
     text-align: center;
     color: white;
+    margin-bottom: 15px;
+}
+
+hidden {
+    position: absolute;
+    left: -99999;
 }
