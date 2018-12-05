@@ -3,6 +3,8 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
 import './UserComments.css';
+import './Account.scss';
+
 import Moment from 'react-moment';
 
 export class UserComments extends Component {
@@ -44,13 +46,12 @@ export class UserComments extends Component {
                 })
                 return commentsArray;
             })
-            console.log(comments);
             let renderedComments = comments.map((item, index) => {
                 return <Comment comment={item} key={index}></Comment>
             })
             return (
                 <div>
-                    <h1>Your Reviews</h1>
+                    <h1 className="text-box">Your Reviews</h1>
 
                     <div className="col">
                         {renderedComments}
@@ -66,7 +67,7 @@ export class UserComments extends Component {
         } else {
             return (
                 <div>
-                    <h1>No Hikes Reviewed</h1>
+                    <h1 className="text-box">No Hikes Reviewed</h1>
                 </div>
             )
         }

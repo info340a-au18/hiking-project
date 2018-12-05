@@ -10,6 +10,7 @@ export class Account extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      user: undefined,
       loading: true
     };
   }
@@ -22,7 +23,6 @@ export class Account extends Component {
         this.setState({ user: null, loading: false })
       }
     })
-
   }
 
   componentWillUnmount() {
@@ -43,7 +43,7 @@ export class Account extends Component {
         return updateProfile;
       })
       .then((user) => {
-        this.setState({ user: user })
+        this.setState({ user: user });
       })
       .catch((err) => {
         this.setState({ errorMessage: err.message });
@@ -57,8 +57,11 @@ export class Account extends Component {
     this.setState({ errorMessage: null }); //clear any old errors
     /* TODO: sign in user here */
     firebase.auth().signInWithEmailAndPassword(email, password)
+      .then((firebaseUser) => {
+        this.setState({ user: firebaseUser.user});
+      })
       .catch((err) => {
-        this.setState({ errorMessage: err.message })
+        this.setState({ errorMessage: err.message });
       })
   }
 
@@ -132,7 +135,7 @@ class WelcomeHeader extends Component {
     }
     return (
       <main className="welcome">
-        <h1> Welcome {name}! </h1>
+        <h1 className="text-box"> Welcome {name}! </h1>
         <div className="col d-flex justify-content-center">
           <img className="userPhoto" src={this.props.user.photoURL} alt={this.props.user.displayName} />
         </div>
