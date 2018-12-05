@@ -96,7 +96,7 @@ export class Account extends Component {
             }
           </WelcomeHeader>
           <SavedHikes  user={this.state.user}/>
-          <UserComments />
+          <UserComments  user={this.state.user}/>
         </div>
       );
     }

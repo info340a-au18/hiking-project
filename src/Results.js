@@ -6,7 +6,7 @@ import medium from './img/blue.png';
 import easy from './img/green.png';
 import placeHolder from './img/hiker-mini.jpg'
 import up from './img/up.svg';
-import { BrowserRouter as Redirect } from 'react-router-dom';
+import { Redirect} from 'react-router-dom';
 import './Results.scss';
 import firebase from 'firebase/app';
 import 'firebase/auth';
@@ -16,7 +16,7 @@ export class HikeCard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            saved: false
+            saved: false,
         };
     }
 
@@ -116,19 +116,19 @@ export class HikeCard extends Component {
         }
 
         if (this.state.redirect) {
-            return <Redirect push
+            return <Redirect
                 to={{
-                    pathname: "/hiking-project/trail/" + this.props.hike.name,
+                    pathname: "/trail/" + this.props.hike.name,
                     state: { hike: this.props.hike }
                 }}
             />
         }
         return (
-            <div className="card">
+            <div className="card" onClick={this.markCompleted}>
                 {this.state.errorMessage &&
                     <div className="alert alert-danger">{this.state.errorMessage}</div>
                 }
-                <a id={'' + this.props.hike.id}>
+                <a id={'' + this.props.hike.id} href="#">
                     <div className="hoverText">
                         <img src={this.props.hike.imgMedium} alt='the hiking place' />
                     </div>

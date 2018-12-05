@@ -50,7 +50,7 @@ export class SavedHikes extends Component {
             return <HikeCard hike={current.hike} key={current.hike.id} savePage={this.state.savePage} 
                 user={this.state.user} saveRef={this.state.displayHikes}/>
         })
-
+        
         return (
             <div className="hike-results card-container">
                 <div className='row'>

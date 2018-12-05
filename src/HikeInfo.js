@@ -7,7 +7,6 @@ import easy from './img/green.png';
 import placeHolder from './img/hiker-mini.jpg';
 import './HikeInfo.scss';
 import firebase from 'firebase/app';
-// import Moment from 'react-moment';
 import './SignUpForm.css';
 
 export class HikeInfo extends Component{
@@ -68,6 +67,7 @@ export class HikeInfo extends Component{
         let userReviewRef = firebase.database().ref('users/' + this.state.user.uid + '/userReviews/'
                                     + this.props.location.state.hike.id);
         let newUserComment = {
+            displayName: this.props.location.state.hike.name,
             text: userReview,
             time: time
         }
