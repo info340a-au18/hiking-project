@@ -1,17 +1,16 @@
 $myBlue: #185b64;
 
 footer {
-
-    position: absolute;
-    right: 0;
+    position: fixed;
     bottom: 0;
+    right: 0;
     left: 0;
-
+    z-index: 1000;
     width: inherit;
     background-color: $myBlue;
     color: white;
     text-align: center;
-    min-height: 5em;
+    min-height: 2em;
     
     .row{
         margin: 0;

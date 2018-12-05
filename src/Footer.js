@@ -14,8 +14,7 @@ export class Footer extends Component {
                                 <a href="https://github.com/info340a-au18/project-kylegoodwin">Data from:</a>
                             </div>
                             <div className="col-sm-3">
-                                <a href="https://www.wta.org/go-outside/passes/passes-and-permit-info">Washington Trails
-                        Association</a>
+                                <a href="https://www.wta.org/go-outside/passes/passes-and-permit-info">WTA</a>
                             </div>
                             <div className="col-sm-3">
                                 <a href="https://hikingproject.org">Hiking project</a>
