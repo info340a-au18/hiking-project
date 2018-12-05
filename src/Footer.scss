@@ -1,17 +1,17 @@
 $myBlue: #185b64;
 
 footer {
-
-    position: relative;
-    right: 0;
+    position: fixed;
     bottom: 0;
+    right: 0;
     left: 0;
-
+    z-index: 1000;
     width: inherit;
     background-color: $myBlue;
     color: white;
     text-align: center;
-    min-height: 5em;
+    min-height: 2em;
+    padding-bottom: 5px;
     
     .row{
         margin: 0;
@@ -19,9 +19,12 @@ footer {
     
     a{
         color: white;
+        font-size: 10px;
+        margin: 0;
+        padding-bottom: 1em;
     }
     p {
-        margin: 0 0.5em;
+        margin: 0;
     }
     #mountain {
         height: 2em;
