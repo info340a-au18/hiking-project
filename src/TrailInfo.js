@@ -291,7 +291,7 @@ class HikeComment extends Component {
             )
         } else {
             let button = ""
-            if (comment.user === this.props.user.uid) {
+            if (this.props.user && comment.user === this.props.user.uid) {
                 button = <button className="btn btn-dark float-right" onClick={this.handleEdit}>Edit</button>
             }
             return (
