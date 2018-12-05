@@ -74,6 +74,9 @@ export class TrailInfo extends Component {
         this.commentRef.off();
     }
 
+
+    // a function that updates firebase when user edits their review
+    // passed as callback hikecomment 
     handleEdit = (editedReview, hikeHash, oldText) => {
         let url = 'hikes/' + this.props.match.params.hikeId + '/' + hikeHash
         let hikeReviewRef = firebase.database().ref(url);
@@ -138,7 +141,6 @@ export class TrailInfo extends Component {
 
 
     render() {
-
         if (!this.state.hike) {
             return (<h2>No information available on this trail</h2>)
         } else {
@@ -148,9 +150,9 @@ export class TrailInfo extends Component {
                         <HikeCard hike={this.state.hike} />
                     </div>
                     <CommentBox user={this.state.user} handleReview={this.handleReview}></CommentBox>
-                    <HikeCommentList comments={this.state.comments} handleEdit={this.handleEdit}></HikeCommentList>
+                    <HikeCommentList user={this.state.user} comments={this.state.comments} handleEdit={this.handleEdit}></HikeCommentList>
                     
-                    {/* quick fix do footer doesn't cover */}
+                    {/* quick fix so footer doesn't cover cards*/}
                     <div className="hidden">
                         <div className="card-body">
                         <h5 className="card-title">bufferrrrrrrrrrr</h5>
@@ -219,11 +221,12 @@ class CommentBox extends Component {
 
 // Expected props:
 //   comments: the firebase object for comments
+//   handleEdit - function that updates firebase when user edits
 class HikeCommentList extends Component {
     render() {
         if (!this.props.comments) return null;
         let renderedComments = this.props.comments.map((item, index) => {
-            return <HikeComment key={index} comment={item} handleEdit={this.props.handleEdit}></HikeComment>
+            return <HikeComment user={this.props.user} key={index} comment={item} handleEdit={this.props.handleEdit}></HikeComment>
         });
         return (
             <div className="col left">
@@ -235,6 +238,7 @@ class HikeCommentList extends Component {
 
 // expected props:
 //   comment - comment object
+//   handleEdit - function that updates firebase when user edits
 class HikeComment extends Component {
     constructor(props) {
         super(props);
@@ -286,13 +290,17 @@ class HikeComment extends Component {
                 </div>
             )
         } else {
+            let button = ""
+            if (comment.user === this.props.user.uid) {
+                button = <button className="btn btn-dark float-right" onClick={this.handleEdit}>Edit</button>
+            }
             return (
                 <div className="card">
                     <div className="card-body">
                         <h5 className="card-title">
                             <img className="avatar" src={comment.userPhoto} alt={comment.userName} />
                             {comment.userName}
-                            <button className="btn btn-dark float-right" onClick={this.handleEdit}>Edit</button>
+                            {button}
                         </h5>
                         {time}
                         <p className="card-text">{comment.text}</p>
