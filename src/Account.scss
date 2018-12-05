@@ -11,8 +11,6 @@
       z-index: -100;
 }
 
-
-
 .login{
     margin: 12% 20%;
     margin-bottom: 50%;
@@ -24,6 +22,7 @@
 #signOut{
     height: 50px;
     width: 100px;
+    margin: 5% 40%;
 }
 
 .welcome{
@@ -33,6 +32,14 @@
 
 h1 {
     text-shadow: 2px 2px black;
+}
+
+.userPhoto {
+    width:200px;
+    height:200px;
+    border-radius: 50%;
+    margin-right: .5em;
+    margin-bottom: .5em;
 }
 
 @media (min-width: 576px){

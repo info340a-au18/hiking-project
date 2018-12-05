@@ -6,7 +6,7 @@ import medium from './img/blue.png';
 import easy from './img/green.png';
 import placeHolder from './img/hiker-mini.jpg'
 import up from './img/up.svg';
-import { BrowserRouter as Redirect } from 'react-router-dom';
+import { Redirect} from 'react-router-dom';
 import './Results.scss';
 import firebase from 'firebase/app';
 import 'firebase/auth';
@@ -29,7 +29,7 @@ export class HikeCard extends Component {
             }
             firebase.database().ref('users/' + this.props.user.uid + "/savedHikes").push(newHike)
                 .catch((err) => {
-                    console.log(err);
+                    this.setState({ errorMessage: err.message })
                 })
         }
     }
@@ -48,11 +48,11 @@ export class HikeCard extends Component {
     }
 
     // Removes a hike from Firebase
-    removeHike = () => {        
+    removeHike = () => {
         let saveRef = this.props.saveRef;
         let hikeRef;
 
-        for (let i=0; i < saveRef.length; i++) {
+        for (let i = 0; i < saveRef.length; i++) {
             if (saveRef[i].hike.name === this.props.hike.name) {
                 hikeRef = firebase.database().ref('users/' + this.props.user.uid + "/savedHikes/" + saveRef[i].key);
                 hikeRef.remove();       
@@ -68,7 +68,6 @@ export class HikeCard extends Component {
         let saveOption;
         let checkSave = this.checkSaved();
 
-        
         // If a user is logged in, indicate if the hike is already saved or display a button to save
         if (this.state.saved || checkSave) {
             saveOption = <p className='card-message'>Hike Saved</p>
@@ -83,7 +82,7 @@ export class HikeCard extends Component {
 
         // For when displaying cards on the Save Page, a remove button is added to unsave hikes
         if (this.props.savePage) {
-            saveOption = <button onClick={this.removeHike} className="btn btn-danger">Remove</button>  
+            saveOption = <button onClick={this.removeHike} className="btn btn-danger">Remove</button>
         }
 
         //get rating
@@ -120,32 +119,35 @@ export class HikeCard extends Component {
         }
 
         if (this.state.redirect) {
-            return <Redirect push
+            return <Redirect
                 to={{
-                    pathname: "/hiking-project/trail/" + this.props.hike.name,
+                    pathname: "/trail/" + this.props.hike.name,
                     state: { hike: this.props.hike }
                 }}
             />
         }
         return (
             <div className="card">
-                <a id={'' + this.props.hike.id}>
+                {this.state.errorMessage &&
+                    <div className="alert alert-danger">{this.state.errorMessage}</div>
+                }
+                <a id={'' + this.props.hike.id} href="#">
                     <div className="hoverText">
                         <img src={this.props.hike.imgMedium} alt='the hiking place' />
                     </div>
-                    <div className="card-body">
-                        <h5 className="card-title">{this.props.hike.name}</h5>
-                        <ul className="card-text">
-                            <li>Location: {this.props.hike.location}</li>
-                            <li>Distance from you: {this.props.hike.distanceAway} Miles</li>
-                            <li className='rating'>Ratings: {stars}</li>
-                            <li>Length: {this.props.hike.length} Miles</li>
-                            <li className='diff'>Difficulty: <img src={diff} alt={diff} /></li>
-                            <button onClick={this.handleClick} className="btn btn-dark">More Info</button>
-                            {saveOption}
-                        </ul>
-                    </div>
                 </a>
+                <div className="card-body">
+                    <h5 className="card-title">{this.props.hike.name}</h5>
+                    <ul className="card-text">
+                        <li>Location: {this.props.hike.location}</li>
+                        <li>Distance from you: {this.props.hike.distanceAway} Miles</li>
+                        <li className='rating'>Ratings: {stars}</li>
+                        <li>Length: {this.props.hike.length} Miles</li>
+                        <li className='diff'>Difficulty: <img src={diff} alt={diff} /></li>
+                        <button onClick={this.handleClick} className="btn btn-dark">More Info</button>
+                        {saveOption}
+                    </ul>
+                </div>
             </div>
         );
 

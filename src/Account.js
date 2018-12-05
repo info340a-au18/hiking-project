@@ -58,7 +58,6 @@ export class Account extends Component {
     /* TODO: sign in user here */
     firebase.auth().signInWithEmailAndPassword(email, password)
       .catch((err) => {
-        console.log("hi");
         this.setState({ errorMessage: err.message })
       })
   }
@@ -111,7 +110,7 @@ export class Account extends Component {
       return (
         <div id="Account">
           {this.state.errorMessage &&
-            <p className="alert alert-danger">{this.state.errorMessage}</p>
+            <div className="alert alert-danger">{this.state.errorMessage}</div>
           }
           {content}
           <video id="video-background" muted loop autoPlay>
@@ -135,7 +134,7 @@ class WelcomeHeader extends Component {
       <main className="welcome">
         <h1> Welcome {name}! </h1>
         <div className="col d-flex justify-content-center">
-          <img className="avatar" src={this.props.user.photoURL} alt={this.props.user.displayName} />
+          <img className="userPhoto" src={this.props.user.photoURL} alt={this.props.user.displayName} />
         </div>
         <div className="col d-flex justify-content-center">
           {this.props.children} {/* for button */}
