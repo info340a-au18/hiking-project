@@ -17,6 +17,7 @@
     "react-bootstrap": "^0.32.4",
     "react-dom": "^16.6.3",
     "react-leaflet": "^2.1.2",
+    "react-loading": "^2.0.3",
     "react-moment": "^0.8.4",
     "react-nouislider": "^2.0.1",
     "react-paginate": "^6.0.0",

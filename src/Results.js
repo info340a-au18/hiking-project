@@ -23,7 +23,7 @@ export class HikeCard extends Component {
     // Saving hike to Firebase database
     addHike = () => {
         if (this.props.user) {
-            this.setState({saved: true});
+            this.setState({ saved: true });
             let newHike = {
                 hike: this.props.hike,
             }
@@ -35,15 +35,17 @@ export class HikeCard extends Component {
     }
 
     checkSaved = () => {
-        let savedList = this.props.savedHikes;
-        for (let i=0; i < savedList.length; i++) {
-            if (savedList[i].hike.name === this.props.hike.name) {
-                return true;
+        if (this.props.savedHikes) {
+            let savedList = this.props.savedHikes;
+            for (let i = 0; i < savedList.length; i++) {
+                if (savedList[i].hike.name === this.props.hike.name) {
+                    return true;
+                }
             }
         }
         return false;
     }
-    
+
 
     render() {
         let checkSave = this.checkSaved();
@@ -55,7 +57,7 @@ export class HikeCard extends Component {
         }
 
         if (!this.props.user) {
-            saveOption = <p className='card-message'>Log in to save hikes!</p>
+            saveOption = <p className="card-message"><a href="#/Account">Log in to save hikes!</a></p>
         }
 
         //get rating
@@ -138,9 +140,8 @@ export class CardContainer extends Component {
     componentDidMount() {
         // if user is signed in or not
         this.authUnRegFunc = firebase.auth().onAuthStateChanged((firebaseUser) => {
-            console.log("firebase user",firebaseUser);
-            if(firebaseUser){ //signed in!
-                this.setState({user: firebaseUser});
+            if (firebaseUser) { //signed in!
+                this.setState({ user: firebaseUser });
                 this.hikeRef = firebase.database().ref('users/' + this.state.user.uid + "/savedHikes");
                 this.hikeRef.on('value', (snapShot) => {
                     let hikeData = snapShot.val();
@@ -155,32 +156,31 @@ export class CardContainer extends Component {
                     }
                 })
             } else { //signed out
-                this.setState({user: null});
+                this.setState({ user: null });
             }
         });
     }
 
     componentWillUnmount() {
-        if( this.hikeref){
+        if (this.hikeref) {
             this.hikeRef.off();
         }
     }
 
     render() {
-        console.log(this.state.user);
         let hikes;
         let first;
         if (this.props.pageOfItems[1] !== undefined) {
             first = this.props.pageOfItems[0].id;
             hikes = this.props.pageOfItems.map((hike) => {
-                return (<HikeCard key={hike.id} hike={hike} savedHikes={this.state.savedHikes} user={this.state.user}/>);
+                return (<HikeCard key={hike.id} hike={hike} savedHikes={this.state.savedHikes} user={this.state.user} />);
             });
         }
         return (
             <div className="hike-results card-container">
                 <div className='row'>
                     {hikes}
-                    <a className="scroll" href={"#" + first}><img src={up}/></a>
+                    <a className="scroll" href={"#" + first}><img src={up} alt="Up" /></a>
                 </div>
             </div>
         );

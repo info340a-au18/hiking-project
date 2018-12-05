@@ -3,6 +3,7 @@ import SignUpForm from './SignUpForm';
 import firebase from 'firebase/app';
 import sun from './img/sun.mp4';
 import './Account.scss';
+import { SavedHikes } from './SavedHikes';
 
 export class Account extends Component {
   constructor(props) {
@@ -53,10 +54,10 @@ export class Account extends Component {
   //A callback function for logging in existing users
   handleSignIn = (email, password) => {
     this.setState({ errorMessage: null }); //clear any old errors
-    console.log(email, password);
     /* TODO: sign in user here */
     firebase.auth().signInWithEmailAndPassword(email, password)
       .catch((err) => {
+        console.log("hi");
         this.setState({ errorMessage: err.message })
       })
   }
@@ -73,7 +74,6 @@ export class Account extends Component {
   }
 
   render() {
-
     let content = null; //content to render
     if (!this.state.user) { //if logged out, show signup form
       
@@ -91,11 +91,11 @@ export class Account extends Component {
       content = (
         <div>
           <WelcomeHeader user={this.state.user}>
-            {/* log out button is child element */}
             {this.state.user &&
               <button id="signOut" onClick={this.handleSignOut}>Log Out</button>
             }
           </WelcomeHeader>
+          <SavedHikes />
         </div>
       );
     }
@@ -125,11 +125,14 @@ export class Account extends Component {
 //A component to display a welcome message to a `user` prop (for readability)
 class WelcomeHeader extends Component {
   render() {
+    let name = this.props.user.displayName;
+    if (!name){
+      name = 'User';
+    }
     return (
-      <main className="container">
+      <main className="welcome">
         <h1>
-          Welcome {this.props.user.displayName}!
-          {' '}
+          Welcome {name}!
           <img className="avatar" src={this.props.user.photoURL} alt={this.props.user.displayName} />
         </h1>
         {this.props.children} {/* for button */}

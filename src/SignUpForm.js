@@ -11,7 +11,8 @@ class SignUpForm extends Component {
             'password': undefined,
             'handle': undefined,
             'avatar': '', //default to blank value
-            signUp: false
+            signUp: false,
+            error: null
         };
     }
 
@@ -31,14 +32,22 @@ class SignUpForm extends Component {
     //handle signUp button
     handleSignUp = (event) => {
         event.preventDefault(); //don't submit
-        let avatar = this.state.avatar || 'https://catking.in/wp-content/uploads/2017/02/default-profile-1.png'; //default to local pic
+        let avatar = this.state.avatar || 'https://catking.in/wp-content/uploads/2017/02/default-profile-1.png'; 
+        if(!this.state.handle){
+           this.setState({handle: 'User'});
+        } 
         this.props.signUpCallback(this.state.email, this.state.password, this.state.handle, avatar);
     }
 
     //handle signIn button
     handleSignIn = (event) => {
         event.preventDefault(); //don't submit
-        this.props.signInCallback(this.state.email, this.state.password);
+        if (!this.state.email || !this.state.password || this.state.password < 6){
+            this.setState({error: <div className="alert alert-danger">Please enter the email or password correctly</div>});
+        } else {
+            this.setState({error: null});
+            this.props.signInCallback(this.state.email, this.state.password);
+        }
     }
 
     render() {
@@ -57,6 +66,7 @@ class SignUpForm extends Component {
                     id="handle"
                     name="handle"
                     onChange={this.handleChange}
+                    placeholder="Enter Name"
                 />
             </div>
 
@@ -64,7 +74,8 @@ class SignUpForm extends Component {
             <div className="form-group">
                 <label htmlFor="avatar">Profile Picture</label>
                 <InputGroup>
-                    <Input />
+                    <Input 
+                    placeholder="Upload an image"/>
                     <InputGroupAddon addonType="append">
                         <InputGroupText>Upload Image</InputGroupText>
                     </InputGroupAddon>
@@ -79,7 +90,7 @@ class SignUpForm extends Component {
         return (
             <form>
                 {greeting}
-
+                {this.state.error}
                 {/* email */}
                 <div className="form-group">
                     <label htmlFor="email">Email</label>
@@ -88,6 +99,7 @@ class SignUpForm extends Component {
                         type="email"
                         name="email"
                         onChange={this.handleChange}
+                        placeholder="Enter email"
                     />
                 </div>
 
@@ -99,6 +111,7 @@ class SignUpForm extends Component {
                         type="password"
                         name="password"
                         onChange={this.handleChange}
+                        placeholder="Enter password (at least 6 characters long)"
                     />
                 </div>
 
