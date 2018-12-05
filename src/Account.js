@@ -96,6 +96,7 @@ export class Account extends Component {
               <button id="signOut" className="btn btn-dark" onClick={this.handleSignOut}>Log Out</button>
             }
           </WelcomeHeader>
+          <h1>Your Saved Hikes</h1>
           <SavedHikes />
           <UserComments user={this.state.user}/>
         </div>
@@ -135,7 +136,7 @@ class WelcomeHeader extends Component {
       <main className="welcome">
         <h1> Welcome {name}! </h1>
         <div className="col d-flex justify-content-center">
-          <img className="avatar" src={this.props.user.photoURL} alt={this.props.user.displayName} />
+          <img className="userPhoto" src={this.props.user.photoURL} alt={this.props.user.displayName} />
         </div>
         <div className="col d-flex justify-content-center">
           {this.props.children} {/* for button */}
