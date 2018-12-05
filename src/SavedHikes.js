@@ -45,10 +45,14 @@ export class SavedHikes extends Component {
         }
     }
 
+    lastSaved = () => {
+        this.setState({displayHikes: []});
+    }
+
     render() {
         let savedHikes = this.state.displayHikes.map((current) => {
             return <HikeCard hike={current.hike} key={current.hike.id} savePage={this.state.savePage} 
-                user={this.state.user} saveRef={this.state.displayHikes}/>
+                user={this.state.user} saveRef={this.state.displayHikes} lastSaved={this.lastSaved}/>
         })
 
         return (
