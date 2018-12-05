@@ -50,15 +50,18 @@ export class HikeCard extends Component {
     // Removes a hike from Firebase
     removeHike = () => {
         let saveRef = this.props.saveRef;
+        let hikeRef;
 
         for (let i = 0; i < saveRef.length; i++) {
             if (saveRef[i].hike.name === this.props.hike.name) {
-                let hikeRef = firebase.database().ref('users/' + this.props.user.uid + "/savedHikes/" + saveRef[i].key);
-                hikeRef.remove();
+                hikeRef = firebase.database().ref('users/' + this.props.user.uid + "/savedHikes/" + saveRef[i].key);
+                hikeRef.remove();       
+                if (saveRef.length === 1) {
+                    this.props.lastSaved();
+                }
                 break;
             }
         }
-
     }
 
     render() {
