@@ -55,7 +55,7 @@ export class HikeCard extends Component {
         for (let i = 0; i < saveRef.length; i++) {
             if (saveRef[i].hike.name === this.props.hike.name) {
                 hikeRef = firebase.database().ref('users/' + this.props.user.uid + "/savedHikes/" + saveRef[i].key);
-                hikeRef.remove();       
+                hikeRef.remove();    
                 if (saveRef.length === 1) {
                     this.props.lastSaved();
                 }
