@@ -1,26 +1,5 @@
 .hikemap{
-    display: flex;
-
-    .card{
-        flex-basis: 400px;
-        height: inherit;
-        border: none;
-
-        img.p-3{
-            height: 100px;
-            width: 100px;
-        }
-
-        .card-title{
-            font-size: 1.5em;
-        }
-
-        li{
-            font-size: .75em;
-        }
-    }
     .map{
-        flex-grow: 2;
-        height: 600px;
+        height: 450px;
     }
 }

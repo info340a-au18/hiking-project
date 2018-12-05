@@ -29,7 +29,7 @@ export class HikeInfo extends Component{
         });
 
         // store the hike as the state, as well as hike comments
-        this.commentRef = firebase.database().ref('hikes/' + this.props.location.state.hike.id);
+        this.commentRef = firebase.database().ref('hikes/' + this.props.hike.id);
         this.commentRef.on('value', (snapshot) => {
             let val = snapshot.val();
             let commentsArray = undefined;
