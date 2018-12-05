@@ -12,10 +12,6 @@ export class Main extends Component {
         this.state = { trailData: {}, displayedTrails: {}, newLocation: false, pageOfItems: {}, cardShown: undefined };
     }
 
-    sendHikes = (hikes) => {
-        console.log("gethikes",this.props.getHikes);
-        this.props.getHikes(hikes);
-    }
 
     //Search term from form is passed in as this.props.searchTerm
     //User Latitude from header button passed in as this.props.userLat

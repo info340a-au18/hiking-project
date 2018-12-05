@@ -112,7 +112,6 @@ export class HomePage extends Component {
                     hard={this.state.hard}
                     distance={this.state.distance}
                     elevation={this.state.elevation}
-                    getHikes={this.props.getHikes}
                     
                     />
             </div>

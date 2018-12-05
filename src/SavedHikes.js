@@ -45,16 +45,36 @@ export class SavedHikes extends Component {
         }
     }
 
+    lastSaved = () => {
+        this.setState({displayHikes: []});
+    }
+
     render() {
-        let savedHikes = this.state.displayHikes.map((current) => {
-            return <HikeCard hike={current.hike} key={current.hike.id} savePage={this.state.savePage} 
-                user={this.state.user} saveRef={this.state.displayHikes}/>
+        let savedHikes = this.state.displayHikes.map((current, index) => {
+            return <HikeCard hike={current.hike} key={index} savePage={this.state.savePage} 
+                user={this.state.user} saveRef={this.state.displayHikes} lastSaved={this.lastSaved}/>
         })
 
+        // let noHikes;
+        // if (this.state.displayHikes.length !== 0) {
+        //     noHikes = <h1>Your Hikes</h1>
+        // } else {
+        //     noHikes = <p>No Hikes Saved</p>
+        // }
+        let noHikes;
+        if (this.state.displayHikes.length === 0) {
+            noHikes = <h1>No Hikes Saved</h1>
+        } else {
+            noHikes = <h1>Your Hikes</h1>
+        }
+        
         return (
-            <div className="hike-results card-container">
-                <div className='row'>
-                    {savedHikes}
+            <div>
+                {noHikes}
+                <div className="hike-results card-container">
+                    <div className='row d-flex justify-content-center'>
+                        {savedHikes}
+                    </div>
                 </div>
             </div>
         );

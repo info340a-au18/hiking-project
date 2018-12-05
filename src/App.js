@@ -22,7 +22,6 @@ class App extends Component {
     }
 
     render = () => {
-        console.log(this.props.match);
         return (
             <div >
                 <NavBar />

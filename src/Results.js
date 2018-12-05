@@ -29,7 +29,7 @@ export class HikeCard extends Component {
             }
             firebase.database().ref('users/' + this.props.user.uid + "/savedHikes").push(newHike)
                 .catch((err) => {
-                    console.log(err);
+                    this.setState({ errorMessage: err.message })
                 })
         }
     }
@@ -48,25 +48,26 @@ export class HikeCard extends Component {
     }
 
     // Removes a hike from Firebase
-    removeHike = () => {        
+    removeHike = () => {
         let saveRef = this.props.saveRef;
-        console.log(this.props.user.uid);
+        let hikeRef;
 
-        for (let i=0; i < saveRef.length; i++) {
+        for (let i = 0; i < saveRef.length; i++) {
             if (saveRef[i].hike.name === this.props.hike.name) {
-                console.log(saveRef[i].key);
-                let hikeRef = firebase.database().ref('users/' + this.props.user.uid + "/savedHikes/" + saveRef[i].key);
-                hikeRef.remove();
+                hikeRef = firebase.database().ref('users/' + this.props.user.uid + "/savedHikes/" + saveRef[i].key);
+                hikeRef.remove();       
+                if (saveRef.length === 1) {
+                    this.props.lastSaved();
+                }
                 break;
             }
         }
-
     }
 
     render() {
         let saveOption;
         let checkSave = this.checkSaved();
-        
+
         // If a user is logged in, indicate if the hike is already saved or display a button to save
         if (this.state.saved || checkSave) {
             saveOption = <p className='card-message'>Hike Saved</p>
@@ -81,7 +82,7 @@ export class HikeCard extends Component {
 
         // For when displaying cards on the Save Page, a remove button is added to unsave hikes
         if (this.props.savePage) {
-            saveOption = <button onClick={this.removeHike} className="btn btn-danger">Remove</button>  
+            saveOption = <button onClick={this.removeHike} className="btn btn-danger">Remove</button>
         }
 
         //get rating
@@ -114,16 +115,18 @@ export class HikeCard extends Component {
         }
 
         if (this.state.redirect) {
-            return <Redirect push
+            return <Redirect
                 to={{
-                    pathname: "/hiking-project/trail/" + this.props.hike.name,
+                    pathname: "/trail/" + this.props.hike.name,
                     state: { hike: this.props.hike }
                 }}
             />
         }
         return (
             <div className="card" onClick={this.markCompleted}>
-                <a id={'' + this.props.hike.id}>
+                {this.state.errorMessage &&
+                    <div className="alert alert-danger">{this.state.errorMessage}</div>
+                }
                     <div className="hoverText">
                         <img src={this.props.hike.imgMedium} alt='the hiking place' />
                     </div>
@@ -139,8 +142,8 @@ export class HikeCard extends Component {
                             {saveOption}
                         </ul>
                     </div>
-                </a>
-            </div>
+                    </div>
+                
         );
 
     }

@@ -58,7 +58,6 @@ export class Account extends Component {
     /* TODO: sign in user here */
     firebase.auth().signInWithEmailAndPassword(email, password)
       .catch((err) => {
-        console.log("hi");
         this.setState({ errorMessage: err.message })
       })
   }
@@ -93,11 +92,11 @@ export class Account extends Component {
         <div>
           <WelcomeHeader user={this.state.user}>
             {this.state.user &&
-              <button id="signOut" onClick={this.handleSignOut}>Log Out</button>
+              <button id="signOut" className="btn btn-dark" onClick={this.handleSignOut}>Log Out</button>
             }
           </WelcomeHeader>
           <SavedHikes />
-          <UserComments />
+          <UserComments user={this.state.user}/>
         </div>
       );
     }
@@ -111,7 +110,7 @@ export class Account extends Component {
       return (
         <div id="Account">
           {this.state.errorMessage &&
-            <p className="alert alert-danger">{this.state.errorMessage}</p>
+            <div className="alert alert-danger">{this.state.errorMessage}</div>
           }
           {content}
           <video id="video-background" muted loop autoPlay>
@@ -133,11 +132,13 @@ class WelcomeHeader extends Component {
     }
     return (
       <main className="welcome">
-        <h1>
-          Welcome {name}!
-          <img className="avatar" src={this.props.user.photoURL} alt={this.props.user.displayName} />
-        </h1>
-        {this.props.children} {/* for button */}
+        <h1> Welcome {name}! </h1>
+        <div className="col d-flex justify-content-center">
+          <img className="userPhoto" src={this.props.user.photoURL} alt={this.props.user.displayName} />
+        </div>
+        <div className="col d-flex justify-content-center">
+          {this.props.children} {/* for button */}
+        </div>
       </main>
     );
   }

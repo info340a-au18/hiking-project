@@ -8,7 +8,7 @@ import placeHolder from './img/hiker-mini.jpg';
 import './HikeInfo.scss';
 import firebase from 'firebase/app';
 // import Moment from 'react-moment';
-import './SignUpForm.css';
+import './SignUpForm.scss';
 import { HikeCard } from './Results';
 
 
@@ -25,7 +25,7 @@ export class TrailInfo extends Component{
     componentDidMount = () =>{
 
 
-        let url = "https://www.hikingproject.com/data/get-trails-by-id?ids="+ 7001635 + "&key=200378416-92e9bd6c5dd48e7dfa8c0a563189c165";
+        let url = "https://www.hikingproject.com/data/get-trails-by-id?ids="+ this.props.match.params.hikeId + "&key=200378416-92e9bd6c5dd48e7dfa8c0a563189c165";
 
         let promise = fetch(url);
 
