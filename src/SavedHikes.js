@@ -50,11 +50,11 @@ export class SavedHikes extends Component {
     }
 
     render() {
-        let savedHikes = this.state.displayHikes.map((current) => {
-            return <HikeCard hike={current.hike} key={current.hike.id} savePage={this.state.savePage} 
+        let savedHikes = this.state.displayHikes.map((current, index) => {
+            return <HikeCard hike={current.hike} key={index} savePage={this.state.savePage} 
                 user={this.state.user} saveRef={this.state.displayHikes} lastSaved={this.lastSaved}/>
         })
-
+        
         return (
             <div className="hike-results card-container">
                 <div className='row'>
