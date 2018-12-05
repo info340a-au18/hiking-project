@@ -4,7 +4,7 @@ How we combined our work:
 
 Harim: Added Pagination and get my location from his project. Started the individual information pages and worked on routing and hosting with GH-Pages.
 
-Anni: Built results cards with added star ratings and difficulty ratings. Added loading animaitons for better user experience and better error messages.
+Anni: Built results cards with added star ratings and difficulty ratings. Added loading animaitons for better user experience and better error messages. Change the layout of the search page and the account page. Added scroll to top bottom. 
 
 Kyle: Added map, handled ajax requests, and built filtering system.
 
