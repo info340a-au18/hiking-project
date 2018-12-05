@@ -16,7 +16,7 @@ export class HikeCard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            saved: false
+            saved: false,
         };
     }
 
@@ -81,7 +81,7 @@ export class HikeCard extends Component {
 
         // For when displaying cards on the Save Page, a remove button is added to unsave hikes
         if (this.props.savePage) {
-            saveOption = <button onClick={this.removeHike} className="btn btn-danger">Remove</button>
+            saveOption = <button onClick={this.removeHike} className="btn btn-danger">Remove</button>  
         }
 
         //get rating
@@ -126,7 +126,7 @@ export class HikeCard extends Component {
             />
         }
         return (
-            <div className="card">
+            <div className="card" onClick={this.markCompleted}>
                 <a id={'' + this.props.hike.id}>
                     <div className="hoverText">
                         <img src={this.props.hike.imgMedium} alt='the hiking place' />
