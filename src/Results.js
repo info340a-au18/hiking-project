@@ -123,7 +123,7 @@ export class HikeCard extends Component {
             />
         }
         return (
-            <div className="card" onClick={this.markCompleted}>
+            <div id={this.props.hike.id} className="card" onClick={this.markCompleted}>
                 {this.state.errorMessage &&
                     <div className="alert alert-danger">{this.state.errorMessage}</div>
                 }
