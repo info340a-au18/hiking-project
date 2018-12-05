@@ -146,8 +146,8 @@ export class TrailInfo extends Component {
         } else {
             return (
                 <div>
-                    <div>
-                        <HikeCard hike={this.state.hike} />
+                    <div className="hike-card-container">
+                        <HikeCard moreInfoPage={true} hike={this.state.hike} />
                     </div>
                     <CommentBox user={this.state.user} handleReview={this.handleReview}></CommentBox>
                     <HikeCommentList user={this.state.user} comments={this.state.comments} handleEdit={this.handleEdit}></HikeCommentList>

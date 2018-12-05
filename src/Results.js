@@ -122,6 +122,35 @@ export class HikeCard extends Component {
                 }}
             />
         }
+
+        // just a giant if to render a nicer looking page for the more info page
+        if (this.props.moreInfoPage) {
+            img = this.props.hike.imgMedium
+            if (!img) {
+                img = placeHolder
+            }
+            return (
+                <div>
+                    <h2>{this.props.hike.name}</h2>
+                    <div className="content-holder">
+                        <div className="img-holder">{/* picture */}
+                            <img className="img-moreInfo" src={img} alt={this.props.hike.name}></img>
+                        </div>
+                        <div className="info-holder">{/* info */}
+                            
+                            <ul className="card-text">
+                                <li>Location: {this.props.hike.location}</li>
+                                <li className='rating'>Ratings: {stars}</li>
+                                <li>Length: {this.props.hike.length} miles</li>
+                                <li>Elevation: {this.props.hike.ascent} feet</li>
+                                <li>Description: {this.props.hike.summary}</li>
+                                <li className='diff'>Difficulty: <img src={diff} alt={diff} /></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            )
+        }
         return (
             <div id={this.props.hike.id} className="card" onClick={this.markCompleted}>
                 {this.state.errorMessage &&
