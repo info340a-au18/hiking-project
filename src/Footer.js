@@ -7,6 +7,10 @@ export class Footer extends Component {
     render() {
         return (
             <footer aria-label="This is the contact info">
+                <p>
+                    Made by Kyle, Harim, Anni, Larissa, Kateka
+                        <img id="mountain" src={mountain} alt="the icon of mountains" />
+                </p>
                 <div id="reference">
                     <cite>
                         <div className="row">
@@ -24,10 +28,7 @@ export class Footer extends Component {
                             </div>
                         </div>
                     </cite>
-                    <p>
-                        Made by Kyle, Harim, Anni, Larissa, Kateka
-                        <img id="mountain" src={mountain} alt="the icon of mountains" />
-                    </p>
+
                 </div>
             </footer>
         )

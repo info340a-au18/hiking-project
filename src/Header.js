@@ -88,14 +88,17 @@ export class Header extends Component {
         return (
             <header id="headline" aria-label="contains the navbar of the page">
                 <form id="searchBox" role="search" aria-label="This is the search box" onSubmit={this.handleSubmit}>
-                    <h1>Search for Hikes near</h1>
+                    <h1>Find Hikes Near You</h1>
                     <input id="searchBar" name="searchBar" aria-label="this is a search bar" type="text"
                         onChange={this.handleChange} placeholder="Enter Location" />
                     <LoadingButton onClick={this.getLocation} img={current} />
                     <LoadingButton onClick={this.search} img={search} />
                 </form>
-                {!this.state.filterShow && <button onClick={this.filterToggle}> Show Filters</button>}
-                {this.state.filterShow && <button onClick={this.filterToggle}> Hide Filters</button>}
+
+                <div className="filters">
+                {!this.state.filterShow && <button className="btn btn-dark" onClick={this.filterToggle}> Show Filters</button>}
+                {this.state.filterShow && <button className="btn btn-dark" onClick={this.filterToggle}> Hide Filters</button>}
+                </div>
 
                 { this.state.filterShow &&
                 <div className="filters-container">
