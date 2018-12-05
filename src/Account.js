@@ -4,6 +4,7 @@ import firebase from 'firebase/app';
 import sun from './img/sun.mp4';
 import './Account.scss';
 import { SavedHikes } from './SavedHikes';
+import { UserComments } from './UserComments';
 
 export class Account extends Component {
   constructor(props) {
@@ -96,6 +97,7 @@ export class Account extends Component {
             }
           </WelcomeHeader>
           <SavedHikes />
+          <UserComments />
         </div>
       );
     }
