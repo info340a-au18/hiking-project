@@ -29,11 +29,12 @@ export class HikeCard extends Component {
             }
             firebase.database().ref('users/' + this.props.user.uid + "/savedHikes").push(newHike)
                 .catch((err) => {
-                    console.log(err);
+                    this.setState({ errorMessage: err.message })
                 })
         }
     }
 
+    // Checks if the hike is saved into Firebase or not 
     checkSaved = () => {
         if (this.props.savedHikes) {
             let savedList = this.props.savedHikes;
@@ -46,18 +47,39 @@ export class HikeCard extends Component {
         return false;
     }
 
+    // Removes a hike from Firebase
+    removeHike = () => {
+        let saveRef = this.props.saveRef;
+
+        for (let i = 0; i < saveRef.length; i++) {
+            if (saveRef[i].hike.name === this.props.hike.name) {
+                let hikeRef = firebase.database().ref('users/' + this.props.user.uid + "/savedHikes/" + saveRef[i].key);
+                hikeRef.remove();
+                break;
+            }
+        }
+
+    }
 
     render() {
-        let checkSave = this.checkSaved();
         let saveOption;
+        let checkSave = this.checkSaved();
+
+        // If a user is logged in, indicate if the hike is already saved or display a button to save
         if (this.state.saved || checkSave) {
             saveOption = <p className='card-message'>Hike Saved</p>
         } else {
             saveOption = <button onClick={this.addHike} className="btn btn-warning">Save</button>
         }
 
+        // If a user is not logged in, link to account page to login or sign up 
         if (!this.props.user) {
-            saveOption = <p className="card-message"><a href="#/Account">Log in to save hikes!</a></p>
+            saveOption = <p className="card-message"><a href="#/Account">Sign-in to save hikes!</a></p>
+        }
+
+        // For when displaying cards on the Save Page, a remove button is added to unsave hikes
+        if (this.props.savePage) {
+            saveOption = <button onClick={this.removeHike} className="btn btn-danger">Remove</button>
         }
 
         //get rating
@@ -103,6 +125,9 @@ export class HikeCard extends Component {
         }
         return (
             <div className="card">
+                {this.state.errorMessage &&
+                    <div className="alert alert-danger">{this.state.errorMessage}</div>
+                }
                 <a id={'' + this.props.hike.id}>
                     <div className="hoverText">
                         <img src={this.props.hike.imgMedium} alt='the hiking place' />
@@ -132,10 +157,10 @@ export class CardContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            savedHikes: []
+            savedHikes: [],
+            user: {}
         }
     }
-
 
     componentDidMount() {
         // if user is signed in or not
@@ -149,7 +174,7 @@ export class CardContainer extends Component {
                         let hikeKeys = Object.keys(hikeData);
                         let hikeArray = hikeKeys.map((key) => {
                             let hike = hikeData[key];
-                            hike.id = key;
+                            hike.key = key;
                             return hike;
                         })
                         this.setState({ savedHikes: hikeArray });

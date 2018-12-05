@@ -4,6 +4,7 @@ import firebase from 'firebase/app';
 import sun from './img/sun.mp4';
 import './Account.scss';
 import { SavedHikes } from './SavedHikes';
+import { UserComments } from './UserComments';
 
 export class Account extends Component {
   constructor(props) {
@@ -57,7 +58,6 @@ export class Account extends Component {
     /* TODO: sign in user here */
     firebase.auth().signInWithEmailAndPassword(email, password)
       .catch((err) => {
-        console.log("hi");
         this.setState({ errorMessage: err.message })
       })
   }
@@ -95,7 +95,8 @@ export class Account extends Component {
               <button id="signOut" onClick={this.handleSignOut}>Log Out</button>
             }
           </WelcomeHeader>
-          <SavedHikes />
+          <SavedHikes  user={this.state.user}/>
+          <UserComments />
         </div>
       );
     }
@@ -109,7 +110,7 @@ export class Account extends Component {
       return (
         <div id="Account">
           {this.state.errorMessage &&
-            <p className="alert alert-danger">{this.state.errorMessage}</p>
+            <div className="alert alert-danger">{this.state.errorMessage}</div>
           }
           {content}
           <video id="video-background" muted loop autoPlay>

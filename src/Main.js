@@ -68,7 +68,8 @@ export class Main extends Component {
 
                 this.diffFilter();
             })
-            .catch(function () {
+            .catch(function (err) {
+                this.setState({ errorMessage: err.message })
             });
     }
 
@@ -121,7 +122,7 @@ export class Main extends Component {
 
     sortDistanceAway(hikesToDisplay) {
 
-        hikesToDisplay.sort(function(a, b){return a.distanceAway - b.distanceAway});
+        hikesToDisplay.sort(function (a, b) { return a.distanceAway - b.distanceAway });
 
         return hikesToDisplay;
 
@@ -138,10 +139,10 @@ export class Main extends Component {
             displayedTrails: hikesToDisplay
         });
     }
-    
+
     componentDidMount() {
         this.getData(this.props.lat, this.props.lng, this.props.maxDist, this.props.maxResults);
-    }        
+    }
 
     //Intercepts prop updates to fetch data and filter the list of hikes
     componentDidUpdate(prevProps, prevState) {
@@ -175,14 +176,17 @@ export class Main extends Component {
         }
         return (
             <div>
-                {error}
+                {error || (
+                    this.state.errorMessage &&
+                    <div className="alert alert-danger">{this.state.errorMessage}</div>
+                )}
                 <main aria-label="contains the main content of the page" id="main">
                     <div className="container">
                         <div className="section" id="map">
                             <MapArea lat={this.props.lat} lng={this.props.lng} trails={this.state.displayedTrails} />
                         </div>
                         <div className="section" id="card">
-                            <CardContainer pageOfItems={this.state.displayedTrails}/>
+                            <CardContainer pageOfItems={this.state.displayedTrails} />
                         </div>
                     </div>
                 </main>

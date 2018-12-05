@@ -182,7 +182,7 @@ class CommentBox extends Component {
             <div>
                 <h2>User Reviews</h2>
                 {this.state.errorMessage &&
-                <p className="alert alert-danger">{this.state.errorMessage}</p>
+                <div className="alert alert-danger">{this.state.errorMessage}</div>
                 }
             
 
