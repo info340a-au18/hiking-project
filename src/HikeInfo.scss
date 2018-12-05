@@ -63,6 +63,10 @@ form {
     
 }
 
+.hidden {
+    left:-999;
+}
+
 .comments-holder {    
     display: flex;
     flex-wrap: wrap;

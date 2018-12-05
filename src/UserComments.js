@@ -100,11 +100,19 @@ class Comment extends Component {
 class SingleComment extends Component {
     render() {
         let item = this.props.comment;
+        let time = 
+                <p className="card-subtitle mb-2 text-muted">
+                    <Moment date={item.time} fromNow></Moment>
+                </p>
+        if (item.edited) {
+            time = 
+                <p className="card-subtitle mb-2 text-muted">
+                    <Moment date={item.time} fromNow></Moment> (edited)
+                </p>
+        }
         return (
             <div className="border">
-            <p className="card-subtitle mb-2 text-muted">
-                <Moment date={item.time} fromNow></Moment>
-            </p>
+            {time}
             <p className="card-text">{item.text}</p>
             </div>
         )

@@ -74,6 +74,44 @@ export class TrailInfo extends Component {
         this.commentRef.off();
     }
 
+    handleEdit = (editedReview, hikeHash, oldText) => {
+        let url = 'hikes/' + this.props.match.params.hikeId + '/' + hikeHash
+        let hikeReviewRef = firebase.database().ref(url);
+        let newUserComment = {
+            text: editedReview,
+            edited: true
+        }
+        hikeReviewRef.update(newUserComment);
+
+        // update the user
+        // have to go through to find the matching comment because of the way
+        // firebase database was set up
+        // a little hackey..
+        let hash = undefined;
+        url = 'users/' + this.state.user.uid + '/userReviews/' + this.props.match.params.hikeId;
+        let userReviewRef = firebase.database().ref(url);
+        userReviewRef.on('value', (snapshot) => {
+            let val = snapshot.val();
+            if (val) {
+                let hashKeys = Object.keys(val);
+                for (let i = 0; i < hashKeys.length; i++) {
+                    let data = val[hashKeys[i]];
+                    console.log(data.text + " " + oldText);
+                    if (data.text === oldText) {
+                        console.log("found it")
+                        hash = hashKeys[i];
+                        i = hashKeys.length //exit loop
+                    }
+                }
+            }
+        });
+        if (hash) {
+            url = 'users/' + this.state.user.uid + '/userReviews/' + this.props.match.params.hikeId + '/' + hash;
+            userReviewRef = firebase.database().ref(url);
+            userReviewRef.update(newUserComment);
+        }
+    }
+
     handleReview = (userReview) => {
         let time = firebase.database.ServerValue.TIMESTAMP;
 
@@ -106,9 +144,18 @@ export class TrailInfo extends Component {
         } else {
             return (
                 <div>
-                    <HikeCard hike={this.state.hike} />
+                    <div>
+                        <HikeCard hike={this.state.hike} />
+                    </div>
                     <CommentBox user={this.state.user} handleReview={this.handleReview}></CommentBox>
-                    <HikeCommentList comments={this.state.comments}></HikeCommentList>
+                    <HikeCommentList comments={this.state.comments} handleEdit={this.handleEdit}></HikeCommentList>
+                    
+                    {/* quick fix do footer doesn't cover */}
+                    <div className="hidden">
+                        <div className="card-body">
+                        <h5 className="card-title">bufferrrrrrrrrrr</h5>
+                        </div>
+                    </div>
                 </div>
             );
         }
@@ -149,7 +196,9 @@ class CommentBox extends Component {
     }
 
     render() {
-        if (!this.props.user) return null;
+        if (!this.props.user) {
+            return <h2><a href="#/Account">Sign in</a> to leave reviews</h2>
+        };
 
         return (
             <div className="col justify-content-center">
@@ -174,7 +223,7 @@ class HikeCommentList extends Component {
     render() {
         if (!this.props.comments) return null;
         let renderedComments = this.props.comments.map((item, index) => {
-            return <HikeComment key={index} comment={item}></HikeComment>
+            return <HikeComment key={index} comment={item} handleEdit={this.props.handleEdit}></HikeComment>
         });
         return (
             <div className="col left">
@@ -187,21 +236,69 @@ class HikeCommentList extends Component {
 // expected props:
 //   comment - comment object
 class HikeComment extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            editing: false,
+            newReview: ''
+        }
+    }
+
+    handleEdit = () => {
+        this.setState({editing:!this.state.editing})
+    }
+
+    handleDone = () => {
+        this.setState({editing:!this.state.editing})
+        if (this.state.newReview !== this.props.comment.text) {
+            this.props.handleEdit(this.state.newReview, this.props.comment.id, this.props.comment.text);
+        }
+    }
+
+    handleChange = (event) => {
+        this.setState({newReview:event.target.value})
+    }
+
     render() {
         let comment = this.props.comment;
-        return (
-            <div className="card">
-                <div className="card-body">
-                    <h5 className="card-title">
-                        <img className="avatar" src={comment.userPhoto} alt={comment.userName} />
-                        {comment.userName}
-                    </h5>
-                    <h6 className="card-subtitle mb-2 text-muted">
-                        <Moment date={comment.time} fromNow></Moment>
-                    </h6>
-                    <p className="card-text">{comment.text}</p>
+        let time = 
+            <h6 className="card-subtitle mb-2 text-muted">
+                <Moment date={comment.time} fromNow></Moment>
+            </h6>
+        if (comment.edited) {
+            time = 
+                <h6 className="card-subtitle mb-2 text-muted">
+                    <Moment date={comment.time} fromNow></Moment> (edited)
+                </h6>
+        }
+        if (this.state.editing) {
+            return (
+                <div className="card">
+                    <div className="card-body">
+                        <h5 className="card-title">
+                            <img className="avatar" src={comment.userPhoto} alt={comment.userName} />
+                            {comment.userName}
+                            <button className="btn btn-success float-right" onClick={this.handleDone}>Edit</button>
+                            <button className="btn btn-fail float-right" onClick={this.handleEdit}>Cancel</button>
+                        </h5>
+                        <textarea className="my-form-control" name="review" onChange={this.handleChange}>{comment.text}</textarea>
+                    </div>
                 </div>
-            </div>
-        );
+            )
+        } else {
+            return (
+                <div className="card">
+                    <div className="card-body">
+                        <h5 className="card-title">
+                            <img className="avatar" src={comment.userPhoto} alt={comment.userName} />
+                            {comment.userName}
+                            <button className="btn btn-dark float-right" onClick={this.handleEdit}>Edit</button>
+                        </h5>
+                        {time}
+                        <p className="card-text">{comment.text}</p>
+                    </div>
+                </div>
+            );
+        }
     }
 }
