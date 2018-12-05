@@ -67,6 +67,7 @@ export class HikeCard extends Component {
     render() {
         let saveOption;
         let checkSave = this.checkSaved();
+
         
         // If a user is logged in, indicate if the hike is already saved or display a button to save
         if (this.state.saved || checkSave) {
@@ -127,7 +128,7 @@ export class HikeCard extends Component {
             />
         }
         return (
-            <div className="card" onClick={this.markCompleted}>
+            <div className="card">
                 <a id={'' + this.props.hike.id}>
                     <div className="hoverText">
                         <img src={this.props.hike.imgMedium} alt='the hiking place' />

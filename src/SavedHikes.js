@@ -54,13 +54,7 @@ export class SavedHikes extends Component {
             return <HikeCard hike={current.hike} key={index} savePage={this.state.savePage} 
                 user={this.state.user} saveRef={this.state.displayHikes} lastSaved={this.lastSaved}/>
         })
-
-        // let noHikes;
-        // if (this.state.displayHikes.length !== 0) {
-        //     noHikes = <h1>Your Hikes</h1>
-        // } else {
-        //     noHikes = <p>No Hikes Saved</p>
-        // }
+        
         let noHikes;
         if (this.state.displayHikes.length === 0) {
             noHikes = <h1>No Hikes Saved</h1>
