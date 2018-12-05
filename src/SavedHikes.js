@@ -9,6 +9,8 @@ export class SavedHikes extends Component {
         super(props);
         this.state = {
             displayHikes: [],
+            savePage: true, 
+            user: {}
         }
     }
 
@@ -24,7 +26,7 @@ export class SavedHikes extends Component {
                     if (hikeData !== null) {
                         let hikeKeys = Object.keys(hikeData);
                         let hikeArray = hikeKeys.map((key) => {
-                            let hike = hikeData[key].hike;
+                            let hike = hikeData[key];
                             hike.key = key;
                             return hike;
                         })
@@ -45,8 +47,10 @@ export class SavedHikes extends Component {
 
     render() {
         let savedHikes = this.state.displayHikes.map((current) => {
-            return <HikeCard hike={current} key={current.id}/>
+            return <HikeCard hike={current.hike} key={current.id} savePage={this.state.savePage} 
+                user={this.state.user} saveRef={this.state.displayHikes}/>
         })
+
         return (
             <div className="hike-results card-container">
                 <div className='row'>
