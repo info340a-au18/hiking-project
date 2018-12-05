@@ -7,12 +7,14 @@ import easy from './img/green.png';
 import placeHolder from './img/hiker-mini.jpg';
 import './HikeInfo.scss';
 import firebase from 'firebase/app';
-import './SignUpForm.css';
+// import Moment from 'react-moment';
+import './SignUpForm.scss';
 
 export class HikeInfo extends Component{
 
     constructor(props){
         super(props);
+        console.log(this.props.location);
         this.state = {trail: undefined, comments:undefined};
     }
 
