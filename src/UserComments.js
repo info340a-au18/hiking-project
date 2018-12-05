@@ -36,28 +36,14 @@ export class UserComments extends Component {
             let itemKey = Object.keys(item)[0];
             return item[itemKey];
         })
-        let renderedComments = comments.map((item) => {
-            return (
-                
-                <div className="card mx-auto">
-                    <div className="card-body">
-                        <h5 className="card-title">
-                            {item.displayName}
-                        </h5>
-                        <h6 className="card-subtitle mb-2 text-muted">
-                            <Moment date={item.time} fromNow></Moment>
-                        </h6>
-                        <p className="card-text">{item.text}</p>
-                    </div>
-                </div>
-                
-            );
+        let renderedComments = comments.map((item, index) => {
+            return <Comment comment={item} key={index}></Comment>
         })
         return (
             <div>
                 <h1>Your Reviews</h1>
 
-                <div class="col">
+                <div className="col">
                     {renderedComments}
                 </div>
 
@@ -67,6 +53,27 @@ export class UserComments extends Component {
                     <p className="card-text">buffer</p>
                 </div>
             </div>
+        );
+    }
+}
+
+class Comment extends Component {
+    render() {
+        let item = this.props.comment;
+        return (
+                
+            <div className="card mx-auto">
+                <div className="card-body">
+                    <h5 className="card-title">
+                        {item.displayName}
+                    </h5>
+                    <h6 className="card-subtitle mb-2 text-muted">
+                        <Moment date={item.time} fromNow></Moment>
+                    </h6>
+                    <p className="card-text">{item.text}</p>
+                </div>
+            </div>
+            
         );
     }
 }
