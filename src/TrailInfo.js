@@ -107,14 +107,8 @@ export class TrailInfo extends Component {
             return (
                 <div>
                     <HikeCard hike={this.state.hike} />
-
-                    <div className="comments-holder">
-                        <CommentBox user={this.state.user} handleReview={this.handleReview}></CommentBox>
-                    </div>
-
-                    <div className="comments-holder">
-                        <HikeCommentList comments={this.state.comments}></HikeCommentList>
-                    </div>
+                    <CommentBox user={this.state.user} handleReview={this.handleReview}></CommentBox>
+                    <HikeCommentList comments={this.state.comments}></HikeCommentList>
                 </div>
             );
         }
@@ -158,18 +152,14 @@ class CommentBox extends Component {
         if (!this.props.user) return null;
 
         return (
-            <div>
+            <div className="col justify-content-center">
                 <h2>User Reviews</h2>
                 {this.state.errorMessage &&
                     <div className="alert alert-danger">{this.state.errorMessage}</div>
                 }
-
-
-                <form>
-                    <div className="form-group mb2">
-                        <textarea className="form-control" name="reivew" value={this.state.review} placeholder="Add a review..." onChange={this.handleChange}></textarea>
-                    </div>
-                    <div className="form-group">
+                <form className="justify-content-center">
+                    <textarea className="my-form-control" name="reivew" value={this.state.review} placeholder="Add a review..." onChange={this.handleChange}></textarea>
+                    <div className="">
                         <button className="btn btn-primary" onClick={this.handleReview}>Submit</button>
                     </div>
                 </form>
@@ -187,7 +177,7 @@ class HikeCommentList extends Component {
             return <HikeComment key={index} comment={item}></HikeComment>
         });
         return (
-            <div>
+            <div className="col left">
                 {renderedComments}
             </div>
         );

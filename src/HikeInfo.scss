@@ -3,6 +3,32 @@ h2{
     text-align: center;
 }
 
+.test {
+    width: 100%;
+}
+
+textarea {
+    margin:0px;
+    height: 200px;
+}
+
+form {
+    padding: 0px;
+    margin:20px;
+    border: 0px;
+    text-align: center;
+}
+
+.my-form-control {
+    width:75%;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
 .content-holder{
     display: flex;
     flex-wrap: wrap;
