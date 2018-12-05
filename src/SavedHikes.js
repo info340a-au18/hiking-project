@@ -54,7 +54,7 @@ export class SavedHikes extends Component {
             return <HikeCard hike={current.hike} key={index} savePage={this.state.savePage} 
                 user={this.state.user} saveRef={this.state.displayHikes} lastSaved={this.lastSaved}/>
         })
-        
+
         let noHikes;
         if (this.state.displayHikes.length === 0) {
             noHikes = <h1>No Hikes Saved</h1>
@@ -66,7 +66,7 @@ export class SavedHikes extends Component {
             <div>
                 {noHikes}
                 <div className="hike-results card-container">
-                    <div className='row d-flex justify-content-center'>
+                    <div className='row'>
                         {savedHikes}
                     </div>
                 </div>
