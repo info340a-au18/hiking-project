@@ -6,7 +6,7 @@ import medium from './img/blue.png';
 import easy from './img/green.png';
 import placeHolder from './img/hiker-mini.jpg'
 import up from './img/up.svg';
-import { BrowserRouter as Redirect } from 'react-router-dom';
+import { BrowserRouter as Redirect,Link } from 'react-router-dom';
 import './Results.scss';
 import firebase from 'firebase/app';
 import 'firebase/auth';
@@ -113,10 +113,6 @@ export class HikeCard extends Component {
             diff = "";
         }
 
-        this.handleClick = () => {
-            this.setState({ redirect: true })
-        }
-
         if (this.state.redirect) {
             return <Redirect push
                 to={{
@@ -139,7 +135,7 @@ export class HikeCard extends Component {
                             <li className='rating'>Ratings: {stars}</li>
                             <li>Length: {this.props.hike.length} Miles</li>
                             <li className='diff'>Difficulty: <img src={diff} alt={diff} /></li>
-                            <button onClick={this.handleClick} className="btn btn-dark">More Info</button>
+                            <button className="btn btn-dark"><Link to={"/trail/"+this.props.hike.id}>More Info</Link></button>
                             {saveOption}
                         </ul>
                     </div>

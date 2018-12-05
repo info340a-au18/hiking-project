@@ -6,6 +6,7 @@ import { SavedHikes } from './SavedHikes';
 import { NavBar } from './NavBar';
 import { Footer } from './Footer';
 import { HikeInfo } from './HikeInfo';
+import {TrailInfo} from './TrailInfo';
 
 class App extends Component {
 
@@ -21,15 +22,15 @@ class App extends Component {
     }
 
     render = () => {
-        console.log("first",this.getHikes);
+        console.log(this.props.match);
         return (
             <div >
                 <NavBar />
                 <Switch>
                     <Route path='/Account' component={Account} />
-                    <Route path='/trail/:hikeName' component={HikeInfo} />
+                    <Route path='/trail/:hikeId' component={TrailInfo} />
                     <Route path='/SavedHikes' component={SavedHikes} />
-                    <Route render={ (props) => <HomePage {...props}  bird={"yoot"} getHikes={this.getHikes} />} />
+                    <Route component={HomePage} />
                 </Switch>
                 <Footer id="footer" />
             </div>
