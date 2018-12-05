@@ -1,4 +1,5 @@
 h1 {
+    font-size: 2.5rem;
     text-align: center;
     color: white;
     margin-bottom: 15px;
@@ -8,3 +9,8 @@ hidden {
     position: absolute;
     left: -99999;
 }
+
+.border {
+    padding: 10px;
+}
+
