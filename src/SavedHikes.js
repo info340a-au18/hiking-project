@@ -3,6 +3,7 @@ import {HikeCard} from './Results';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
+import './Account.scss';
 
 export class SavedHikes extends Component {
     constructor(props) {
@@ -55,24 +56,18 @@ export class SavedHikes extends Component {
                 user={this.state.user} saveRef={this.state.displayHikes} lastSaved={this.lastSaved}/>
         })
 
-        // let noHikes;
-        // if (this.state.displayHikes.length !== 0) {
-        //     noHikes = <h1>Your Hikes</h1>
-        // } else {
-        //     noHikes = <p>No Hikes Saved</p>
-        // }
         let noHikes;
         if (this.state.displayHikes.length === 0) {
-            noHikes = <h1>No Hikes Saved</h1>
+            noHikes = <h1 className="text-box">No Hikes Saved</h1>
         } else {
-            noHikes = <h1>Your Hikes</h1>
+            noHikes = <h1 className="text-box">Your Hikes</h1>
         }
         
         return (
             <div>
                 {noHikes}
                 <div className="hike-results card-container">
-                    <div className='row d-flex justify-content-center'>
+                    <div className='row'>
                         {savedHikes}
                     </div>
                 </div>

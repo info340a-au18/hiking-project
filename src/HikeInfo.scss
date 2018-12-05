@@ -1,39 +1,81 @@
-h2{
-    margin: 20px;
-    text-align: center;
-}
+$color: #386375;
 
-.content-holder{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+.detail-hike{
+    padding-left: 1em;
+    padding: 2em;
+    background-color: $color;
 
-    margin: 10px;
-    border-radius: 20px;
+    .img-holder{
+        width: 200px;
+        height: 200px;
+        background-size: cover;
+        background-position: bottom;
+        margin-top: 2em;
+    }
 
-    background: #729BB4;
+    ul{
+        margin: 0;
+        padding: 0;
+        li{
+            list-style: none;
+            margin-top: 5px;
+            margin-right: 1em;
+            padding: 1em;
+            background: white;
+        }
+    }
 
     div{
-        margin: 20px;
-        padding: 10px;
+        padding-bottom: 2em;
+        padding-top: 2em;
     }
 
-    .img-holder{   
-        img{
-            width: 100%;
-            border-radius: 5px;
-        }
-    }
-    .info-holder{
-        border-radius: 10px;
-        background: white;
-
-        ul{
-            text-overflow: ellipsis;
-        }
+    div.card-body{
+        margin: 0;
+        padding: 0 1em 0 1em;
     }
 
-    
+
+
+h2{
+    text-align: left;
+    color: white;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    padding: 1em;
+}
+
+.test {
+    width: 100%;
+}
+
+textarea {
+    margin: 0px;
+    padding: .5em;
+    height: 150px;
+}
+
+form {
+    padding: 0px;
+    margin: 2em 0 0 0;
+    border: 0px;
+    text-align: left;
+}
+
+.my-form-control {
+    width:75%;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+
+.hidden {
+    left:-999;
+    color: rgba(0,0,0,0)
 }
 
 .comments-holder {    
@@ -43,9 +85,19 @@ h2{
     margin: 20px;
     padding: 10px;
     width: 100%;
+    margin-top: 2em;
+
 }
+
 
 .comment-box {
     border: 1px solid black;
 
+}
+
+button{
+    a,a:hover,a:visited{
+        color: white;
+    }
+}
 }

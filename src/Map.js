@@ -46,8 +46,10 @@ export class MapArea extends Component {
         return (
           <Marker key={hike.id} position={[hike.latitude, hike.longitude]}
             onClick={() => {
+              if(!this.props.isDetail){
               this.selectHike(hike)
               document.getElementById(hike.id).scrollIntoView();
+              }
             }} icon={new L.Icon({
               iconUrl: require('./img/holiday.svg'),
               iconSize: new L.Point(25, 25)
@@ -72,7 +74,7 @@ export class MapArea extends Component {
             url="https://api.tiles.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoia2pnb29kd2lucyIsImEiOiJjam8zNnF4YmUwdTA3M3BybGtocWkzejY4In0.9eALJdo0A_rMgg2cgZWHlQ"
           />
           {hikeMarkers}
-          {locationMarker}
+          {!this.props.isDetail && locationMarker}
         </Map>
       </div>
     )

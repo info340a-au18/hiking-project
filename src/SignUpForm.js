@@ -54,8 +54,8 @@ class SignUpForm extends Component {
         let greeting = this.state.signUp ? <h1>Sign Up</h1> : <h1>Sign In</h1>;
         let signIn = <div>
             <div className="form-group">
-                <button className="btn btn-dark m-2" onClick={this.switch}>New user?</button>
                 <button className="btn btn-success m-2" onClick={this.handleSignIn}>Sign-in</button>
+                <button className="btn btn-dark m-2" onClick={this.switch}>New user?</button>
             </div>
         </div>;
         let signUp = <div>
@@ -83,8 +83,8 @@ class SignUpForm extends Component {
             </div>
 
             <div className="form-group">
-                <button className="btn btn-dark m-2" onClick={this.switch}>Return user?</button>
                 <button className="btn btn-success m-2" onClick={this.handleSignUp}>Sign-up</button>
+                <button className="btn btn-dark m-2" onClick={this.switch}>Return user?</button>
             </div>
         </div>;
         return (

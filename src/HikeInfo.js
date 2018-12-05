@@ -7,14 +7,13 @@ import easy from './img/green.png';
 import placeHolder from './img/hiker-mini.jpg';
 import './HikeInfo.scss';
 import firebase from 'firebase/app';
-// import Moment from 'react-moment';
+import Moment from 'react-moment';
 import './SignUpForm.scss';
 
 export class HikeInfo extends Component{
 
     constructor(props){
         super(props);
-        console.log(this.props.location);
         this.state = {trail: undefined, comments:undefined};
     }
 
@@ -39,6 +38,9 @@ export class HikeInfo extends Component{
                     let obj = val[key];
                     obj.id = key;
                     return obj;
+                })
+                commentsArray = commentsArray.sort((a, b) => {
+                    return b.time - a.time;
                 })
             }
             this.setState({
@@ -66,14 +68,14 @@ export class HikeInfo extends Component{
         this.commentRef.push(newComment);
 
         // update user's review list
-        let userReviewRef = firebase.database().ref('users/' + this.state.user.uid + '/userReviews/'
+        this.userReviewRef = firebase.database().ref('users/' + this.state.user.uid + '/userReviews/'
                                     + this.props.location.state.hike.id);
         let newUserComment = {
             displayName: this.props.location.state.hike.name,
             text: userReview,
             time: time
         }
-        userReviewRef.push(newUserComment);
+        this.userReviewRef.push(newUserComment);
     }
 
 
@@ -153,7 +155,7 @@ class CommentBox extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            review: undefined
+            review: ''
         }
     }
 
@@ -162,6 +164,7 @@ class CommentBox extends Component {
         // alert if user didn't write anything
         if (this.state.review) {
             this.props.handleReview(this.state.review);
+            this.setState({review:''})
         } else {
             this.setState({
                 errorMessage:"You must write something first!"
@@ -190,7 +193,7 @@ class CommentBox extends Component {
 
                 <form>
                     <div className="form-group mb2">
-                        <textarea className="form-control" name="reivew" placeholder="Add a review..." onChange={this.handleChange}></textarea>
+                        <textarea className="form-control" name="reivew" value={this.state.review} placeholder="Add a review..." onChange={this.handleChange}></textarea>
                     </div>
                     <div className="form-group">
                         <button className="btn btn-primary" onClick={this.handleReview}>Submit</button>
@@ -230,7 +233,7 @@ class HikeComment extends Component {
                     {comment.userName}
                 </h5>
                 <h6 className="card-subtitle mb-2 text-muted">
-                    {/* <Moment date={comment.time} fromNow></Moment> */}
+                    <Moment date={comment.time} fromNow></Moment>
                 </h6>
                 <p className="card-text">{comment.text}</p>
             </div>

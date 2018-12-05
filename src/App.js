@@ -6,17 +6,28 @@ import { SavedHikes } from './SavedHikes';
 import { NavBar } from './NavBar';
 import { Footer } from './Footer';
 import { HikeInfo } from './HikeInfo';
+import {TrailInfo} from './TrailInfo';
 
 class App extends Component {
 
-    render() {
+    getHikes = (hikes) => {
+
+        this.setState({ hikes: hikes });
+    }
+
+    constructor(props) {
+        super(props);
+
+        this.state = { hikes: undefined };
+    }
+
+    render = () => {
         return (
             <div >
                 <NavBar />
                 <Switch>
-                    <Route exact path='/' component={HomePage} />
                     <Route path='/Account' component={Account} />
-                    <Route path='/trail/:hikeName' component={HikeInfo} />
+                    <Route path='/trail/:hikeId' component={TrailInfo} />
                     <Route path='/SavedHikes' component={SavedHikes} />
                     <Route component={HomePage} />
                 </Switch>
