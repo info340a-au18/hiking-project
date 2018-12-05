@@ -12,6 +12,7 @@ export class Main extends Component {
         this.state = { trailData: {}, displayedTrails: {}, newLocation: false, pageOfItems: {}, cardShown: undefined };
     }
 
+
     //Search term from form is passed in as this.props.searchTerm
     //User Latitude from header button passed in as this.props.userLat
     //User Longitude from header button passed in as this.props.userLon
@@ -53,7 +54,7 @@ export class Main extends Component {
                 let hikes = data.trails;
 
                 hikes.forEach((hike) => {
-                    //console.log(this.props.lat, hike.latitude);
+                   
                     hike.distanceAway = this.getDistance([this.props.lat, this.props.lng], [hike.latitude, hike.longitude]);
                 });
 
@@ -67,9 +68,9 @@ export class Main extends Component {
                 );
 
                 this.diffFilter();
+                this.sendHikes();
             })
-            .catch(function (err) {
-                this.setState({ errorMessage: err.message })
+            .catch(function () {
             });
     }
 
@@ -122,7 +123,7 @@ export class Main extends Component {
 
     sortDistanceAway(hikesToDisplay) {
 
-        hikesToDisplay.sort(function (a, b) { return a.distanceAway - b.distanceAway });
+        hikesToDisplay.sort(function(a, b){return a.distanceAway - b.distanceAway});
 
         return hikesToDisplay;
 
@@ -139,10 +140,10 @@ export class Main extends Component {
             displayedTrails: hikesToDisplay
         });
     }
-
+    
     componentDidMount() {
         this.getData(this.props.lat, this.props.lng, this.props.maxDist, this.props.maxResults);
-    }
+    }        
 
     //Intercepts prop updates to fetch data and filter the list of hikes
     componentDidUpdate(prevProps, prevState) {
@@ -176,17 +177,14 @@ export class Main extends Component {
         }
         return (
             <div>
-                {error || (
-                    this.state.errorMessage &&
-                    <div className="alert alert-danger">{this.state.errorMessage}</div>
-                )}
+                {error}
                 <main aria-label="contains the main content of the page" id="main">
                     <div className="container">
                         <div className="section" id="map">
                             <MapArea lat={this.props.lat} lng={this.props.lng} trails={this.state.displayedTrails} />
                         </div>
                         <div className="section" id="card">
-                            <CardContainer pageOfItems={this.state.displayedTrails} />
+                            <CardContainer pageOfItems={this.state.displayedTrails}/>
                         </div>
                     </div>
                 </main>

@@ -6,7 +6,7 @@ import medium from './img/blue.png';
 import easy from './img/green.png';
 import placeHolder from './img/hiker-mini.jpg'
 import up from './img/up.svg';
-import { Redirect} from 'react-router-dom';
+import { BrowserRouter as Redirect,Link } from 'react-router-dom';
 import './Results.scss';
 import firebase from 'firebase/app';
 import 'firebase/auth';
@@ -55,7 +55,7 @@ export class HikeCard extends Component {
         for (let i = 0; i < saveRef.length; i++) {
             if (saveRef[i].hike.name === this.props.hike.name) {
                 hikeRef = firebase.database().ref('users/' + this.props.user.uid + "/savedHikes/" + saveRef[i].key);
-                hikeRef.remove();       
+                hikeRef.remove();    
                 if (saveRef.length === 1) {
                     this.props.lastSaved();
                 }
@@ -114,10 +114,6 @@ export class HikeCard extends Component {
             diff = "";
         }
 
-        this.handleClick = () => {
-            this.setState({ redirect: true })
-        }
-
         if (this.state.redirect) {
             return <Redirect
                 to={{
@@ -127,28 +123,27 @@ export class HikeCard extends Component {
             />
         }
         return (
-            <div className="card">
+            <div id={this.props.hike.id} className="card" onClick={this.markCompleted}>
                 {this.state.errorMessage &&
                     <div className="alert alert-danger">{this.state.errorMessage}</div>
                 }
-                <a id={'' + this.props.hike.id} href="#">
                     <div className="hoverText">
                         <img src={this.props.hike.imgMedium} alt='the hiking place' />
                     </div>
-                </a>
-                <div className="card-body">
-                    <h5 className="card-title">{this.props.hike.name}</h5>
-                    <ul className="card-text">
-                        <li>Location: {this.props.hike.location}</li>
-                        <li>Distance from you: {this.props.hike.distanceAway} Miles</li>
-                        <li className='rating'>Ratings: {stars}</li>
-                        <li>Length: {this.props.hike.length} Miles</li>
-                        <li className='diff'>Difficulty: <img src={diff} alt={diff} /></li>
-                        <button onClick={this.handleClick} className="btn btn-dark">More Info</button>
-                        {saveOption}
-                    </ul>
-                </div>
-            </div>
+                    <div className="card-body">
+                        <h5 className="card-title">{this.props.hike.name}</h5>
+                        <ul className="card-text">
+                            <li>Location: {this.props.hike.location}</li>
+                            <li>Distance from you: {this.props.hike.distanceAway} Miles</li>
+                            <li className='rating'>Ratings: {stars}</li>
+                            <li>Length: {this.props.hike.length} Miles</li>
+                            <li className='diff'>Difficulty: <img src={diff} alt={diff} /></li>
+                            <button className="btn btn-dark"><Link to={"/trail/"+this.props.hike.id}>More Info</Link></button>
+                            {saveOption}
+                        </ul>
+                    </div>
+                    </div>
+                
         );
 
     }

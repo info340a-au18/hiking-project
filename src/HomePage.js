@@ -83,6 +83,8 @@ export class HomePage extends Component {
     }
 
     render() {
+        console.log(this.props);
+        console.log("test",this.props.bird);
         let error = this.state.error !== "" ? <div className="error-message">{this.state.error}</div>: null;
         return (
             <div className='home'>
@@ -109,7 +111,9 @@ export class HomePage extends Component {
                     medium={this.state.medium} 
                     hard={this.state.hard}
                     distance={this.state.distance}
-                    elevation={this.state.elevation}/>
+                    elevation={this.state.elevation}
+                    
+                    />
             </div>
         )
     }
