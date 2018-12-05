@@ -114,15 +114,6 @@ export class HikeCard extends Component {
             diff = "";
         }
 
-        if (this.state.redirect) {
-            return <Redirect
-                to={{
-                    pathname: "/trail/" + this.props.hike.name,
-                    state: { hike: this.props.hike }
-                }}
-            />
-        }
-
         // just a giant if to render a nicer looking page for the more info page
         if (this.props.moreInfoPage) {
             img = this.props.hike.imgMedium
@@ -130,11 +121,10 @@ export class HikeCard extends Component {
                 img = placeHolder
             }
             return (
-                <div>
-                    <h2>{this.props.hike.name}</h2>
-                    <div className="content-holder">
-                        <div className="img-holder">{/* picture */}
-                            <img className="img-moreInfo" src={img} alt={this.props.hike.name}></img>
+                <>
+                        <h2>{this.props.hike.name}</h2>
+                        <div className="img-holder" style={{backgroundImage: "url(" + img + ")"}}>{/* picture */}
+                            {/*<img className="img-moreInfo" src={img} alt={this.props.hike.name}></img>*/}
                         </div>
                         <div className="info-holder">{/* info */}
                             
@@ -147,8 +137,8 @@ export class HikeCard extends Component {
                                 <li className='diff'>Difficulty: <img src={diff} alt={diff} /></li>
                             </ul>
                         </div>
-                    </div>
-                </div>
+                        <button className="btn btn-dark"><a href={"https://www.google.com/maps/dir//"+this.props.hike.latitude+","+this.props.hike.longitude}>Directions</a></button>
+                </>
             )
         }
         return (

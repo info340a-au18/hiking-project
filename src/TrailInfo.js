@@ -1,10 +1,5 @@
 import React, { Component } from 'react';
-import starPic from './img/star.png';
-import halfPic from './img/half.png';
-import hard from './img/black.png';
-import medium from './img/blue.png';
-import easy from './img/green.png';
-import placeHolder from './img/hiker-mini.jpg';
+import {MapArea} from './Map';
 import './HikeInfo.scss';
 import firebase from 'firebase/app';
 import Moment from 'react-moment';
@@ -139,16 +134,16 @@ export class TrailInfo extends Component {
         this.userReviewRef.push(newUserComment);
     }
 
-
+    
     render() {
+        let hikeList = [this.state.hike];
         if (!this.state.hike) {
             return (<h2>No information available on this trail</h2>)
         } else {
             return (
-                <div>
-                    <div className="hike-card-container">
-                        <HikeCard moreInfoPage={true} hike={this.state.hike} />
-                    </div>
+                <div class="detail-hike">
+                    <HikeCard moreInfoPage={true} hike={this.state.hike} />
+                    <MapArea lat={this.state.hike.latitude} lng={this.state.hike.longitude} trails={hikeList} isDetail={true}/>
                     <CommentBox user={this.state.user} handleReview={this.handleReview}></CommentBox>
                     <HikeCommentList user={this.state.user} comments={this.state.comments} handleEdit={this.handleEdit}></HikeCommentList>
                     
