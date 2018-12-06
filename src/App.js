@@ -5,7 +5,6 @@ import { Account } from './Account';
 import { SavedHikes } from './SavedHikes';
 import { NavBar } from './NavBar';
 import { Footer } from './Footer';
-import { HikeInfo } from './HikeInfo';
 import {TrailInfo} from './TrailInfo';
 
 class App extends Component {

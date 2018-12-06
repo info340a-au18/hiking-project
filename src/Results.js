@@ -6,7 +6,7 @@ import medium from './img/blue.png';
 import easy from './img/green.png';
 import placeHolder from './img/hiker-mini.jpg'
 import up from './img/up.svg';
-import { BrowserRouter as Redirect,Link } from 'react-router-dom';
+import {Link } from 'react-router-dom';
 import './Results.scss';
 import firebase from 'firebase/app';
 import 'firebase/auth';

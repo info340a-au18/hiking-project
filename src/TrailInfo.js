@@ -23,13 +23,13 @@ export class TrailInfo extends Component {
             return response.json();
         })
             .then((data) => {
-                console.log("here", data);
+
                 let hike = data.trails[0];
 
                 this.setState({ hike: hike });
 
             })
-            .catch(function () {
+            .catch(function () {  
             });
 
 
@@ -94,9 +94,9 @@ export class TrailInfo extends Component {
                 let hashKeys = Object.keys(val);
                 for (let i = 0; i < hashKeys.length; i++) {
                     let data = val[hashKeys[i]];
-                    console.log(data.text + " " + oldText);
+
                     if (data.text === oldText) {
-                        console.log("found it")
+                       
                         hash = hashKeys[i];
                         i = hashKeys.length //exit loop
                     }
@@ -141,18 +141,11 @@ export class TrailInfo extends Component {
             return (<h2>No information available on this trail</h2>)
         } else {
             return (
-                <div class="detail-hike">
+                <div className="detail-hike">
                     <HikeCard moreInfoPage={true} hike={this.state.hike} />
                     <MapArea lat={this.state.hike.latitude} lng={this.state.hike.longitude} trails={hikeList} isDetail={true}/>
                     <CommentBox user={this.state.user} handleReview={this.handleReview}></CommentBox>
                     <HikeCommentList user={this.state.user} comments={this.state.comments} handleEdit={this.handleEdit}></HikeCommentList>
-                    
-                    {/* quick fix so footer doesn't cover cards*/}
-                    <div className="hidden">
-                        <div className="card-body">
-                        <h5 className="card-title hidden">bufferrrrrrrrrrr</h5>
-                        </div>
-                    </div>
                 </div>
             );
         }

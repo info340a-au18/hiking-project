@@ -6,7 +6,7 @@ Harim: Added Pagination and get my location from his project. Started the indivi
 
 Anni: Built results cards with added star ratings and difficulty ratings. Added loading animaitons for better user experience and better error messages. Change the layout of the search page and the account page. Added scroll to top bottom. 
 
-Kyle: Added map, handled ajax requests, and built filtering system.
+Kyle: Added map, handled ajax requests, and built filtering system. Added the react-router path for the individual hikes, and built the individual hikes page. Helped with design throughout. 
 
 How to use:
 

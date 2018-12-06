@@ -23,7 +23,6 @@ export class MapArea extends Component {
   }
 
   selectHike = (hike) => {
-    //console.log(event);
 
     this.setState({
       selectedHike: hike
