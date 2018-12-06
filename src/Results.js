@@ -141,13 +141,17 @@ export class HikeCard extends Component {
                 </>
             )
         }
+        let topDivClasses = ""
+        if (this.props.accountPage) {
+            topDivClasses = "border-0 card-hover"
+        }
         return (
-            <div id={this.props.hike.id} className="card" onClick={this.markCompleted}>
+            <div id={this.props.hike.id} className={"card " + topDivClasses} onClick={this.markCompleted}>
                 {this.state.errorMessage &&
                     <div className="alert alert-danger">{this.state.errorMessage}</div>
                 }
                     <div className="hoverText">
-                        <img src={this.props.hike.imgMedium} alt='the hiking place' />
+                        <img className="card-img-top" src={this.props.hike.imgMedium} alt='the hiking place' />
                     </div>
                     <div className="card-body">
                         <h5 className="card-title">{this.props.hike.name}</h5>

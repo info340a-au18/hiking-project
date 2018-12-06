@@ -59,7 +59,7 @@ export class SavedHikes extends Component {
                 </div>);
         }
         let savedHikes = this.state.displayHikes.map((current, index) => {
-            return <HikeCard hike={current.hike} key={index} savePage={this.state.savePage} 
+            return <HikeCard accountPage={true} hike={current.hike} key={index} savePage={this.state.savePage} 
                 user={this.state.user} saveRef={this.state.displayHikes} lastSaved={this.lastSaved}/>
         })
 
