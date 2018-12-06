@@ -11,7 +11,8 @@ export class SavedHikes extends Component {
         this.state = {
             displayHikes: [],
             savePage: true, 
-            user: {}
+            user: {},
+            loading: true
         }
     }
 
@@ -19,7 +20,7 @@ export class SavedHikes extends Component {
         // if user is signed in or not
         this.authUnRegFunc = firebase.auth().onAuthStateChanged((firebaseUser) => {
             if(firebaseUser){ //signed in!
-                this.setState({user: firebaseUser});
+                this.setState({user: firebaseUser, loading:false});
                 // gets the trails saved by the signed in user from Firebase
                 this.hikeRef = firebase.database().ref('users/' + firebaseUser.uid + "/savedHikes");
                 this.hikeRef.on('value', (snapShot) => {
@@ -35,7 +36,7 @@ export class SavedHikes extends Component {
                     }
                 })
             } else { //signed out
-                this.setState({user: null});
+                this.setState({user: null, loading:false});
             }
         });
     }
@@ -51,6 +52,12 @@ export class SavedHikes extends Component {
     }
 
     render() {
+        if (this.state.loading) {
+            return (
+                <div className="text-center">
+                  <i className="fa fa-spinner fa-spin fa-3x" aria-label="Connecting..."></i>
+                </div>);
+        }
         let savedHikes = this.state.displayHikes.map((current, index) => {
             return <HikeCard hike={current.hike} key={index} savePage={this.state.savePage} 
                 user={this.state.user} saveRef={this.state.displayHikes} lastSaved={this.lastSaved}/>

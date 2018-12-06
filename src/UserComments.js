@@ -10,29 +10,43 @@ import Moment from 'react-moment';
 export class UserComments extends Component {
     constructor(props) {
         super(props);
-        this.state = {comments:[]};
-        let user = this.props.user;
-        if (user) {
-            this.commentRef = firebase.database().ref('users/' + user.uid + '/userReviews');
-            this.commentRef.on('value', (snapshot) => {
-                let val = snapshot.val();
-                let commentsArray = undefined;
-                if (val) {
-                    let commentKeys = Object.keys(val);
-                    commentsArray = commentKeys.map((key) => {
-                        let obj = val[key];
-                        obj.id = key;
-                        return obj;
-                    })
-                }
-                this.setState({
-                    comments: commentsArray
+        this.state = {comments:[], loading:true };
+    }
+
+    componentDidMount() {
+        this.authUnRegFunc = firebase.auth().onAuthStateChanged((firebaseUser) => {
+            if(firebaseUser){ //signed in!
+                this.setState({user: firebaseUser, loading:false });
+                // gets the trails saved by the signed in user from Firebase
+                this.commentRef = firebase.database().ref('users/' + this.state.user.uid + '/userReviews');
+                this.commentRef.on('value', (snapshot) => {
+                    let val = snapshot.val();
+                    let commentsArray = undefined;
+                    if (val) {
+                        let commentKeys = Object.keys(val);
+                        commentsArray = commentKeys.map((key) => {
+                            let obj = val[key];
+                            obj.id = key;
+                            return obj;
+                        })
+                    }
+                    this.setState({
+                        comments: commentsArray
+                    });
                 });
-            });
-        }
+            } else { //signed out
+                this.setState({user: null, loading:false });
+            }
+        });
     }
 
     render() {
+        if (this.state.loading) {
+            return (
+                <div className="text-center">
+                  <i className="fa fa-spinner fa-spin fa-3x" aria-label="Connecting..."></i>
+                </div>);
+        }
         if (this.state.comments) {
             // comments = an array of array
             // each element is an array of all the comments for a single hike
@@ -59,8 +73,9 @@ export class UserComments extends Component {
 
                     {/* quick fix so footer doesn't cover comments */}
                     <div className="hidden">
-                        <p className="card-text">buffer</p>
-                        <p className="card-text">buffer</p>
+                            <h1 >buffer</h1>
+                            <p>buffer</p>
+                            <p>buffer</p>
                     </div>
                 </div>
             );

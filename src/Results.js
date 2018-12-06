@@ -124,7 +124,7 @@ export class HikeCard extends Component {
                 <>
                         <h2>{this.props.hike.name}</h2>
                         <div className="img-holder" style={{backgroundImage: "url(" + img + ")"}}>{/* picture */}
-                            {/*<img className="img-moreInfo" src={img} alt={this.props.hike.name}></img>*/}
+                            {/* <img className="img-moreInfo" src={img} alt={this.props.hike.name}></img> */}
                         </div>
                         <div className="info-holder">{/* info */}
                             
