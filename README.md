@@ -10,6 +10,8 @@ Kyle: Added map, handled ajax requests, and built filtering system.
 
 Larissa: Added the ability to save and remove hikes when a user is logged in. 
 
+Kateka: Added the review functionality where each user can leave and edit their own reviews for each hike.
+
 How to use:
 
   The page will start up with map and the trails listed, with a filtering system so that you can search through the hikes you want to look at. Each of the trail elements is formatted as a card that shows brief information about the page. Each card has a button which links to an individual page for the trail showing more information. This page also allows you to see and create comments about the hike. The card also contains a button which, when you are logged in, allows you to save the the trails in a personal database so that you can go back and look at them at a later time. 
