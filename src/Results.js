@@ -72,7 +72,7 @@ export class HikeCard extends Component {
         if (this.state.saved || checkSave) {
             saveOption = <p className='card-message'>Hike Saved</p>
         } else {
-            saveOption = <button onClick={this.addHike} className="btn btn-warning">Save</button>
+            saveOption = <button onClick={this.addHike} input="save hike" name="saveHike" role="button" className="btn btn-warning">Save</button>
         }
 
         // If a user is not logged in, link to account page to login or sign up 
@@ -82,7 +82,7 @@ export class HikeCard extends Component {
 
         // For when displaying cards on the Save Page, a remove button is added to unsave hikes
         if (this.props.savePage) {
-            saveOption = <button onClick={this.removeHike} className="btn btn-danger">Remove</button>
+            saveOption = <button onClick={this.removeHike} input="remove hike" name="removeHike" role="button" className="btn btn-danger">Remove</button>
         }
 
         //get rating
@@ -122,9 +122,11 @@ export class HikeCard extends Component {
             }
             return (
                 <>
-                        <h2>{this.props.hike.name}</h2>
+                        <div className="text-box">
+                        <h1>{this.props.hike.name}</h1>
+                        </div>
                         <div className="img-holder" style={{backgroundImage: "url(" + img + ")"}}>{/* picture */}
-                            {/*<img className="img-moreInfo" src={img} alt={this.props.hike.name}></img>*/}
+                            {/* <img className="img-moreInfo" src={img} alt={this.props.hike.name}></img> */}
                         </div>
                         <div className="info-holder">{/* info */}
                             
@@ -141,13 +143,17 @@ export class HikeCard extends Component {
                 </>
             )
         }
+        let topDivClasses = ""
+        if (this.props.accountPage) {
+            topDivClasses = "border-0 card-hover"
+        }
         return (
-            <div id={this.props.hike.id} className="card" onClick={this.markCompleted}>
+            <div id={this.props.hike.id} className={"card " + topDivClasses} onClick={this.markCompleted}>
                 {this.state.errorMessage &&
                     <div className="alert alert-danger">{this.state.errorMessage}</div>
                 }
                     <div className="hoverText">
-                        <img src={this.props.hike.imgMedium} alt='the hiking place' />
+                        <img className="card-img-top" src={this.props.hike.imgMedium} alt='the hiking place' />
                     </div>
                     <div className="card-body">
                         <h5 className="card-title">{this.props.hike.name}</h5>
@@ -157,7 +163,7 @@ export class HikeCard extends Component {
                             <li className='rating'>Ratings: {stars}</li>
                             <li>Length: {this.props.hike.length} Miles</li>
                             <li className='diff'>Difficulty: <img src={diff} alt={diff} /></li>
-                            <button className="btn btn-dark"><Link to={"/trail/"+this.props.hike.id}>More Info</Link></button>
+                            <button className="btn btn-dark" input="info" name="getMoreInfo" role="button"><Link to={"/trail/"+this.props.hike.id}>More Info</Link></button>
                             {saveOption}
                         </ul>
                     </div>
