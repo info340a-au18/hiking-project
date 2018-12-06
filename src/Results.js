@@ -72,7 +72,7 @@ export class HikeCard extends Component {
         if (this.state.saved || checkSave) {
             saveOption = <p className='card-message'>Hike Saved</p>
         } else {
-            saveOption = <button onClick={this.addHike} className="btn btn-warning">Save</button>
+            saveOption = <button onClick={this.addHike} input="save hike" name="saveHike" role="button" className="btn btn-warning">Save</button>
         }
 
         // If a user is not logged in, link to account page to login or sign up 
@@ -82,7 +82,7 @@ export class HikeCard extends Component {
 
         // For when displaying cards on the Save Page, a remove button is added to unsave hikes
         if (this.props.savePage) {
-            saveOption = <button onClick={this.removeHike} className="btn btn-danger">Remove</button>
+            saveOption = <button onClick={this.removeHike} input="remove hike" name="removeHike" role="button" className="btn btn-danger">Remove</button>
         }
 
         //get rating
@@ -161,7 +161,7 @@ export class HikeCard extends Component {
                             <li className='rating'>Ratings: {stars}</li>
                             <li>Length: {this.props.hike.length} Miles</li>
                             <li className='diff'>Difficulty: <img src={diff} alt={diff} /></li>
-                            <button className="btn btn-dark"><Link to={"/trail/"+this.props.hike.id}>More Info</Link></button>
+                            <button className="btn btn-dark" input="info" name="getMoreInfo" role="button"><Link to={"/trail/"+this.props.hike.id}>More Info</Link></button>
                             {saveOption}
                         </ul>
                     </div>
