@@ -73,9 +73,9 @@ export class UserComments extends Component {
 
                     {/* quick fix so footer doesn't cover comments */}
                     <div className="hidden">
-                            <h1 >buffer</h1>
-                            <p>buffer</p>
-                            <p>buffer</p>
+                        <p>buffer</p>
+                        <p>buffer</p>
+                        <p>buffer</p>
                     </div>
                 </div>
             );
