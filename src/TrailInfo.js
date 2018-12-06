@@ -10,7 +10,7 @@ export class TrailInfo extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { trail: undefined, comments: undefined };
+        this.state = { trail: undefined, comments: undefined, loading:true };
     }
 
     componentDidMount() {
@@ -26,7 +26,7 @@ export class TrailInfo extends Component {
                 console.log("here", data);
                 let hike = data.trails[0];
 
-                this.setState({ hike: hike });
+                this.setState({ hike: hike, loading:false });
 
             })
             .catch(function () {
@@ -36,9 +36,9 @@ export class TrailInfo extends Component {
         // if user is signed in or not
         this.authUnRegFunc = firebase.auth().onAuthStateChanged((firebaseUser) => {
             if (firebaseUser) { //signed in!
-                this.setState({ user: firebaseUser });
+                this.setState({ user: firebaseUser, loading:false });
             } else { //signed out
-                this.setState({ user: null });
+                this.setState({ user: null, loading:false });
             }
         });
 
@@ -136,6 +136,12 @@ export class TrailInfo extends Component {
 
     
     render() {
+        if (this.state.loading) {
+            return (
+                <div className="text-center">
+                  <i className="fa fa-spinner fa-spin fa-3x" aria-label="Connecting..."></i>
+                </div>);
+        }
         let hikeList = [this.state.hike];
         if (!this.state.hike) {
             return (<h2>No information available on this trail</h2>)
@@ -194,21 +200,23 @@ class CommentBox extends Component {
 
     render() {
         if (!this.props.user) {
-            return <h2><a href="#/Account">Sign in</a> to leave reviews</h2>
+            return <div className="text-box"><h1><a href="#/Account">Sign in</a> to leave reviews</h1></div>
         };
 
         return (
-            <div className="col justify-content-center">
-                <h2>User Reviews</h2>
+            <div>
+            <div className="text-box"><h1>User Reviews</h1></div>
+            <div className="col justify-content-center padding-bottom-0">
                 {this.state.errorMessage &&
                     <div className="alert alert-danger">{this.state.errorMessage}</div>
                 }
                 <form className="justify-content-center">
                     <textarea className="my-form-control" name="reivew" value={this.state.review} placeholder="Add a review..." onChange={this.handleChange}></textarea>
-                    <div className="">
+                    <div>
                         <button className="btn btn-primary" onClick={this.handleReview}>Submit</button>
                     </div>
                 </form>
+            </div>
             </div>
         );
     }

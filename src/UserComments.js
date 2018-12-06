@@ -52,10 +52,11 @@ export class UserComments extends Component {
             // each element is an array of all the comments for a single hike
             let comments = this.state.comments.map((item) => {
                 let itemKey = Object.keys(item);
-                itemKey.pop();
+                let hikeId = item[itemKey.pop()];
                 let commentsArray = itemKey.map((key) => {
                     let obj = item[key];
                     obj.id = key;
+                    obj.hikeId = hikeId;
                     return obj;
                 })
                 return commentsArray;
@@ -102,7 +103,7 @@ class Comment extends Component {
             <div className="card mx-auto">
                 <div className="card-body">
                     <h5 className="card-title">
-                        {item[0].displayName}
+                        <a href={"#/trail/" + item[0].hikeId}>{item[0].displayName}</a>
                     </h5>
                     {renderComments}
                 </div>
