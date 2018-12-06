@@ -141,21 +141,21 @@ export class TrailInfo extends Component {
                 <div className="text-center">
                   <i className="fa fa-spinner fa-spin fa-3x" aria-label="Connecting..."></i>
                 </div>);
-        }
-        let hikeList = [this.state.hike];
-        if (!this.state.hike) {
-            return (<h2>No information available on this trail</h2>)
         } else {
-            return (
-                <div className="detail-hike">
-                    <HikeCard moreInfoPage={true} hike={this.state.hike} />
-                    <MapArea lat={this.state.hike.latitude} lng={this.state.hike.longitude} trails={hikeList} isDetail={true}/>
-                    <CommentBox user={this.state.user} handleReview={this.handleReview}></CommentBox>
-                    <HikeCommentList user={this.state.user} comments={this.state.comments} handleEdit={this.handleEdit}></HikeCommentList>
-                </div>
-            );
+            let hikeList = [this.state.hike];
+            if (!this.state.hike) {
+                return (<h2>No information available on this trail</h2>)
+            } else {
+                return (
+                    <div className="detail-hike">
+                        <HikeCard moreInfoPage={true} hike={this.state.hike} />
+                        <MapArea lat={this.state.hike.latitude} lng={this.state.hike.longitude} trails={hikeList} isDetail={true}/>
+                        <CommentBox user={this.state.user} handleReview={this.handleReview}></CommentBox>
+                        <HikeCommentList user={this.state.user} comments={this.state.comments} handleEdit={this.handleEdit}></HikeCommentList>
+                    </div>
+                );
+            }
         }
-
     }
 }
 

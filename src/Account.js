@@ -131,7 +131,9 @@ class WelcomeHeader extends Component {
     }
     return (
       <main className="welcome">
-        <h1 className="text-box"> Welcome {name}! </h1>
+        <div  className="text-box margin-bottom-extra">
+          <h1> Welcome {name}! </h1>
+        </div>
         <div className="col d-flex justify-content-center">
           <img className="userPhoto" src={this.props.user.photoURL} alt={this.props.user.displayName} />
         </div>
